@@ -39,12 +39,11 @@ main{max-width:1100px;margin:auto;padding:10px 6px 18px}
 @keyframes selectionBounce{0%{transform:scale(1)}35%{transform:scale(1.055)}65%{transform:scale(.985)}100%{transform:scale(1)}}
 .card.selection-pop{animation:selectionBounce .22s ease-out}
 @media (prefers-reduced-motion:reduce){.card.selection-pop{animation:none}}
-.sprite-slot{
+ .sprite-slot{
   position:relative;
   width:100%;
   min-width:0;
   min-height:0;
-  height:auto;
   overflow:hidden;
   display:flex;
   align-items:flex-end;
@@ -53,17 +52,19 @@ main{max-width:1100px;margin:auto;padding:10px 6px 18px}
   margin-bottom:0;
 }
 .sprite{
-  width:64px;
-  height:64px;
+  width:auto;
+  height:auto;
+  max-width:100%;
+  max-height:100%;
   object-fit:contain;
   display:block;
+  flex:0 0 auto;
   image-rendering:pixelated;
   image-rendering:crisp-edges;
+  position:relative;
+  left:auto;
+  bottom:auto;
   transform:none;
-  margin:0;
-  position:absolute;
-  left:0;
-  bottom:0;
   z-index:0;
 }
 .num{align-self:auto;min-height:1em;position:relative;z-index:2;font-family:"Lilita One",sans-serif;font-size:clamp(6px,1.65vw,10px);color:var(--accent);margin:2px 0;font-weight:700;letter-spacing:.02em}
@@ -1075,46 +1076,52 @@ const selected=new Set();const grid=document.getElementById('grid'),search=docum
 const norm=s=>String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
 function results(){const q=norm(search.value.trim());return q?POKEMON.filter(p=>norm(p.name).includes(q)||String(p.id).includes(q)):POKEMON;}
 function updateOutput(){output.value=POKEMON.filter(p=>selected.has(p.id)).sort((a,b)=>a.id-b.id).map(p=>norm(p.name).replace(/[^a-z0-9]/g,'')).join(',');}
-// Keep the previous/default sprite size for naturally large sprites.
-// Only sprites whose actual visible pixels are smaller get enlarged.
-const BASE_SPRITE_SCALE=1;
-const TARGET_VISIBLE_PX=54;
-const SPRITE_SLOT_PADDING=2;
-const CARD_PALETTE=[
-  {accent:'#e7a338',bg:'#3b4037'},
-  {accent:'#e8be58',bg:'#3d4136'},
-  {accent:'#8caf69',bg:'#374338'},
-  {accent:'#48a38c',bg:'#33433e'},
-  {accent:'#64829a',bg:'#354149'},
-  {accent:'#c45f57',bg:'#453a38'}
-];
-const cardColor=new Map();
-(function assignCardColors(){
-  let previous=-1;
-  for(const p of POKEMON){
-    let idx=Math.floor(Math.random()*CARD_PALETTE.length);
-    if(CARD_PALETTE.length>1 && idx===previous) idx=(idx+1+Math.floor(Math.random()*(CARD_PALETTE.length-1)))%CARD_PALETTE.length;
-    cardColor.set(p.id,CARD_PALETTE[idx]);
-    previous=idx;
+// Sprite layout: crop transparent padding first, then size the visible artwork.
+// This avoids positioning a transparent 64x64 canvas with pixel-coordinate math.
+const DEFAULT_VISIBLE_HEIGHT=64;
+const SMALL_SPRITE_TARGET_HEIGHT=48;
+const MAX_VISIBLE_HEIGHT=96;
+const SPRITE_EDGE_PADDING=2;
+
+function fitVisibleSprite(img, visibleW, visibleH){
+  const slot=img.parentElement;
+  if(!slot) return;
+  const rect=slot.getBoundingClientRect();
+  if(!rect.width || !rect.height) return;
+
+  // Keep the established Charizard-sized framing: naturally substantial sprites
+  // retain their existing scale, while genuinely tiny artwork gets a modest lift.
+  let targetH=visibleH;
+  if(visibleH < SMALL_SPRITE_TARGET_HEIGHT) targetH=Math.max(visibleH, DEFAULT_VISIBLE_HEIGHT);
+  targetH=Math.min(targetH, MAX_VISIBLE_HEIGHT, Math.max(1,rect.height-SPRITE_EDGE_PADDING*2));
+
+  let targetW=visibleW*(targetH/visibleH);
+  const maxW=Math.max(1,rect.width-SPRITE_EDGE_PADDING*2);
+  if(targetW>maxW){
+    targetW=maxW;
+    targetH=visibleH*(targetW/visibleW);
   }
-})();
-const MAX_EXTRA_SCALE=1.65;
+
+  img.style.width=`${Math.round(targetW*100)/100}px`;
+  img.style.height=`${Math.round(targetH*100)/100}px`;
+}
 
 function normalizeSprite(img){
-  const applyFallback=()=>{
-    img.style.width='64px';
-    img.style.height='64px';
-    img.style.left='50%';
-    img.style.bottom='0px';
-    img.style.transform='translateX(-50%)';
-  };
-  if(!img.naturalWidth||!img.naturalHeight){applyFallback();return;}
+  if(!img.naturalWidth || !img.naturalHeight) return;
+  if(img.dataset.cropped==='1'){
+    const vw=Number(img.dataset.visibleW)||img.naturalWidth;
+    const vh=Number(img.dataset.visibleH)||img.naturalHeight;
+    fitVisibleSprite(img,vw,vh);
+    return;
+  }
 
   try{
     const c=document.createElement('canvas');
     c.width=img.naturalWidth;
     c.height=img.naturalHeight;
     const ctx=c.getContext('2d',{willReadFrequently:true});
+    if(!ctx) return;
+    ctx.clearRect(0,0,c.width,c.height);
     ctx.drawImage(img,0,0);
     const data=ctx.getImageData(0,0,c.width,c.height).data;
 
@@ -1129,54 +1136,33 @@ function normalizeSprite(img){
         }
       }
     }
-    if(maxX<0){applyFallback();return;}
+    if(maxX<0) return;
 
     const visibleW=maxX-minX+1;
     const visibleH=maxY-minY+1;
-    const slot=img.parentElement?.getBoundingClientRect();
-    if(!slot?.width||!slot?.height){applyFallback();return;}
+    const cropped=document.createElement('canvas');
+    cropped.width=visibleW;
+    cropped.height=visibleH;
+    const cropCtx=cropped.getContext('2d');
+    cropCtx.imageSmoothingEnabled=false;
+    cropCtx.drawImage(c,minX,minY,visibleW,visibleH,0,0,visibleW,visibleH);
 
-    // Keep the same base sizing philosophy as the earlier good version:
-    // naturally large sprites stay at the normal 64px canvas size; only
-    // genuinely small visible sprites receive a modest enlargement.
-    const baseSize=Math.max(58,Math.min(78,window.innerWidth*0.15));
-    const visibleBaseW=baseSize*(visibleW/c.width);
-    const visibleBaseH=baseSize*(visibleH/c.height);
-    let scale=1;
-    if(visibleBaseH<TARGET_VISIBLE_PX){
-      scale=Math.min(MAX_EXTRA_SCALE,TARGET_VISIBLE_PX/visibleBaseH);
-    }
-
-    // Never let the visible artwork breach the card in either direction.
-    const maxVisibleW=Math.max(1,slot.width-SPRITE_SLOT_PADDING*2);
-    const maxVisibleH=Math.max(1,slot.height-SPRITE_SLOT_PADDING);
-    let visibleWAtScale=visibleBaseW*scale;
-    let visibleHAtScale=visibleBaseH*scale;
-    if(visibleWAtScale>maxVisibleW){
-      scale*=maxVisibleW/visibleWAtScale;
-      visibleWAtScale=visibleBaseW*scale;
-      visibleHAtScale=visibleBaseH*scale;
-    }
-    if(visibleHAtScale>maxVisibleH){
-      scale*=maxVisibleH/visibleHAtScale;
-    }
-
-    const renderedSize=baseSize*scale;
-    const visibleCenterRatio=((minX+maxX+1)/2)/c.width;
-    const visibleBottomRatio=(c.height-(maxY+1))/c.height;
-
-    // Position by the visible pixels, not the transparent 64x64 canvas.
-    // This keeps every sprite centered horizontally and puts its visible
-    // bottom edge immediately above the Pokédex number.
-    const leftPx=slot.width/2-visibleCenterRatio*renderedSize;
-    const bottomPx=visibleBottomRatio*renderedSize;
-    img.style.width=`${renderedSize}px`;
-    img.style.height=`${renderedSize}px`;
-    img.style.left=`${leftPx}px`;
-    img.style.bottom=`${bottomPx}px`;
-    img.style.transform='none';
+    // Preserve the visible artwork dimensions. From this point onward the
+    // <img> contains no transparent side/top/bottom padding, so flex-end is a
+    // true visual baseline and justify-content:center is a true visual center.
+    img.dataset.visibleW=String(visibleW);
+    img.dataset.visibleH=String(visibleH);
+    img.dataset.cropped='1';
+    fitVisibleSprite(img,visibleW,visibleH);
+    img.src=cropped.toDataURL('image/png');
   }catch(e){
-    applyFallback();
+    // If canvas access is unavailable, retain the original 64px image and use
+    // ordinary flex alignment rather than risking a broken/offset sprite.
+    img.dataset.cropped='fallback';
+    img.style.width='64px';
+    img.style.height='64px';
+    img.style.maxWidth='100%';
+    img.style.maxHeight='100%';
   }
 }
 
