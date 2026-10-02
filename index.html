@@ -50,7 +50,7 @@ footer{position:fixed;z-index:30;left:0;right:0;bottom:0;padding:8px 8px calc(8p
 .copy{font-family:"Lilita One",sans-serif;height:45px;min-width:78px;border:3px solid #bd7a21;border-radius:5px;background:var(--orange);color:#2d2418;font-family:"Lilita One",sans-serif;font-size:14px;font-weight:700;box-shadow:4px 4px 0 rgba(0,0,0,.18)}
 .copy:active{transform:translate(1px,1px);box-shadow:2px 2px 0 rgba(0,0,0,.18)}
 .copy.copied{background:var(--red);border-color:#8f4742;color:var(--cream)}
-.page-corner{position:fixed;z-index:5;pointer-events:none;width:82px;height:82px;bottom:0;overflow:hidden}
+
 .page-corner.left{left:0}
 .page-corner.right{right:0}
 .page-corner span{position:absolute;display:block;height:15px;transform:rotate(-45deg);transform-origin:center}
@@ -60,9 +60,9 @@ footer{position:fixed;z-index:30;left:0;right:0;bottom:0;padding:8px 8px calc(8p
 .page-corner.right span:nth-child(1){width:110px;right:-38px;bottom:15px;background:var(--red);transform:rotate(45deg)}
 .page-corner.right span:nth-child(2){width:92px;right:-27px;bottom:35px;background:var(--teal);transform:rotate(45deg)}
 .page-corner.right span:nth-child(3){width:74px;right:-16px;bottom:55px;background:var(--yellow);transform:rotate(45deg)}
-@media(max-width:360px){#grid{gap:3px}.card{border-radius:6px;padding:2px}.name{font-size:7px}.num{font-size:6px}.copy{min-width:62px}.page-corner{width:62px;height:62px}.page-corner span{height:11px}}
+@media(max-width:360px){#grid{gap:3px}.card{border-radius:6px;padding:2px}.name{font-size:7px}.num{font-size:6px}.copy{min-width:62px}.page-corner span{height:11px}}
 
-</style></head><body><div class="page-corner left" aria-hidden="true"><span></span><span></span><span></span></div><div class="page-corner right" aria-hidden="true"><span></span><span></span><span></span></div>
+</style></head><body>
 <header><div class="head"><div class="title"><h1>Tap to String</h1><span class="count" id="count"></span></div><p class="sub">Pokemon Go image based search string generator.</p><input id="search" type="search" inputmode="search" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="Search by name or Pokédex number…" aria-label="Search Pokémon"></div></header>
 <main><section id="grid" aria-label="Released Pokémon"></section></main>
 <footer><div class="foot"><input id="output" class="out" readonly placeholder="Select Pokémon…" aria-label="Generated Pokémon GO search string"><button id="copy" class="copy" type="button">Copy</button></div></footer>
