@@ -29,7 +29,7 @@ h1::after{content:"";display:block;width:64px;height:5px;margin-top:8px;backgrou
 #search:focus{border-color:var(--yellow);box-shadow:inset 0 0 0 2px #18221f,4px 4px 0 rgba(0,0,0,.16)}
 main{max-width:1100px;margin:auto;padding:10px 6px 18px}
 #grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(4px,1.25vw,10px)}
-.card{--accent:var(--blue);min-width:0;width:100%;aspect-ratio:.82;border:3px solid var(--accent);border-radius:7px;background:var(--panel);color:var(--cream);padding:clamp(3px,1vw,9px);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;position:relative;transition:transform .1s ease,border-color .12s ease,background .12s ease,box-shadow .12s ease;position:relative;overflow:hidden;box-shadow:3px 3px 0 rgba(0,0,0,.16)}
+.card{--accent:var(--blue);min-width:0;width:100%;aspect-ratio:.82;border:3px solid var(--accent);border-radius:7px;background:var(--panel);color:var(--cream);padding:clamp(3px,1vw,9px);display:flex;flex-direction:column;align-items:center;justify-content:flex-start;cursor:pointer;position:relative;transition:transform .1s ease,border-color .12s ease,background .12s ease,box-shadow .12s ease;overflow:hidden;box-shadow:3px 3px 0 rgba(0,0,0,.16)}
 .card::before{content:"";position:absolute;left:-1px;top:-1px;width:20px;height:20px;background:var(--accent);clip-path:polygon(0 0,100% 0,0 100%);opacity:.98}
 .card::after{content:"";position:absolute;right:-1px;bottom:-1px;width:18px;height:18px;background:var(--accent);clip-path:polygon(100% 0,100% 100%,0 100%);opacity:.92}
 .card:active{transform:scale(.96)}
@@ -39,6 +39,18 @@ main{max-width:1100px;margin:auto;padding:10px 6px 18px}
 @keyframes selectionBounce{0%{transform:scale(1)}35%{transform:scale(1.055)}65%{transform:scale(.985)}100%{transform:scale(1)}}
 .card.selection-pop{animation:selectionBounce .22s ease-out}
 @media (prefers-reduced-motion:reduce){.card.selection-pop{animation:none}}
+.sprite-slot{
+  position:relative;
+  width:100%;
+  height:clamp(58px,15vw,78px);
+  flex:0 0 clamp(58px,15vw,78px);
+  overflow:hidden;
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  margin-top:clamp(1px,1vw,5px);
+  margin-bottom:0;
+}
 .sprite{
   width:clamp(58px,15vw,78px);
   height:clamp(58px,15vw,78px);
@@ -47,8 +59,12 @@ main{max-width:1100px;margin:auto;padding:10px 6px 18px}
   image-rendering:pixelated;
   image-rendering:crisp-edges;
   transform:none;
-  margin:0 0 -2px;
-  position:relative;
+  transform-origin:center bottom;
+  margin:0;
+  position:absolute;
+  left:50%;
+  bottom:0;
+  translate:-50% 0;
   z-index:0;
 }
 .num{position:relative;z-index:2;font-family:"Lilita One",sans-serif;font-size:clamp(6px,1.65vw,10px);color:var(--accent);margin:2px 0;font-weight:700;letter-spacing:.02em}
@@ -1060,8 +1076,11 @@ const selected=new Set();const grid=document.getElementById('grid'),search=docum
 const norm=s=>String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
 function results(){const q=norm(search.value.trim());return q?POKEMON.filter(p=>norm(p.name).includes(q)||String(p.id).includes(q)):POKEMON;}
 function updateOutput(){output.value=POKEMON.filter(p=>selected.has(p.id)).sort((a,b)=>a.id-b.id).map(p=>norm(p.name).replace(/[^a-z0-9]/g,'')).join(',');}
-const BASE_SPRITE_SCALE=1.35;
+// Keep the previous/default sprite size for naturally large sprites.
+// Only sprites whose actual visible pixels are smaller get enlarged.
+const BASE_SPRITE_SCALE=1;
 const TARGET_VISIBLE_PX=54;
+const SPRITE_SLOT_PADDING=2;
 const CARD_PALETTE=[
   {accent:'#e7a338',bg:'#3b4037'},
   {accent:'#e8be58',bg:'#3d4136'},
@@ -1082,23 +1101,55 @@ const cardColor=new Map();
 })();
 const MAX_EXTRA_SCALE=1.65;
 function normalizeSprite(img){
-  const applyFallback=()=>{img.style.transform=`scale(${BASE_SPRITE_SCALE})`;};
+  const applyFallback=()=>{img.style.transform=`translateX(-50%) scale(${BASE_SPRITE_SCALE})`;};
   if(!img.naturalWidth||!img.naturalHeight){applyFallback();return;}
   try{
     const c=document.createElement('canvas');c.width=img.naturalWidth;c.height=img.naturalHeight;
     const ctx=c.getContext('2d',{willReadFrequently:true});ctx.drawImage(img,0,0);
     const data=ctx.getImageData(0,0,c.width,c.height).data;
-    let minY=c.height,maxY=-1;
-    for(let y=0;y<c.height;y++) for(let x=0;x<c.width;x++) if(data[(y*c.width+x)*4+3]>12){if(y<minY)minY=y;if(y>maxY)maxY=y;}
-    if(maxY<0){applyFallback();return;}
-    const visibleRatio=(maxY-minY+1)/c.height;
-    const boxPx=img.getBoundingClientRect().height;
-    const currentVisible=boxPx*BASE_SPRITE_SCALE*visibleRatio;
-    const extra=Math.min(MAX_EXTRA_SCALE,Math.max(1,TARGET_VISIBLE_PX/currentVisible));
-    img.style.transform=`scale(${BASE_SPRITE_SCALE*extra})`;
+    let minX=c.width,minY=c.height,maxX=-1,maxY=-1;
+    for(let y=0;y<c.height;y++) for(let x=0;x<c.width;x++) if(data[(y*c.width+x)*4+3]>12){
+      if(x<minX)minX=x;if(x>maxX)maxX=x;if(y<minY)minY=y;if(y>maxY)maxY=y;
+    }
+    if(maxX<0){applyFallback();return;}
+
+    const visibleW=maxX-minX+1, visibleH=maxY-minY+1;
+    const boxW=img.getBoundingClientRect().width;
+    const boxH=img.getBoundingClientRect().height;
+    const slot=img.parentElement?.getBoundingClientRect();
+    const slotW=slot?.width||boxW;
+    const slotH=slot?.height||boxH;
+
+    // Start at the old/default size. Enlarge only genuinely small sprites.
+    let scale=BASE_SPRITE_SCALE;
+    const visibleAtBaseW=boxW*visibleW/c.width*scale;
+    const visibleAtBaseH=boxH*visibleH/c.height*scale;
+    if(visibleAtBaseH<TARGET_VISIBLE_PX){
+      scale*=Math.min(MAX_EXTRA_SCALE,TARGET_VISIBLE_PX/visibleAtBaseH);
+    }
+
+    // Wide sprites (e.g. Chinchou) should not grow until they run into the card sides.
+    const scaledW=boxW*visibleW/c.width*scale;
+    if(scaledW>slotW-SPRITE_SLOT_PADDING*2){
+      scale*=Math.max(.01,(slotW-SPRITE_SLOT_PADDING*2)/scaledW);
+    }
+
+    // Tall sprites (e.g. Ho-Oh) must stay inside the sprite slot.
+    const scaledH=boxH*visibleH/c.height*scale;
+    if(scaledH>slotH-SPRITE_SLOT_PADDING*2){
+      scale*=Math.max(.01,(slotH-SPRITE_SLOT_PADDING*2)/scaledH);
+    }
+
+    // The visible bottom edge is anchored to the slot bottom, so every sprite
+    // sits just above the number instead of floating or drifting upward.
+    const renderedBoxH=boxH*scale;
+    const visibleBottomOffset=(c.height-(maxY+1))/c.height*renderedBoxH;
+    const translateY=visibleBottomOffset;
+    img.style.transform=`translateX(-50%) translateY(${translateY}px) scale(${scale})`;
   }catch(e){applyFallback();}
 }
-function render(){const list=results();grid.replaceChildren();count.textContent=list.length+' / '+POKEMON.length;if(!list.length){const e=document.createElement('div');e.className='empty';e.textContent='No Pokémon found.';grid.appendChild(e);return;}const f=document.createDocumentFragment();for(const p of list){const b=document.createElement('button');b.type='button';b.className='card'+(selected.has(p.id)?' selected':'');b.setAttribute('aria-pressed',selected.has(p.id));const img=document.createElement('img');img.className='sprite';img.src=SPRITE_BASE+p.id+'.png';img.alt='';img.width=64;img.height=64;img.loading='lazy';img.decoding='async';img.crossOrigin='anonymous';img.onload=()=>normalizeSprite(img);const colors=cardColor.get(p.id)||CARD_PALETTE[0];b.style.setProperty('--accent',colors.accent);b.style.background=colors.bg;const n=document.createElement('div');n.className='num';n.textContent='#'+String(p.id).padStart(3,'0');const name=document.createElement('div');name.className='name';name.textContent=p.name;b.append(img,n,name);b.onclick=()=>{const isSelected=selected.has(p.id);if(isSelected) selected.delete(p.id); else selected.add(p.id);const nowSelected=!isSelected;b.classList.toggle('selected',nowSelected);b.setAttribute('aria-pressed',nowSelected?'true':'false');if(nowSelected){b.classList.remove('selection-pop');void b.offsetWidth;b.classList.add('selection-pop');}else{b.classList.remove('selection-pop');}updateOutput();};f.appendChild(b);}grid.appendChild(f);}
+
+function render(){const list=results();grid.replaceChildren();count.textContent=list.length+' / '+POKEMON.length;if(!list.length){const e=document.createElement('div');e.className='empty';e.textContent='No Pokémon found.';grid.appendChild(e);return;}const f=document.createDocumentFragment();for(const p of list){const b=document.createElement('button');b.type='button';b.className='card'+(selected.has(p.id)?' selected':'');b.setAttribute('aria-pressed',selected.has(p.id));const img=document.createElement('img');img.className='sprite';img.src=SPRITE_BASE+p.id+'.png';img.alt='';img.width=64;img.height=64;img.loading='lazy';img.decoding='async';img.crossOrigin='anonymous';img.onload=()=>normalizeSprite(img);const colors=cardColor.get(p.id)||CARD_PALETTE[0];b.style.setProperty('--accent',colors.accent);b.style.background=colors.bg;const n=document.createElement('div');n.className='num';n.textContent='#'+String(p.id).padStart(3,'0');const name=document.createElement('div');name.className='name';name.textContent=p.name;const slot=document.createElement('div');slot.className='sprite-slot';slot.appendChild(img);b.append(slot,n,name);b.onclick=()=>{const isSelected=selected.has(p.id);if(isSelected) selected.delete(p.id); else selected.add(p.id);const nowSelected=!isSelected;b.classList.toggle('selected',nowSelected);b.setAttribute('aria-pressed',nowSelected?'true':'false');if(nowSelected){b.classList.remove('selection-pop');void b.offsetWidth;b.classList.add('selection-pop');}else{b.classList.remove('selection-pop');}updateOutput();};f.appendChild(b);}grid.appendChild(f);}
 search.addEventListener('input',render);
 async function doCopy(){if(!output.value)return;try{await navigator.clipboard.writeText(output.value);}catch(e){const t=document.createElement('textarea');t.value=output.value;t.style.position='fixed';t.style.left='-9999px';document.body.appendChild(t);t.focus();t.select();document.execCommand('copy');t.remove();}copy.textContent='Copied!';copy.classList.add('copied');setTimeout(()=>{copy.textContent='Copy';copy.classList.remove('copied');},1200);}copy.onclick=doCopy;render();
 </script></body></html>
