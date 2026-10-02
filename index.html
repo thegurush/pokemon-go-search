@@ -64,7 +64,6 @@ main{max-width:1100px;margin:auto;padding:10px 6px 18px}
   position:absolute;
   left:50%;
   bottom:0;
-  translate:-50% 0;
   z-index:0;
 }
 .num{position:relative;z-index:2;font-family:"Lilita One",sans-serif;font-size:clamp(6px,1.65vw,10px);color:var(--accent);margin:2px 0;font-weight:700;letter-spacing:.02em}
@@ -1100,53 +1099,88 @@ const cardColor=new Map();
   }
 })();
 const MAX_EXTRA_SCALE=1.65;
+const TARGET_VISIBLE_PX=54;
+const SPRITE_SLOT_PADDING=2;
+
 function normalizeSprite(img){
-  const applyFallback=()=>{img.style.transform=`translateX(-50%) scale(${BASE_SPRITE_SCALE})`;};
+  const applyFallback=()=>{
+    img.style.transform='translateX(-50%) scale(1)';
+  };
   if(!img.naturalWidth||!img.naturalHeight){applyFallback();return;}
+
   try{
-    const c=document.createElement('canvas');c.width=img.naturalWidth;c.height=img.naturalHeight;
-    const ctx=c.getContext('2d',{willReadFrequently:true});ctx.drawImage(img,0,0);
+    const c=document.createElement('canvas');
+    c.width=img.naturalWidth;
+    c.height=img.naturalHeight;
+    const ctx=c.getContext('2d',{willReadFrequently:true});
+    ctx.drawImage(img,0,0);
     const data=ctx.getImageData(0,0,c.width,c.height).data;
+
     let minX=c.width,minY=c.height,maxX=-1,maxY=-1;
-    for(let y=0;y<c.height;y++) for(let x=0;x<c.width;x++) if(data[(y*c.width+x)*4+3]>12){
-      if(x<minX)minX=x;if(x>maxX)maxX=x;if(y<minY)minY=y;if(y>maxY)maxY=y;
+    for(let y=0;y<c.height;y++){
+      for(let x=0;x<c.width;x++){
+        if(data[(y*c.width+x)*4+3]>12){
+          if(x<minX)minX=x;
+          if(x>maxX)maxX=x;
+          if(y<minY)minY=y;
+          if(y>maxY)maxY=y;
+        }
+      }
     }
     if(maxX<0){applyFallback();return;}
 
-    const visibleW=maxX-minX+1, visibleH=maxY-minY+1;
+    const visibleW=maxX-minX+1;
+    const visibleH=maxY-minY+1;
     const boxW=img.getBoundingClientRect().width;
     const boxH=img.getBoundingClientRect().height;
     const slot=img.parentElement?.getBoundingClientRect();
     const slotW=slot?.width||boxW;
     const slotH=slot?.height||boxH;
 
-    // Start at the old/default size. Enlarge only genuinely small sprites.
-    let scale=BASE_SPRITE_SCALE;
-    const visibleAtBaseW=boxW*visibleW/c.width*scale;
-    const visibleAtBaseH=boxH*visibleH/c.height*scale;
-    if(visibleAtBaseH<TARGET_VISIBLE_PX){
-      scale*=Math.min(MAX_EXTRA_SCALE,TARGET_VISIBLE_PX/visibleAtBaseH);
+    /*
+      Important: 1x is the original sprite size. We NEVER shrink a sprite
+      merely because it is tall. We only enlarge sprites whose visible art
+      is genuinely small. After that, we cap the enlarged result if its
+      visible pixels would exceed the available slot.
+    */
+    let scale=1;
+
+    const visibleBaseH=boxH*(visibleH/c.height);
+    if(visibleBaseH<TARGET_VISIBLE_PX){
+      scale=Math.min(MAX_EXTRA_SCALE,TARGET_VISIBLE_PX/visibleBaseH);
     }
 
-    // Wide sprites (e.g. Chinchou) should not grow until they run into the card sides.
-    const scaledW=boxW*visibleW/c.width*scale;
-    if(scaledW>slotW-SPRITE_SLOT_PADDING*2){
-      scale*=Math.max(.01,(slotW-SPRITE_SLOT_PADDING*2)/scaledW);
+    // Keep the visible artwork inside the card horizontally.
+    const visibleWAtScale=boxW*(visibleW/c.width)*scale;
+    const maxVisibleW=Math.max(1,slotW-SPRITE_SLOT_PADDING*2);
+    if(visibleWAtScale>maxVisibleW){
+      scale*=maxVisibleW/visibleWAtScale;
     }
 
-    // Tall sprites (e.g. Ho-Oh) must stay inside the sprite slot.
-    const scaledH=boxH*visibleH/c.height*scale;
-    if(scaledH>slotH-SPRITE_SLOT_PADDING*2){
-      scale*=Math.max(.01,(slotH-SPRITE_SLOT_PADDING*2)/scaledH);
+    // Keep the visible artwork inside the card vertically.
+    // This only reduces sprites that would actually breach the slot.
+    const visibleHAtScale=boxH*(visibleH/c.height)*scale;
+    const maxVisibleH=Math.max(1,slotH-SPRITE_SLOT_PADDING);
+    if(visibleHAtScale>maxVisibleH){
+      scale*=maxVisibleH/visibleHAtScale;
     }
 
-    // The visible bottom edge is anchored to the slot bottom, so every sprite
-    // sits just above the number instead of floating or drifting upward.
-    const renderedBoxH=boxH*scale;
-    const visibleBottomOffset=(c.height-(maxY+1))/c.height*renderedBoxH;
-    const translateY=visibleBottomOffset;
-    img.style.transform=`translateX(-50%) translateY(${translateY}px) scale(${scale})`;
-  }catch(e){applyFallback();}
+    const renderedW=boxW*scale;
+    const renderedH=boxH*scale;
+
+    // Center the *visible pixels*, not the transparent image canvas.
+    const visibleCenterX=((minX+maxX+1)/2)/c.width;
+    const xCorrection=(0.5-visibleCenterX)*renderedW;
+
+    // Put the visible bottom edge immediately above the number.
+    const visibleBottomRatio=(c.height-(maxY+1))/c.height;
+    const yCorrection=visibleBottomRatio*renderedH;
+
+    img.style.transform=
+      `translateX(calc(-50% + ${xCorrection}px)) translateY(${yCorrection}px) scale(${scale})`;
+  }catch(e){
+    applyFallback();
+  }
 }
 
 function render(){const list=results();grid.replaceChildren();count.textContent=list.length+' / '+POKEMON.length;if(!list.length){const e=document.createElement('div');e.className='empty';e.textContent='No Pokémon found.';grid.appendChild(e);return;}const f=document.createDocumentFragment();for(const p of list){const b=document.createElement('button');b.type='button';b.className='card'+(selected.has(p.id)?' selected':'');b.setAttribute('aria-pressed',selected.has(p.id));const img=document.createElement('img');img.className='sprite';img.src=SPRITE_BASE+p.id+'.png';img.alt='';img.width=64;img.height=64;img.loading='lazy';img.decoding='async';img.crossOrigin='anonymous';img.onload=()=>normalizeSprite(img);const colors=cardColor.get(p.id)||CARD_PALETTE[0];b.style.setProperty('--accent',colors.accent);b.style.background=colors.bg;const n=document.createElement('div');n.className='num';n.textContent='#'+String(p.id).padStart(3,'0');const name=document.createElement('div');name.className='name';name.textContent=p.name;const slot=document.createElement('div');slot.className='sprite-slot';slot.appendChild(img);b.append(slot,n,name);b.onclick=()=>{const isSelected=selected.has(p.id);if(isSelected) selected.delete(p.id); else selected.add(p.id);const nowSelected=!isSelected;b.classList.toggle('selected',nowSelected);b.setAttribute('aria-pressed',nowSelected?'true':'false');if(nowSelected){b.classList.remove('selection-pop');void b.offsetWidth;b.classList.add('selection-pop');}else{b.classList.remove('selection-pop');}updateOutput();};f.appendChild(b);}grid.appendChild(f);}
