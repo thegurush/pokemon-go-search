@@ -53,17 +53,16 @@ main{max-width:1100px;margin:auto;padding:10px 6px 18px}
   margin-bottom:0;
 }
 .sprite{
-  width:clamp(58px,15vw,78px);
-  height:clamp(58px,15vw,78px);
+  width:64px;
+  height:64px;
   object-fit:contain;
   display:block;
   image-rendering:pixelated;
   image-rendering:crisp-edges;
   transform:none;
-  transform-origin:center bottom;
   margin:0;
   position:absolute;
-  left:50%;
+  left:0;
   bottom:0;
   z-index:0;
 }
@@ -1103,7 +1102,11 @@ const MAX_EXTRA_SCALE=1.65;
 
 function normalizeSprite(img){
   const applyFallback=()=>{
-    img.style.transform='translateX(-50%) scale(1)';
+    img.style.width='64px';
+    img.style.height='64px';
+    img.style.left='50%';
+    img.style.bottom='0px';
+    img.style.transform='translateX(-50%)';
   };
   if(!img.naturalWidth||!img.naturalHeight){applyFallback();return;}
 
@@ -1130,63 +1133,65 @@ function normalizeSprite(img){
 
     const visibleW=maxX-minX+1;
     const visibleH=maxY-minY+1;
-    const boxW=img.getBoundingClientRect().width;
-    const boxH=img.getBoundingClientRect().height;
     const slot=img.parentElement?.getBoundingClientRect();
-    const slotW=slot?.width||boxW;
-    const slotH=slot?.height||boxH;
+    if(!slot?.width||!slot?.height){applyFallback();return;}
 
-    /*
-      Important: 1x is the original sprite size. We NEVER shrink a sprite
-      merely because it is tall. We only enlarge sprites whose visible art
-      is genuinely small. After that, we cap the enlarged result if its
-      visible pixels would exceed the available slot.
-    */
+    // Keep the same base sizing philosophy as the earlier good version:
+    // naturally large sprites stay at the normal 64px canvas size; only
+    // genuinely small visible sprites receive a modest enlargement.
+    const baseSize=Math.max(58,Math.min(78,window.innerWidth*0.15));
+    const visibleBaseW=baseSize*(visibleW/c.width);
+    const visibleBaseH=baseSize*(visibleH/c.height);
     let scale=1;
-
-    const visibleBaseH=boxH*(visibleH/c.height);
     if(visibleBaseH<TARGET_VISIBLE_PX){
       scale=Math.min(MAX_EXTRA_SCALE,TARGET_VISIBLE_PX/visibleBaseH);
     }
 
-    // Keep the visible artwork inside the card horizontally.
-    const visibleWAtScale=boxW*(visibleW/c.width)*scale;
-    const maxVisibleW=Math.max(1,slotW-SPRITE_SLOT_PADDING*2);
+    // Never let the visible artwork breach the card in either direction.
+    const maxVisibleW=Math.max(1,slot.width-SPRITE_SLOT_PADDING*2);
+    const maxVisibleH=Math.max(1,slot.height-SPRITE_SLOT_PADDING);
+    let visibleWAtScale=visibleBaseW*scale;
+    let visibleHAtScale=visibleBaseH*scale;
     if(visibleWAtScale>maxVisibleW){
       scale*=maxVisibleW/visibleWAtScale;
+      visibleWAtScale=visibleBaseW*scale;
+      visibleHAtScale=visibleBaseH*scale;
     }
-
-    // Keep the visible artwork inside the card vertically.
-    // This only reduces sprites that would actually breach the slot.
-    const visibleHAtScale=boxH*(visibleH/c.height)*scale;
-    const maxVisibleH=Math.max(1,slotH-SPRITE_SLOT_PADDING);
     if(visibleHAtScale>maxVisibleH){
       scale*=maxVisibleH/visibleHAtScale;
     }
 
-    const renderedW=boxW*scale;
-    const renderedH=boxH*scale;
-
-    // Center the *visible pixels*, not the transparent image canvas.
-    const visibleCenterX=((minX+maxX+1)/2)/c.width;
-    const xCorrection=(0.5-visibleCenterX)*renderedW;
-
-    // Put the visible bottom edge immediately above the number.
+    const renderedSize=baseSize*scale;
+    const visibleCenterRatio=((minX+maxX+1)/2)/c.width;
     const visibleBottomRatio=(c.height-(maxY+1))/c.height;
-    const yCorrection=visibleBottomRatio*renderedH;
 
-    // Position the image from its bottom-center so the *visible* pixels
-    // sit directly above the number, while keeping the visible art centered.
-    img.style.left='50%';
-    img.style.bottom=`${yCorrection}px`;
-    img.style.transform=`translateX(calc(-50% + ${xCorrection}px)) scale(${scale})`;
+    // Position by the visible pixels, not the transparent 64x64 canvas.
+    // This keeps every sprite centered horizontally and puts its visible
+    // bottom edge immediately above the Pokédex number.
+    const leftPx=slot.width/2-visibleCenterRatio*renderedSize;
+    const bottomPx=visibleBottomRatio*renderedSize;
+    img.style.width=`${renderedSize}px`;
+    img.style.height=`${renderedSize}px`;
+    img.style.left=`${leftPx}px`;
+    img.style.bottom=`${bottomPx}px`;
+    img.style.transform='none';
   }catch(e){
     applyFallback();
   }
 }
 
+function relayoutSprites(){
+  document.querySelectorAll('.sprite').forEach(img=>{
+    if(img.complete&&img.naturalWidth) normalizeSprite(img);
+  });
+}
 function render(){const list=results();grid.replaceChildren();count.textContent=list.length+' / '+POKEMON.length;if(!list.length){const e=document.createElement('div');e.className='empty';e.textContent='No Pokémon found.';grid.appendChild(e);return;}const f=document.createDocumentFragment();for(const p of list){const b=document.createElement('button');b.type='button';b.className='card'+(selected.has(p.id)?' selected':'');b.setAttribute('aria-pressed',selected.has(p.id));const img=document.createElement('img');img.className='sprite';img.src=SPRITE_BASE+p.id+'.png';img.alt='';img.width=64;img.height=64;img.loading='lazy';img.decoding='async';img.crossOrigin='anonymous';img.onload=()=>normalizeSprite(img);const colors=cardColor.get(p.id)||CARD_PALETTE[0];b.style.setProperty('--accent',colors.accent);b.style.background=colors.bg;const n=document.createElement('div');n.className='num';n.textContent='#'+String(p.id).padStart(3,'0');const name=document.createElement('div');name.className='name';name.textContent=p.name;const slot=document.createElement('div');slot.className='sprite-slot';slot.appendChild(img);b.append(slot,n,name);b.onclick=()=>{const isSelected=selected.has(p.id);if(isSelected) selected.delete(p.id); else selected.add(p.id);const nowSelected=!isSelected;b.classList.toggle('selected',nowSelected);b.setAttribute('aria-pressed',nowSelected?'true':'false');if(nowSelected){b.classList.remove('selection-pop');void b.offsetWidth;b.classList.add('selection-pop');}else{b.classList.remove('selection-pop');}updateOutput();};f.appendChild(b);}grid.appendChild(f);}
 search.addEventListener('input',render);
+window.addEventListener('resize',relayoutSprites,{passive:true});
+if(window.ResizeObserver){
+  const ro=new ResizeObserver(()=>relayoutSprites());
+  ro.observe(grid);
+}
 async function doCopy(){if(!output.value)return;try{await navigator.clipboard.writeText(output.value);}catch(e){const t=document.createElement('textarea');t.value=output.value;t.style.position='fixed';t.style.left='-9999px';document.body.appendChild(t);t.focus();t.select();document.execCommand('copy');t.remove();}copy.textContent='Copied!';copy.classList.add('copied');setTimeout(()=>{copy.textContent='Copy';copy.classList.remove('copied');},1200);}copy.onclick=doCopy;render();
 </script></body></html>
 <style>
