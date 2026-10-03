@@ -1,4 +1,5 @@
 <!doctype html>
+<!-- V15: V13 master card is fixed; responsive behavior only changes column count. -->
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#18242e"><title>Pokémon GO Search String Generator</title><style>
 @import url("https://fonts.googleapis.com/css2?family=Lilita+One&display=swap");
 :root{
@@ -13,6 +14,9 @@
   --teal:#48a38c;
   --blue:#64829a;
   --red:#c45f57;
+  /* V13 master card geometry: only the number of columns may change. */
+  --card-w:79px;
+  --card-h:96px;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;background:var(--bg);color:var(--cream);font-family:"Lilita One",sans-serif}
@@ -27,8 +31,8 @@ h1::after{content:"";display:block;width:64px;height:5px;margin:8px auto 0;backg
 #search::placeholder{color:#bdb4a4}
 #search:focus{border-color:var(--yellow);box-shadow:inset 0 0 0 2px #18221f,4px 4px 0 rgba(0,0,0,.16)}
 main{max-width:1100px;margin:auto;padding:10px 6px 18px}
-#grid{display:grid;grid-template-columns:repeat(auto-fill,74px);justify-content:center;gap:10px}
-.card{--accent:var(--blue);min-width:0;width:74px;aspect-ratio:.82;border:3px solid var(--accent);border-radius:7px;background:var(--panel);color:var(--cream);padding:clamp(3px,1vw,9px);display:grid;grid-template-rows:minmax(0,1fr) auto auto;align-items:stretch;justify-items:center;cursor:pointer;position:relative;transition:transform .1s ease,border-color .12s ease,background .12s ease,box-shadow .12s ease;overflow:hidden;box-shadow:3px 3px 0 rgba(0,0,0,.16)}
+#grid{display:grid;grid-template-columns:repeat(auto-fill,var(--card-w));justify-content:center;gap:10px}
+.card{--accent:var(--blue);min-width:0;width:var(--card-w);height:var(--card-h);border:3px solid var(--accent);border-radius:7px;background:var(--panel);color:var(--cream);padding:4px;display:grid;grid-template-rows:minmax(0,1fr) auto auto;align-items:stretch;justify-items:center;cursor:pointer;position:relative;transition:transform .1s ease,border-color .12s ease,background .12s ease,box-shadow .12s ease;overflow:hidden;box-shadow:3px 3px 0 rgba(0,0,0,.16)}
 .card::before{content:"";position:absolute;left:-1px;top:-1px;width:20px;height:20px;background:var(--accent);clip-path:polygon(0 0,100% 0,0 100%);opacity:.98}
 .card::after{content:"";position:absolute;right:-1px;bottom:-1px;width:18px;height:18px;background:var(--accent);clip-path:polygon(100% 0,100% 100%,0 100%);opacity:.92}
 .card:active{transform:scale(.96)}
@@ -48,12 +52,12 @@ main{max-width:1100px;margin:auto;padding:10px 6px 18px}
   display:flex;
   align-items:flex-end;
   justify-content:center;
-  margin-top:clamp(1px,1vw,5px);
+  margin-top:2px;
   margin-bottom:0;
 }
 .sprite{
-  width:clamp(58px,15vw,78px);
-  height:clamp(58px,15vw,78px);
+  width:62px;
+  height:62px;
   object-fit:contain;
   display:block;
   image-rendering:pixelated;
@@ -66,8 +70,8 @@ main{max-width:1100px;margin:auto;padding:10px 6px 18px}
   bottom:0;
   z-index:0;
 }
-.num{align-self:auto;min-height:1em;position:relative;z-index:2;font-family:"Lilita One",sans-serif;font-size:clamp(6px,1.65vw,10px);color:var(--accent);margin:2px 0;font-weight:700;letter-spacing:.02em}
-.name{align-self:auto;min-height:1.08em;position:relative;z-index:2;font-family:"Lilita One",sans-serif;width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:center;font-family:"Lilita One",sans-serif;font-size:clamp(7px,2vw,13px);font-weight:700;line-height:1.08;color:var(--cream);letter-spacing:.01em}
+.num{align-self:auto;min-height:1em;position:relative;z-index:2;font-family:"Lilita One",sans-serif;font-size:7px;color:var(--accent);margin:2px 0;font-weight:700;letter-spacing:.02em}
+.name{align-self:auto;min-height:1.08em;position:relative;z-index:2;font-family:"Lilita One",sans-serif;width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:center;font-family:"Lilita One",sans-serif;font-size:8px;font-weight:700;line-height:1.08;color:var(--cream);letter-spacing:.01em}
 .empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:45px 20px;font-family:"Lilita One",sans-serif}
 footer{position:fixed;z-index:30;left:0;right:0;bottom:0;padding:8px 8px calc(8px + env(safe-area-inset-bottom));background:#27332f;border-top:3px solid var(--teal);box-shadow:0 -3px 0 rgba(0,0,0,.16)}
 .foot{max-width:1100px;margin:auto;display:flex;gap:7px}
@@ -86,7 +90,7 @@ footer{position:fixed;z-index:30;left:0;right:0;bottom:0;padding:8px 8px calc(8p
 .page-corner.right span:nth-child(1){width:110px;right:-38px;bottom:15px;background:var(--red);transform:rotate(45deg)}
 .page-corner.right span:nth-child(2){width:92px;right:-27px;bottom:35px;background:var(--teal);transform:rotate(45deg)}
 .page-corner.right span:nth-child(3){width:74px;right:-16px;bottom:55px;background:var(--yellow);transform:rotate(45deg)}
-@media(max-width:360px){#grid{grid-template-columns:repeat(auto-fill,74px);gap:8px}.card{border-radius:6px;padding:2px}.name{font-size:7px}.num{font-size:6px}.copy{min-width:62px}.page-corner span{height:11px}}
+@media(max-width:360px){.copy{min-width:62px}.page-corner span{height:11px}}
 
 </style></head><body>
 <header><div class="head"><div class="title"><h1>Tap to String</h1></div><p class="sub">Pokemon Go image based search string generator.</p><input id="search" type="search" inputmode="search" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="Search by name or Pokédex number…" aria-label="Search Pokémon"></div></header>
@@ -1165,8 +1169,7 @@ function normalizeSprite(img){
 function sizeCroppedSprite(img){
   const slot=img.parentElement;
   if(!slot) return;
-  const rect=slot.getBoundingClientRect();
-  if(!rect.width || !rect.height) return;
+  if(!slot) return;
   const vw=Number(img.dataset.visibleW)||img.naturalWidth;
   const vh=Number(img.dataset.visibleH)||img.naturalHeight;
   if(!vw || !vh) return;
@@ -1178,8 +1181,11 @@ function sizeCroppedSprite(img){
   let scale=desired/Math.max(vw,vh);
   if(Math.max(vw,vh)*scale < MIN_VISIBLE_PX) scale=MIN_VISIBLE_PX/Math.max(vw,vh);
 
-  const maxW=Math.max(1,rect.width-SPRITE_EDGE_PADDING*2);
-  const maxH=Math.max(1,rect.height-SPRITE_EDGE_PADDING*2);
+  // The V13 card is the master reference. Do not recompute sprite scale from
+  // the card/viewport dimensions: orientation and browser zoom may only add
+  // more identical cards, never resize the artwork inside them.
+  const maxW=62-SPRITE_EDGE_PADDING*2;
+  const maxH=62-SPRITE_EDGE_PADDING*2;
   scale=Math.min(scale,maxW/vw,maxH/vh);
 
   const w=Math.max(1,Math.round(vw*scale*10)/10);
@@ -1203,7 +1209,5 @@ function relayoutSprites(){
 
 function render(){const list=results();grid.replaceChildren();if(!list.length){const e=document.createElement('div');e.className='empty';e.textContent='No Pokémon found.';grid.appendChild(e);return;}const f=document.createDocumentFragment();for(const p of list){const b=document.createElement('button');b.type='button';b.className='card'+(selected.has(p.id)?' selected':'');b.setAttribute('aria-pressed',selected.has(p.id));const img=document.createElement('img');img.className='sprite';img.src=SPRITE_BASE+p.id+'.png';img.alt='';img.width=64;img.height=64;img.loading='lazy';img.decoding='async';img.crossOrigin='anonymous';img.onload=()=>normalizeSprite(img);const colors=cardColor.get(p.id)||CARD_PALETTE[0];b.style.setProperty('--accent',colors.accent);b.style.background=colors.bg;const n=document.createElement('div');n.className='num';n.textContent='#'+String(p.id).padStart(3,'0');const name=document.createElement('div');name.className='name';name.textContent=p.name;const slot=document.createElement('div');slot.className='sprite-slot';slot.appendChild(img);b.append(slot,n,name);b.onclick=()=>{const isSelected=selected.has(p.id);if(isSelected) selected.delete(p.id); else selected.add(p.id);const nowSelected=!isSelected;b.classList.toggle('selected',nowSelected);b.setAttribute('aria-pressed',nowSelected?'true':'false');if(nowSelected){b.classList.remove('selection-pop');void b.offsetWidth;b.classList.add('selection-pop');}else{b.classList.remove('selection-pop');}updateOutput();};f.appendChild(b);}grid.appendChild(f);}
 search.addEventListener('input',render);
-window.addEventListener('resize',relayoutSprites,{passive:true});
-if(window.ResizeObserver){const ro=new ResizeObserver(()=>relayoutSprites());ro.observe(grid);}
 async function doCopy(){if(!output.value)return;try{await navigator.clipboard.writeText(output.value);}catch(e){const t=document.createElement('textarea');t.value=output.value;t.style.position='fixed';t.style.left='-9999px';document.body.appendChild(t);t.focus();t.select();document.execCommand('copy');t.remove();}copy.textContent='Copied!';copy.classList.add('copied');setTimeout(()=>{copy.textContent='Copy';copy.classList.remove('copied');},1200);}copy.onclick=doCopy;render();
 </script></body></html>
