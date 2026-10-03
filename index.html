@@ -1229,3 +1229,87 @@ h1{font-size:44px;white-space:nowrap;font-weight:400 !important;-webkit-text-str
 body,body *{font-weight:400 !important}
 </style>
 </body></html>
+
+<style id="v17-layout-rules">
+:root{
+  --v17-gap:10px;
+  --v17-card-w:62px;
+}
+
+/* The grid is a collection of fixed-width cards. Never stretch cards to fill
+   the row, and never impose a maximum display width. */
+#grid{
+  box-sizing:border-box !important;
+  width:100% !important;
+  max-width:none !important;
+  margin-left:0 !important;
+  margin-right:0 !important;
+  padding-left:10px !important;
+  padding-right:10px !important;
+  gap:10px !important;
+  grid-template-columns:repeat(auto-fit,minmax(var(--v17-card-w),var(--v17-card-w))) !important;
+  justify-content:start !important;
+}
+
+/* Keep the page chrome at its reference size rather than allowing viewport
+   scaling rules to enlarge it. */
+header .head,
+footer .foot{
+  transform:none !important;
+  zoom:1 !important;
+}
+
+header .head{
+  width:100% !important;
+  max-width:none !important;
+  box-sizing:border-box !important;
+}
+
+footer .foot{
+  width:100% !important;
+  max-width:none !important;
+  box-sizing:border-box !important;
+}
+
+header h1,
+header .title{
+  font-size:32px !important;
+  line-height:1 !important;
+}
+
+header .sub{
+  font-size:14px !important;
+  line-height:1.2 !important;
+}
+
+#search{
+  font-size:14px !important;
+  height:38px !important;
+}
+
+footer .out,
+footer .copy{
+  font-size:14px !important;
+  height:40px !important;
+}
+
+footer .out{
+  min-height:40px !important;
+}
+
+footer .copy{
+  min-height:40px !important;
+}
+
+/* Do not let later responsive rules reintroduce a column cap or fractional
+   columns. */
+@media (min-width:700px){
+  #grid{grid-template-columns:repeat(auto-fit,minmax(var(--v17-card-w),var(--v17-card-w))) !important}
+}
+@media (min-width:900px){
+  #grid{grid-template-columns:repeat(auto-fit,minmax(var(--v17-card-w),var(--v17-card-w))) !important}
+}
+@media (min-width:1100px){
+  #grid{grid-template-columns:repeat(auto-fit,minmax(var(--v17-card-w),var(--v17-card-w))) !important}
+}
+</style>
