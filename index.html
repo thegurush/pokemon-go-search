@@ -1214,11 +1214,9 @@ async function doCopy(){if(!output.value)return;try{await navigator.clipboard.wr
 @media (min-width:1100px){#grid{grid-template-columns:repeat(8,minmax(0,1fr))}}
 </style>
 
-<style id="v10-adjustments">
-/* Wider layouts add columns while preserving the v8 card/sprite composition. */
+<style id="v12-safe-ui">
+header h1, header h2, header p { text-align:center !important; }
 @media (min-width:700px){#grid{grid-template-columns:repeat(6,minmax(0,1fr));justify-content:center}}
 @media (min-width:900px){#grid{grid-template-columns:repeat(7,minmax(0,1fr));justify-content:center}}
 @media (min-width:1100px){#grid{grid-template-columns:repeat(8,minmax(0,1fr));justify-content:center}}
-/* Center the title and description. */
-header h1, header p, header .title, header .subtitle, header .description{text-align:center}
 </style>
