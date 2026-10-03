@@ -1211,78 +1211,137 @@ function render(){const list=results();grid.replaceChildren();if(!list.length){c
 search.addEventListener('input',render);
 async function doCopy(){if(!output.value)return;try{await navigator.clipboard.writeText(output.value);}catch(e){const t=document.createElement('textarea');t.value=output.value;t.style.position='fixed';t.style.left='-9999px';document.body.appendChild(t);t.focus();t.select();document.execCommand('copy');t.remove();}copy.textContent='Copied!';copy.classList.add('copied');setTimeout(()=>{copy.textContent='Copy';copy.classList.remove('copied');},1200);}copy.onclick=doCopy;render();
 </script>
-<style id="v18-layout-rules">
-/* V18: V15/V8 card geometry is the immutable unit. */
-main{max-width:none !important;margin:0 !important;padding:10px 10px 18px !important}
-#grid{
+</body></html>
+
+<style id="v21-structural-layout">
+:root{
+  --card-w:79px;
+  --card-h:96px;
+  --grid-gap:10px;
+  --header-h:162px;
+  --footer-h:64px;
+}
+
+/* Stable page frame: header/footer are fixed visual regions and no longer
+   participate in the document flow calculations that were moving the grid. */
+html,body{
+  margin:0 !important;
+  width:100% !important;
+  min-width:0 !important;
+  background:var(--bg);
+}
+body{
+  min-height:100dvh !important;
+  padding:0 !important;
+  overflow-x:hidden !important;
+}
+
+/* Fixed header. Safe-area is included in its reserved height. */
+header{
+  position:fixed !important;
+  inset:0 0 auto 0 !important;
+  width:100% !important;
+  height:calc(var(--header-h) + env(safe-area-inset-top)) !important;
+  box-sizing:border-box !important;
+  padding:env(safe-area-inset-top) 10px 12px !important;
+  z-index:20 !important;
+  transform:none !important;
+  zoom:1 !important;
+}
+.head{
+  width:100% !important;
+  max-width:1100px !important;
+  margin:0 auto !important;
+}
+h1{
+  font-size:44px !important;
+  line-height:.98 !important;
+  font-weight:400 !important;
+  -webkit-text-stroke:0 !important;
+  white-space:nowrap !important;
+}
+.sub{
+  font-size:11px !important;
+  line-height:1.35 !important;
+  font-weight:400 !important;
+}
+#search{
+  height:47px !important;
+  font-size:15px !important;
+  font-weight:400 !important;
+  box-sizing:border-box !important;
+}
+
+/* Main is positioned between the fixed chrome. */
+main{
   width:100% !important;
   max-width:none !important;
+  margin:0 !important;
+  padding:calc(var(--header-h) + env(safe-area-inset-top) + 10px) 10px
+          calc(var(--footer-h) + env(safe-area-inset-bottom) + 10px) !important;
+  box-sizing:border-box !important;
+}
+
+/* Fixed-size cards, fixed 10px gaps. No fractional tracks and no stretch. */
+#grid{
   display:grid !important;
-  grid-template-columns:repeat(auto-fill,var(--card-w)) !important;
+  grid-template-columns:repeat(auto-fill, var(--card-w)) !important;
   grid-auto-rows:var(--card-h) !important;
+  column-gap:var(--grid-gap) !important;
+  row-gap:var(--grid-gap) !important;
   justify-content:start !important;
   align-content:start !important;
-  column-gap:10px !important;
-  row-gap:10px !important;
+  width:100% !important;
+  max-width:none !important;
+  margin:0 !important;
+  padding:0 !important;
+  box-sizing:border-box !important;
 }
-/* Remove every artificial width/column cap from the deck. */
-.head,.foot{max-width:none !important;width:100% !important}
+.card{
+  width:var(--card-w) !important;
+  min-width:var(--card-w) !important;
+  max-width:var(--card-w) !important;
+  height:var(--card-h) !important;
+  min-height:var(--card-h) !important;
+  max-height:var(--card-h) !important;
+}
 
-/* Text remains unbolded, as in V16. */
+/* Fixed footer in the visual viewport. Its actual reserved height is the same
+   height used above, so it cannot drift when zoom/orientation changes. */
+footer{
+  position:fixed !important;
+  inset:auto 0 0 0 !important;
+  width:100% !important;
+  height:calc(var(--footer-h) + env(safe-area-inset-bottom)) !important;
+  box-sizing:border-box !important;
+  padding:8px 8px env(safe-area-inset-bottom) !important;
+  z-index:30 !important;
+  transform:none !important;
+  zoom:1 !important;
+}
+.foot{
+  width:100% !important;
+  max-width:1100px !important;
+  height:45px !important;
+  margin:0 auto !important;
+  display:flex !important;
+  gap:7px !important;
+}
+.out,.copy{
+  height:45px !important;
+  min-height:45px !important;
+  max-height:45px !important;
+  box-sizing:border-box !important;
+  font-weight:400 !important;
+}
+.copy{font-weight:400 !important}
+
+/* Remove all remaining synthetic bolding. */
 body,body *{font-weight:400 !important}
-h1{font-size:44px !important;line-height:.98 !important;white-space:nowrap !important;-webkit-text-stroke:0 !important}
-.sub{font-size:11px !important;line-height:1.35 !important}
-#search{height:47px !important;font-size:15px !important}
-.out{height:45px !important;font-size:12px !important}
-.copy{height:45px !important;font-size:14px !important}
 
-/* Keep the header/footer layout dimensions independent of responsive width. */
-header{padding-left:10px !important;padding-right:10px !important}
-footer{padding-left:10px !important;padding-right:10px !important}
-
-/* No breakpoint is allowed to introduce a column cap or fractional columns. */
-@media (min-width:1px){#grid{grid-template-columns:repeat(auto-fill,var(--card-w)) !important}}
-</style>
-<script>
-/* V18 chrome scale guard: compensate header/footer for browser zoom while leaving
-   the card grid itself completely untouched. */
-(function(){
-  const header=document.querySelector('header');
-  const footer=document.querySelector('footer');
-  if(!header||!footer)return;
-  let baseDpr=window.devicePixelRatio||1;
-  let last=1;
-  function apply(){
-    const vv=window.visualViewport;
-    let z=vv&&vv.scale&&vv.scale>0 ? vv.scale : (window.devicePixelRatio||1)/baseDpr;
-    if(!isFinite(z)||z<=0) z=1;
-    /* On ordinary mobile layout, visualViewport.scale is the useful zoom signal.
-       On desktop, DPR changes with browser zoom in Chromium/Firefox. */
-    if(z<0.5||z>4) z=1;
-    const inv=1/z;
-    if(Math.abs(inv-last)<.002)return;
-    last=inv;
-    [header,footer].forEach(el=>{
-      el.style.setProperty('--chrome-inv-zoom',inv);
-      el.style.transform='scale('+inv+')';
-      el.style.transformOrigin='top left';
-      el.style.width=(100/inv)+'%';
-    });
-  }
-  apply();
-  window.addEventListener('resize',apply,{passive:true});
-  window.addEventListener('orientationchange',()=>setTimeout(apply,50),{passive:true});
-  if(window.visualViewport) visualViewport.addEventListener('resize',apply,{passive:true});
-})();
-</script>
-</body></html>
-<style id="v20-layout-rules">
-:root{--v20-gap:10px}
-#grid{box-sizing:border-box!important;width:100%!important;max-width:none!important;margin:0!important;padding-left:10px!important;padding-right:10px!important;column-gap:10px!important;row-gap:10px!important;justify-content:start!important;align-content:start!important;grid-template-columns:repeat(auto-fit,var(--v17-card-w,62px))!important}
-header,footer{box-sizing:border-box!important;width:100%!important;max-width:none!important;transform:none!important;zoom:1!important;flex-shrink:0!important}
-header h1,header .title{font-size:32px!important;line-height:1!important}
-header .sub{font-size:14px!important;line-height:1.2!important}
-#search{font-size:14px!important;height:38px!important;box-sizing:border-box!important}
-footer .out,footer .copy{font-size:14px!important;height:40px!important;min-height:40px!important;box-sizing:border-box!important}
-@media (min-width:1px){#grid{width:100%!important;max-width:none!important;padding-left:10px!important;padding-right:10px!important;column-gap:10px!important;row-gap:10px!important;grid-template-columns:repeat(auto-fit,var(--v17-card-w,62px))!important}}
+/* Never reintroduce responsive scaling/caps at wider widths. */
+@media (min-width:1px){
+  header h1{font-size:44px !important}
+  #grid{grid-template-columns:repeat(auto-fill,var(--card-w)) !important}
+}
 </style>
