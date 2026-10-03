@@ -19,11 +19,10 @@ html,body{margin:0;background:var(--bg);color:var(--cream);font-family:"Lilita O
 body{padding-bottom:calc(88px + env(safe-area-inset-bottom));min-height:100dvh;background:var(--bg)}
 header{position:sticky;top:0;z-index:20;padding:max(12px,env(safe-area-inset-top)) 10px 12px;background:#2b3933;border-bottom:3px solid var(--yellow);box-shadow:0 3px 0 rgba(0,0,0,.18)}
 .head{max-width:1100px;margin:auto}
-.title{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+.title{display:block;text-align:center}
 h1{font-family:"Lilita One",sans-serif;font-size:clamp(25px,6.8vw,44px);font-weight:700;-webkit-text-stroke:.65px currentColor;margin:0 0 5px;letter-spacing:.025em;color:var(--cream);line-height:.98;text-transform:none}
-h1::after{content:"";display:block;width:64px;height:5px;margin-top:8px;background:var(--red)}
-.count{font-family:"Lilita One",sans-serif;font-size:11px;color:var(--yellow);white-space:nowrap;font-weight:400;letter-spacing:.03em}
-.sub{font-family:"Lilita One",sans-serif;font-size:11px;font-weight:400;line-height:1.35;color:#d8ccb6;margin:0 0 11px;max-width:780px}
+h1::after{content:"";display:block;width:64px;height:5px;margin:8px auto 0;background:var(--red)}
+.sub{font-family:"Lilita One",sans-serif;font-size:11px;font-weight:400;line-height:1.35;color:#d8ccb6;margin:0 auto 11px;max-width:780px;text-align:center}
 #search{font-family:"Lilita One",sans-serif;width:100%;height:47px;border:3px solid var(--blue);border-radius:5px;background:#202d29;color:var(--cream);font-family:"Lilita One",sans-serif;font-size:15px;font-weight:400;padding:0 13px;outline:none;box-shadow:inset 0 0 0 2px #18221f,4px 4px 0 rgba(0,0,0,.16)}
 #search::placeholder{color:#bdb4a4}
 #search:focus{border-color:var(--yellow);box-shadow:inset 0 0 0 2px #18221f,4px 4px 0 rgba(0,0,0,.16)}
@@ -88,6 +87,9 @@ footer{position:fixed;z-index:30;left:0;right:0;bottom:0;padding:8px 8px calc(8p
 .page-corner.right span:nth-child(2){width:92px;right:-27px;bottom:35px;background:var(--teal);transform:rotate(45deg)}
 .page-corner.right span:nth-child(3){width:74px;right:-16px;bottom:55px;background:var(--yellow);transform:rotate(45deg)}
 @media(max-width:360px){#grid{gap:3px}.card{border-radius:6px;padding:2px}.name{font-size:7px}.num{font-size:6px}.copy{min-width:62px}.page-corner span{height:11px}}
+@media(min-width:700px){#grid{grid-template-columns:repeat(6,minmax(0,1fr))}}
+@media(min-width:900px){#grid{grid-template-columns:repeat(7,minmax(0,1fr))}}
+@media(min-width:1100px){#grid{grid-template-columns:repeat(8,minmax(0,1fr))}}
 
 </style></head><body>
 <header><div class="head"><div class="title"><h1>Tap to String</h1></div><p class="sub">Pokemon Go image based search string generator.</p><input id="search" type="search" inputmode="search" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="Search by name or Pokédex number…" aria-label="Search Pokémon"></div></header>
@@ -1072,7 +1074,7 @@ if (!POKEMON.some(p => p.id === 840 && p.name === 'Applin')) throw new Error('Ap
 if (!POKEMON.some(p => p.id === 942 && p.name === 'Maschiff')) throw new Error('Maschiff #942 missing.');
 if (!POKEMON.some(p => p.id === 943 && p.name === 'Mabosstiff')) throw new Error('Mabosstiff #943 missing.');
 const SPRITE_BASE='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/';
-const selected=new Set();const grid=document.getElementById('grid'),search=document.getElementById('search'),output=document.getElementById('output'),copy=document.getElementById('copy'),count=document.getElementById('count');
+const selected=new Set();const grid=document.getElementById('grid'),search=document.getElementById('search'),output=document.getElementById('output'),copy=document.getElementById('copy');
 const norm=s=>String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
 function results(){const q=norm(search.value.trim());return q?POKEMON.filter(p=>norm(p.name).includes(q)||String(p.id).includes(q)):POKEMON;}
 function updateOutput(){output.value=POKEMON.filter(p=>selected.has(p.id)).sort((a,b)=>a.id-b.id).map(p=>norm(p.name).replace(/[^a-z0-9]/g,'')).join(',');}
@@ -1202,21 +1204,9 @@ function relayoutSprites(){
   });
 }
 
-function render(){const list=results();grid.replaceChildren();count.textContent=list.length+' / '+POKEMON.length;if(!list.length){const e=document.createElement('div');e.className='empty';e.textContent='No Pokémon found.';grid.appendChild(e);return;}const f=document.createDocumentFragment();for(const p of list){const b=document.createElement('button');b.type='button';b.className='card'+(selected.has(p.id)?' selected':'');b.setAttribute('aria-pressed',selected.has(p.id));const img=document.createElement('img');img.className='sprite';img.src=SPRITE_BASE+p.id+'.png';img.alt='';img.width=64;img.height=64;img.loading='lazy';img.decoding='async';img.crossOrigin='anonymous';img.onload=()=>normalizeSprite(img);const colors=cardColor.get(p.id)||CARD_PALETTE[0];b.style.setProperty('--accent',colors.accent);b.style.background=colors.bg;const n=document.createElement('div');n.className='num';n.textContent='#'+String(p.id).padStart(3,'0');const name=document.createElement('div');name.className='name';name.textContent=p.name;const slot=document.createElement('div');slot.className='sprite-slot';slot.appendChild(img);b.append(slot,n,name);b.onclick=()=>{const isSelected=selected.has(p.id);if(isSelected) selected.delete(p.id); else selected.add(p.id);const nowSelected=!isSelected;b.classList.toggle('selected',nowSelected);b.setAttribute('aria-pressed',nowSelected?'true':'false');if(nowSelected){b.classList.remove('selection-pop');void b.offsetWidth;b.classList.add('selection-pop');}else{b.classList.remove('selection-pop');}updateOutput();};f.appendChild(b);}grid.appendChild(f);}
+function render(){const list=results();grid.replaceChildren();if(!list.length){const e=document.createElement('div');e.className='empty';e.textContent='No Pokémon found.';grid.appendChild(e);return;}const f=document.createDocumentFragment();for(const p of list){const b=document.createElement('button');b.type='button';b.className='card'+(selected.has(p.id)?' selected':'');b.setAttribute('aria-pressed',selected.has(p.id));const img=document.createElement('img');img.className='sprite';img.src=SPRITE_BASE+p.id+'.png';img.alt='';img.width=64;img.height=64;img.loading='lazy';img.decoding='async';img.crossOrigin='anonymous';img.onload=()=>normalizeSprite(img);const colors=cardColor.get(p.id)||CARD_PALETTE[0];b.style.setProperty('--accent',colors.accent);b.style.background=colors.bg;const n=document.createElement('div');n.className='num';n.textContent='#'+String(p.id).padStart(3,'0');const name=document.createElement('div');name.className='name';name.textContent=p.name;const slot=document.createElement('div');slot.className='sprite-slot';slot.appendChild(img);b.append(slot,n,name);b.onclick=()=>{const isSelected=selected.has(p.id);if(isSelected) selected.delete(p.id); else selected.add(p.id);const nowSelected=!isSelected;b.classList.toggle('selected',nowSelected);b.setAttribute('aria-pressed',nowSelected?'true':'false');if(nowSelected){b.classList.remove('selection-pop');void b.offsetWidth;b.classList.add('selection-pop');}else{b.classList.remove('selection-pop');}updateOutput();};f.appendChild(b);}grid.appendChild(f);}
 search.addEventListener('input',render);
 window.addEventListener('resize',relayoutSprites,{passive:true});
 if(window.ResizeObserver){const ro=new ResizeObserver(()=>relayoutSprites());ro.observe(grid);}
 async function doCopy(){if(!output.value)return;try{await navigator.clipboard.writeText(output.value);}catch(e){const t=document.createElement('textarea');t.value=output.value;t.style.position='fixed';t.style.left='-9999px';document.body.appendChild(t);t.focus();t.select();document.execCommand('copy');t.remove();}copy.textContent='Copied!';copy.classList.add('copied');setTimeout(()=>{copy.textContent='Copy';copy.classList.remove('copied');},1200);}copy.onclick=doCopy;render();
 </script></body></html>
-<style>
-@media (min-width:700px){#grid{grid-template-columns:repeat(6,minmax(0,1fr))}}
-@media (min-width:900px){#grid{grid-template-columns:repeat(7,minmax(0,1fr))}}
-@media (min-width:1100px){#grid{grid-template-columns:repeat(8,minmax(0,1fr))}}
-</style>
-
-<style id="v12-safe-ui">
-header h1, header h2, header p { text-align:center !important; }
-@media (min-width:700px){#grid{grid-template-columns:repeat(6,minmax(0,1fr));justify-content:center}}
-@media (min-width:900px){#grid{grid-template-columns:repeat(7,minmax(0,1fr));justify-content:center}}
-@media (min-width:1100px){#grid{grid-template-columns:repeat(8,minmax(0,1fr));justify-content:center}}
-</style>
