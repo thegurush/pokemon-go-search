@@ -1211,137 +1211,22 @@ function render(){const list=results();grid.replaceChildren();if(!list.length){c
 search.addEventListener('input',render);
 async function doCopy(){if(!output.value)return;try{await navigator.clipboard.writeText(output.value);}catch(e){const t=document.createElement('textarea');t.value=output.value;t.style.position='fixed';t.style.left='-9999px';document.body.appendChild(t);t.focus();t.select();document.execCommand('copy');t.remove();}copy.textContent='Copied!';copy.classList.add('copied');setTimeout(()=>{copy.textContent='Copy';copy.classList.remove('copied');},1200);}copy.onclick=doCopy;render();
 </script>
-</body></html>
+<style id="v16-ui-stability">
+/* V16: preserve V15 card geometry; stabilize page chrome and remove grid side gutters. */
+#grid{justify-content:space-between}
+main{padding-left:0;padding-right:0}
 
-<style id="v21-structural-layout">
-:root{
-  --card-w:79px;
-  --card-h:96px;
-  --grid-gap:10px;
-  --header-h:162px;
-  --footer-h:64px;
-}
+/* Keep the header at a fixed reference size instead of viewport-scaled typography. */
+h1{font-size:44px;white-space:nowrap;font-weight:400 !important;-webkit-text-stroke:0}
+.sub{font-size:11px;font-weight:400 !important}
+#search{height:47px;font-size:15px;font-weight:400 !important}
 
-/* Stable page frame: header/footer are fixed visual regions and no longer
-   participate in the document flow calculations that were moving the grid. */
-html,body{
-  margin:0 !important;
-  width:100% !important;
-  min-width:0 !important;
-  background:var(--bg);
-}
-body{
-  min-height:100dvh !important;
-  padding:0 !important;
-  overflow-x:hidden !important;
-}
+/* Keep footer controls at the V15 reference dimensions. */
+.out{height:45px;font-size:12px;font-weight:400 !important}
+.copy{height:45px;font-size:14px;font-weight:400 !important}
 
-/* Fixed header. Safe-area is included in its reserved height. */
-header{
-  position:fixed !important;
-  inset:0 0 auto 0 !important;
-  width:100% !important;
-  height:calc(var(--header-h) + env(safe-area-inset-top)) !important;
-  box-sizing:border-box !important;
-  padding:env(safe-area-inset-top) 10px 12px !important;
-  z-index:20 !important;
-  transform:none !important;
-  zoom:1 !important;
-}
-.head{
-  width:100% !important;
-  max-width:1100px !important;
-  margin:0 auto !important;
-}
-h1{
-  font-size:44px !important;
-  line-height:.98 !important;
-  font-weight:400 !important;
-  -webkit-text-stroke:0 !important;
-  white-space:nowrap !important;
-}
-.sub{
-  font-size:11px !important;
-  line-height:1.35 !important;
-  font-weight:400 !important;
-}
-#search{
-  height:47px !important;
-  font-size:15px !important;
-  font-weight:400 !important;
-  box-sizing:border-box !important;
-}
-
-/* Main is positioned between the fixed chrome. */
-main{
-  width:100% !important;
-  max-width:none !important;
-  margin:0 !important;
-  padding:calc(var(--header-h) + env(safe-area-inset-top) + 10px) 10px
-          calc(var(--footer-h) + env(safe-area-inset-bottom) + 10px) !important;
-  box-sizing:border-box !important;
-}
-
-/* Fixed-size cards, fixed 10px gaps. No fractional tracks and no stretch. */
-#grid{
-  display:grid !important;
-  grid-template-columns:repeat(auto-fill, var(--card-w)) !important;
-  grid-auto-rows:var(--card-h) !important;
-  column-gap:var(--grid-gap) !important;
-  row-gap:var(--grid-gap) !important;
-  justify-content:start !important;
-  align-content:start !important;
-  width:100% !important;
-  max-width:none !important;
-  margin:0 !important;
-  padding:0 !important;
-  box-sizing:border-box !important;
-}
-.card{
-  width:var(--card-w) !important;
-  min-width:var(--card-w) !important;
-  max-width:var(--card-w) !important;
-  height:var(--card-h) !important;
-  min-height:var(--card-h) !important;
-  max-height:var(--card-h) !important;
-}
-
-/* Fixed footer in the visual viewport. Its actual reserved height is the same
-   height used above, so it cannot drift when zoom/orientation changes. */
-footer{
-  position:fixed !important;
-  inset:auto 0 0 0 !important;
-  width:100% !important;
-  height:calc(var(--footer-h) + env(safe-area-inset-bottom)) !important;
-  box-sizing:border-box !important;
-  padding:8px 8px env(safe-area-inset-bottom) !important;
-  z-index:30 !important;
-  transform:none !important;
-  zoom:1 !important;
-}
-.foot{
-  width:100% !important;
-  max-width:1100px !important;
-  height:45px !important;
-  margin:0 auto !important;
-  display:flex !important;
-  gap:7px !important;
-}
-.out,.copy{
-  height:45px !important;
-  min-height:45px !important;
-  max-height:45px !important;
-  box-sizing:border-box !important;
-  font-weight:400 !important;
-}
-.copy{font-weight:400 !important}
-
-/* Remove all remaining synthetic bolding. */
+/* Remove synthetic bolding everywhere without changing the existing typeface or sizes. */
 body,body *{font-weight:400 !important}
-
-/* Never reintroduce responsive scaling/caps at wider widths. */
-@media (min-width:1px){
-  header h1{font-size:44px !important}
-  #grid{grid-template-columns:repeat(auto-fill,var(--card-w)) !important}
-}
 </style>
+</body></html>
+<style id="v22-layout-rules">#grid{width:100%!important;max-width:none!important;box-sizing:border-box!important;margin:0!important;padding:0!important;display:grid!important;grid-template-columns:repeat(auto-fit,minmax(62px,62px))!important;column-gap:clamp(6px,1.5vw,16px)!important;row-gap:10px!important;justify-content:space-evenly!important;align-content:start!important}#grid>*{width:62px!important;min-width:62px!important;max-width:62px!important;box-sizing:border-box!important}header,footer{width:100%!important;max-width:none!important;box-sizing:border-box!important;transform:none!important}header h1,header .title{font-size:32px!important;line-height:1!important}header .sub{font-size:14px!important;line-height:1.2!important}#search{font-size:14px!important;height:38px!important;min-height:38px!important;max-height:38px!important;box-sizing:border-box!important}footer .out,footer .copy{font-size:14px!important;height:40px!important;min-height:40px!important;max-height:40px!important;box-sizing:border-box!important}@media (min-width:1px){#grid{width:100%!important;max-width:none!important;grid-template-columns:repeat(auto-fit,minmax(62px,62px))!important;column-gap:clamp(6px,1.5vw,16px)!important;justify-content:space-evenly!important}}</style>
