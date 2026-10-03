@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- V15: V13 master card is fixed; responsive behavior only changes column count. -->
+<!-- V16: V15 card geometry preserved; page chrome stabilized and text unbolded. -->
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#18242e"><title>Pokémon GO Search String Generator</title><style>
 @import url("https://fonts.googleapis.com/css2?family=Lilita+One&display=swap");
 :root{
@@ -1210,4 +1210,22 @@ function relayoutSprites(){
 function render(){const list=results();grid.replaceChildren();if(!list.length){const e=document.createElement('div');e.className='empty';e.textContent='No Pokémon found.';grid.appendChild(e);return;}const f=document.createDocumentFragment();for(const p of list){const b=document.createElement('button');b.type='button';b.className='card'+(selected.has(p.id)?' selected':'');b.setAttribute('aria-pressed',selected.has(p.id));const img=document.createElement('img');img.className='sprite';img.src=SPRITE_BASE+p.id+'.png';img.alt='';img.width=64;img.height=64;img.loading='lazy';img.decoding='async';img.crossOrigin='anonymous';img.onload=()=>normalizeSprite(img);const colors=cardColor.get(p.id)||CARD_PALETTE[0];b.style.setProperty('--accent',colors.accent);b.style.background=colors.bg;const n=document.createElement('div');n.className='num';n.textContent='#'+String(p.id).padStart(3,'0');const name=document.createElement('div');name.className='name';name.textContent=p.name;const slot=document.createElement('div');slot.className='sprite-slot';slot.appendChild(img);b.append(slot,n,name);b.onclick=()=>{const isSelected=selected.has(p.id);if(isSelected) selected.delete(p.id); else selected.add(p.id);const nowSelected=!isSelected;b.classList.toggle('selected',nowSelected);b.setAttribute('aria-pressed',nowSelected?'true':'false');if(nowSelected){b.classList.remove('selection-pop');void b.offsetWidth;b.classList.add('selection-pop');}else{b.classList.remove('selection-pop');}updateOutput();};f.appendChild(b);}grid.appendChild(f);}
 search.addEventListener('input',render);
 async function doCopy(){if(!output.value)return;try{await navigator.clipboard.writeText(output.value);}catch(e){const t=document.createElement('textarea');t.value=output.value;t.style.position='fixed';t.style.left='-9999px';document.body.appendChild(t);t.focus();t.select();document.execCommand('copy');t.remove();}copy.textContent='Copied!';copy.classList.add('copied');setTimeout(()=>{copy.textContent='Copy';copy.classList.remove('copied');},1200);}copy.onclick=doCopy;render();
-</script></body></html>
+</script>
+<style id="v16-ui-stability">
+/* V16: preserve V15 card geometry; stabilize page chrome and remove grid side gutters. */
+#grid{justify-content:space-between}
+main{padding-left:0;padding-right:0}
+
+/* Keep the header at a fixed reference size instead of viewport-scaled typography. */
+h1{font-size:44px;white-space:nowrap;font-weight:400 !important;-webkit-text-stroke:0}
+.sub{font-size:11px;font-weight:400 !important}
+#search{height:47px;font-size:15px;font-weight:400 !important}
+
+/* Keep footer controls at the V15 reference dimensions. */
+.out{height:45px;font-size:12px;font-weight:400 !important}
+.copy{height:45px;font-size:14px;font-weight:400 !important}
+
+/* Remove synthetic bolding everywhere without changing the existing typeface or sizes. */
+body,body *{font-weight:400 !important}
+</style>
+</body></html>
