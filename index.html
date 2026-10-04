@@ -1279,145 +1279,61 @@ h1{font-size:44px !important;line-height:.98 !important;}
 </script>
 
 </body></html>
-
-<style id="v27-layout">
+<style id="v28-layout">
 #grid{
-  box-sizing:border-box!important;
-  width:100%!important;
-  max-width:none!important;
-  margin:0!important;
-  padding:0!important;
-  column-gap:0!important;
-  row-gap:0!important;
-  justify-content:start!important;
-  align-content:start!important;
+box-sizing:border-box!important;width:100%!important;max-width:none!important;
+margin:0!important;padding:0!important;column-gap:0!important;row-gap:0!important;
+justify-content:start!important;align-content:start!important;
 }
-#grid>*{box-sizing:border-box!important}
-
-/* The grid is positioned immediately after the fixed header. */
-</style>
-
-<script id="v27-grid-controller">
+#grid>*{box-sizing:border-box!important;}
+</style><script id="v28-grid-controller">
 (function(){
-  const GAP_MIN=6, GAP_MAX=16;
+const MIN=6,MAX=16;
+function layout(){
+ const grid=document.getElementById('grid'); if(!grid)return;
+ const cards=Array.from(grid.children); if(!cards.length)return;
+ const r=cards[0].getBoundingClientRect(),cw=r.width,ch=r.height;
+ if(!cw||!ch)return;
+ const W=grid.clientWidth;if(!W)return;
 
-  function layout(){
-    const grid=document.getElementById('grid');
-    const header=document.querySelector('header');
-    const footer=document.querySelector('footer');
-    if(!grid) return;
+ let cols=1;
+ for(let n=1;n<=cards.length;n++){
+   const g=(W-n*cw)/(n+1);
+   if(g>=MIN-0.001 && g<=MAX+0.001) cols=n;
+   else if(g<MIN) break;
+ }
+ if(cols<cards.length){
+   const next=(W-(cols+1)*cw)/(cols+2);
+   if(next>=MIN-0.001) cols++;
+ }
+ let gap=(W-cols*cw)/(cols+1);
+ gap=Math.max(MIN,Math.min(MAX,gap));
 
-    const cards=Array.from(grid.children);
-    if(!cards.length) return;
+ cards.forEach(c=>{c.style.margin='0';c.style.position='static';c.style.transform='none';});
 
-    const cardWidth=cards[0].getBoundingClientRect().width;
-    const cardHeight=cards[0].getBoundingClientRect().height;
-    if(!cardWidth || !cardHeight) return;
+ grid.style.display='grid';
+ grid.style.gridTemplateColumns=`repeat(${cols}, ${cw}px)`;
+ grid.style.columnGap=`${gap}px`;
+ grid.style.rowGap=`${gap}px`;
+ grid.style.padding=`${gap}px`;
 
-    const availableWidth=grid.clientWidth || document.documentElement.clientWidth;
-    if(!availableWidth) return;
-
-    /* One calculation: determine horizontal gap and column count. */
-    let columns=Math.max(1,Math.floor((availableWidth+GAP_MIN)/(cardWidth+GAP_MIN)));
-    columns=Math.min(columns,cards.length);
-
-    let gap=(availableWidth-columns*cardWidth)/(columns+1);
-
-    /*
-      If the current column count would make the gap >16px, add columns until
-      the calculated common gap is <=16px. If it is below 6px, the prior
-      column count is retained.
-    */
-    while(columns<cards.length && gap>GAP_MAX){
-      const candidate=(availableWidth-(columns+1)*cardWidth)/(columns+2);
-      if(candidate>=GAP_MIN){
-        columns++;
-        gap=candidate;
-      }else{
-        break;
-      }
-    }
-
-    gap=Math.max(GAP_MIN,Math.min(GAP_MAX,gap));
-
-    /* Same exact calculated gap everywhere. No independent vertical value. */
-    grid.style.gridTemplateColumns=`repeat(${columns}, ${cardWidth}px)`;
-    grid.style.columnGap='0px';
-    grid.style.rowGap='0px';
-    grid.style.padding='0';
-
-    cards.forEach((card,i)=>{
-      const col=i%columns;
-      const row=Math.floor(i/columns);
-      card.style.marginLeft=col===0 ? '0px' : `${gap}px`;
-      card.style.marginTop=row===0 ? `${gap}px` : `${gap}px`;
-      card.style.marginBottom='0px';
-    });
-
-    /*
-      Center the whole fixed-width track group by using identical outer
-      spacing. This uses the SAME gap value as every internal gap.
-    */
-    const totalWidth=columns*cardWidth+(columns-1)*gap+2*gap;
-    const leftover=Math.max(0,availableWidth-totalWidth);
-
-    /*
-      When the exact gap would be capped at 6/16, the remaining width can be
-      left over only when another card cannot fit under the 6px minimum or
-      when the 16px ceiling prevents further expansion. Never turn it into
-      an asymmetric right-side void when the common gap can absorb it.
-    */
-    const left=gap + leftover/2;
-    grid.style.paddingLeft=`${left}px`;
-    grid.style.paddingRight=`${left}px`;
-
-    /* The first row is exactly one calculated gap below the header. */
-    const headerHeight=header ? header.getBoundingClientRect().height : 0;
-    grid.style.marginTop='0px';
-    grid.style.paddingTop=`${gap}px`;
-
-    /*
-      Use the same gap between rows by explicit row margins. The final row
-      receives the same gap below it before the footer.
-    */
-    const rowCount=Math.ceil(cards.length/columns);
-    cards.forEach((card,i)=>{
-      const row=Math.floor(i/columns);
-      card.style.marginTop=`${gap}px`;
-      if(row>0) card.style.marginTop=`${gap}px`;
-    });
-
-    /* Keep the footer in the viewport and align its top relationship with
-       the same spacing value when the page is tall enough. */
-    if(footer){
-      footer.style.position='fixed';
-      footer.style.bottom='0';
-    }
-
-    /* Header is the anchor; force the grid to remain after its actual box. */
-    if(header){
-      grid.style.position='relative';
-      grid.style.top='0px';
-    }
-  }
-
-  let raf=0;
-  function schedule(){
-    cancelAnimationFrame(raf);
-    raf=requestAnimationFrame(layout);
-  }
-
-  addEventListener('resize',schedule,{passive:true});
-  addEventListener('orientationchange',schedule,{passive:true});
-  addEventListener('load',schedule);
-  addEventListener('DOMContentLoaded',schedule);
-  if(window.ResizeObserver){
-    const ro=new ResizeObserver(schedule);
-    ro.observe(document.documentElement);
-    const grid=document.getElementById('grid');
-    if(grid) ro.observe(grid);
-  }
-  setTimeout(schedule,50);
-  setTimeout(schedule,250);
+ const header=document.querySelector('header');
+ if(header){
+   const hr=header.getBoundingClientRect(),gr=grid.getBoundingClientRect();
+   grid.style.transform=`translateY(${hr.bottom-gr.top}px)`;
+ }
+}
+let raf=0;
+function schedule(){cancelAnimationFrame(raf);raf=requestAnimationFrame(layout);}
+addEventListener('load',schedule);
+addEventListener('DOMContentLoaded',schedule);
+addEventListener('resize',schedule,{passive:true});
+addEventListener('orientationchange',schedule,{passive:true});
+if(window.ResizeObserver){
+ const ro=new ResizeObserver(schedule);
+ ro.observe(document.documentElement);
+ const g=document.getElementById('grid');if(g)ro.observe(g);
+}
+setTimeout(schedule,50);setTimeout(schedule,250);
 })();
 </script>
