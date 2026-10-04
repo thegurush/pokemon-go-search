@@ -1253,68 +1253,47 @@ h1{font-size:44px !important;line-height:.98 !important;}
 
 /* JS below sets the exact number of fixed card tracks and a single uniform
    horizontal gap. The cards themselves retain their original 79x96 size. */
-#grid{width:100% !important;max-width:none !important;margin:0 !important;padding:0 !important;display:grid !important;justify-content:start !important;align-content:start !important;row-gap:10px !important;}
+#grid{width:100% !important;max-width:none !important;margin:0 !important;box-sizing:border-box !important;display:grid !important;align-content:start !important;justify-content:start !important;}
 </style>
-<script>
-(function(){
-  const grid=document.getElementById('grid');
-  if(!grid) return;
-  const CARD=79, MIN=6, MAX=16;
-  function layoutDeck(){
-    const w=grid.clientWidth || document.documentElement.clientWidth;
-    const n=Math.max(1,Math.floor((w+MIN)/(CARD+MIN)));
-    const gap=(w-n*CARD)/(n+1);
-    const g=Math.max(MIN,Math.min(MAX,gap));
-    grid.style.gridTemplateColumns='repeat('+n+','+CARD+'px)';
-    grid.style.columnGap=g.toFixed(3)+'px';
-    grid.style.paddingLeft='0px';
-    grid.style.paddingRight='0px';
-  }
-  const run=()=>requestAnimationFrame(layoutDeck);
-  window.addEventListener('resize',run,{passive:true});
-  if(window.visualViewport) window.visualViewport.addEventListener('resize',run,{passive:true});
-  document.addEventListener('DOMContentLoaded',run);
-  setTimeout(run,0); setTimeout(run,100);
-})();
-</script>
 
-</body></html>
-<style id="v29-layout">
-#grid{
-box-sizing:border-box!important;width:100%!important;max-width:none!important;
-margin:0!important;padding:0!important;column-gap:0!important;row-gap:0!important;
-justify-content:start!important;align-content:start!important;
-}
-</style><script id="v29-grid-controller">
+
+<style id="v30-grid-layout">
+#grid{box-sizing:border-box!important;width:100%!important;max-width:none!important;margin:0!important;padding:var(--deck-gap,10px)!important;column-gap:var(--deck-gap,10px)!important;row-gap:var(--deck-gap,10px)!important;justify-content:start!important;align-content:start!important;}
+</style>
+<script id="v30-grid-controller">
 (function(){
-const MIN=6,MAX=16; let pending=false;
-function layout(){
- pending=false;
- const grid=document.getElementById('grid'); if(!grid)return;
- const cards=Array.from(grid.children); if(!cards.length)return;
- const r=cards[0].getBoundingClientRect(),cw=r.width;
- if(!cw)return;
- const W=grid.clientWidth;if(!W)return;
- let cols=Math.max(1,Math.floor((W+MIN)/(cw+MIN)));
- cols=Math.min(cols,cards.length);
- let gap=(W-cols*cw)/(cols+1);
- while(cols<cards.length){
-   const candidate=(W-(cols+1)*cw)/(cols+2);
-   if(candidate>=MIN-0.01){cols++;gap=candidate;} else break;
- }
- gap=Math.max(MIN,Math.min(MAX,gap));
- grid.style.display='grid';
- grid.style.gridTemplateColumns=`repeat(${cols}, ${cw}px)`;
- grid.style.columnGap=`${gap}px`;
- grid.style.rowGap=`${gap}px`;
- grid.style.padding=`${gap}px`;
-}
-function schedule(){if(pending)return;pending=true;requestAnimationFrame(layout);}
-addEventListener('load',schedule,{once:true});
-addEventListener('DOMContentLoaded',schedule,{once:true});
-addEventListener('resize',schedule,{passive:true});
-addEventListener('orientationchange',schedule,{passive:true});
-if(window.visualViewport)visualViewport.addEventListener('resize',schedule,{passive:true});
-setTimeout(schedule,100);setTimeout(schedule,300);
+  const CARD=79, MIN=6, MAX=16;
+  let raf=0;
+  function apply(){
+    raf=0;
+    const grid=document.getElementById('grid');
+    if(!grid) return;
+    const W=grid.clientWidth;
+    if(!W) return;
+    // Pick the largest column count whose single uniform gap, including both
+    // outer edges, can remain inside the requested 6-16px range.
+    let n=Math.floor((W-MIN)/(CARD+MIN));
+    n=Math.max(1,n);
+    while(n>1 && (W-n*CARD)/(n+1) < MIN) n--;
+    while((W-(n+1)*CARD)/(n+2) >= MIN) n++;
+    let gap=(W-n*CARD)/(n+1);
+    // If the viewport is so narrow that even one card cannot have 6px edges,
+    // preserve the card geometry and use the smallest possible edge gap.
+    gap=Math.max(0,Math.min(MAX,gap));
+    grid.style.setProperty('--deck-gap',gap.toFixed(3)+'px');
+    grid.style.gridTemplateColumns='repeat('+n+','+CARD+'px)';
+    grid.style.padding=gap.toFixed(3)+'px';
+    grid.style.columnGap=gap.toFixed(3)+'px';
+    grid.style.rowGap=gap.toFixed(3)+'px';
+  }
+  function schedule(){ if(raf) return; raf=requestAnimationFrame(apply); }
+  addEventListener('load',schedule,{once:true});
+  addEventListener('resize',schedule,{passive:true});
+  addEventListener('orientationchange',schedule,{passive:true});
+  addEventListener('pageshow',schedule,{passive:true});
+  document.addEventListener('DOMContentLoaded',schedule,{once:true});
+  setTimeout(schedule,50);
+  setTimeout(schedule,250);
 })();
 </script>
+</body></html>
