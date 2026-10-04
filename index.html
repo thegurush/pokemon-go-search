@@ -68,6 +68,7 @@ main{max-width:1100px;margin:auto;padding:10px 6px 18px}
   position:absolute;
   left:50%;
   bottom:0;
+  transform:translateX(-50%);
   z-index:0;
 }
 .num{align-self:auto;min-height:1em;position:relative;z-index:2;font-family:"Lilita One",sans-serif;font-size:7px;color:var(--accent);margin:2px 0;font-weight:700;letter-spacing:.02em}
@@ -1260,40 +1261,106 @@ h1{font-size:44px !important;line-height:.98 !important;}
 <style id="v30-grid-layout">
 #grid{box-sizing:border-box!important;width:100%!important;max-width:none!important;margin:0!important;padding:var(--deck-gap,10px)!important;column-gap:var(--deck-gap,10px)!important;row-gap:var(--deck-gap,10px)!important;justify-content:start!important;align-content:start!important;}
 </style>
-<script id="v30-grid-controller">
+
+<style id="v31-grid-layout">
+/* V31: the viewport is the deck. Card geometry remains untouched. */
+main{
+  width:100% !important;
+  max-width:none !important;
+  margin:0 !important;
+  padding-left:0 !important;
+  padding-right:0 !important;
+}
+#grid{
+  width:100% !important;
+  max-width:none !important;
+  margin:0 !important;
+  box-sizing:border-box !important;
+  display:grid !important;
+  justify-content:start !important;
+  align-content:start !important;
+  overflow:visible !important;
+}
+.sprite{
+  /* Center even before lazy-load normalization finishes. */
+  left:50%;
+  transform:translateX(-50%);
+}
+
+</style>
+<script id="v31-grid-controller">
 (function(){
   const CARD=79, MIN=6, MAX=16;
-  let raf=0;
+  let timer=0, raf=0;
+
   function apply(){
     raf=0;
     const grid=document.getElementById('grid');
     if(!grid) return;
-    const W=grid.clientWidth;
+
+    // Use the actual layout viewport width, not the grid's transient width.
+    // This avoids the grid changing its own measurement while it is being laid out.
+    const W=document.documentElement.clientWidth;
     if(!W) return;
-    // Pick the largest column count whose single uniform gap, including both
-    // outer edges, can remain inside the requested 6-16px range.
-    let n=Math.floor((W-MIN)/(CARD+MIN));
-    n=Math.max(1,n);
-    while(n>1 && (W-n*CARD)/(n+1) < MIN) n--;
-    while((W-(n+1)*CARD)/(n+2) >= MIN) n++;
+
+    // Choose the greatest number of fixed-width cards for which ONE gap value
+    // can be used for every horizontal space:
+    // left edge | card | gap | card | ... | gap | card | right edge
+    let n=Math.max(1, Math.floor((W-MIN)/(CARD+MIN)));
+
+    while(n>1){
+      const g=(W-n*CARD)/(n+1);
+      if(g >= MIN) break;
+      n--;
+    }
+    while(true){
+      const next=n+1;
+      const g=(W-next*CARD)/(next+1);
+      if(g < MIN || g > MAX) break;
+      n=next;
+    }
+
     let gap=(W-n*CARD)/(n+1);
-    // If the viewport is so narrow that even one card cannot have 6px edges,
-    // preserve the card geometry and use the smallest possible edge gap.
-    gap=Math.max(0,Math.min(MAX,gap));
-    grid.style.setProperty('--deck-gap',gap.toFixed(3)+'px');
-    grid.style.gridTemplateColumns='repeat('+n+','+CARD+'px)';
-    grid.style.padding=gap.toFixed(3)+'px';
-    grid.style.columnGap=gap.toFixed(3)+'px';
-    grid.style.rowGap=gap.toFixed(3)+'px';
+
+    // If the viewport is too narrow for the requested range, preserve the
+    // locked card width rather than resizing the cards.
+    if(gap < MIN) gap=MIN;
+    if(gap > MAX) gap=MAX;
+
+    const g=gap.toFixed(4);
+
+    grid.style.setProperty('--deck-gap',g+'px');
+    grid.style.gridTemplateColumns='repeat('+n+','+CARD+'px');
+    grid.style.paddingLeft=g+'px';
+    grid.style.paddingRight=g+'px';
+    grid.style.columnGap=g+'px';
+    grid.style.rowGap=g+'px';
+    grid.style.justifyContent='start';
   }
-  function schedule(){ if(raf) return; raf=requestAnimationFrame(apply); }
+
+  function schedule(){
+    clearTimeout(timer);
+    timer=setTimeout(function(){
+      if(raf) cancelAnimationFrame(raf);
+      raf=requestAnimationFrame(apply);
+    },90);
+  }
+
   addEventListener('load',schedule,{once:true});
   addEventListener('resize',schedule,{passive:true});
   addEventListener('orientationchange',schedule,{passive:true});
   addEventListener('pageshow',schedule,{passive:true});
   document.addEventListener('DOMContentLoaded',schedule,{once:true});
-  setTimeout(schedule,50);
-  setTimeout(schedule,250);
+
+  // Safari/iOS browser zoom and visual viewport changes can occur without a
+  // normal layout resize event. Debounce them so the grid settles once rather
+  // than flashing through intermediate column counts.
+  if(window.visualViewport){
+    visualViewport.addEventListener('resize',schedule,{passive:true});
+  }
+
+  setTimeout(schedule,120);
+  setTimeout(schedule,350);
 })();
 </script>
 </body></html>
