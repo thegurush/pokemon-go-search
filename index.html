@@ -1279,61 +1279,42 @@ h1{font-size:44px !important;line-height:.98 !important;}
 </script>
 
 </body></html>
-<style id="v28-layout">
+<style id="v29-layout">
 #grid{
 box-sizing:border-box!important;width:100%!important;max-width:none!important;
 margin:0!important;padding:0!important;column-gap:0!important;row-gap:0!important;
 justify-content:start!important;align-content:start!important;
 }
-#grid>*{box-sizing:border-box!important;}
-</style><script id="v28-grid-controller">
+</style><script id="v29-grid-controller">
 (function(){
-const MIN=6,MAX=16;
+const MIN=6,MAX=16; let pending=false;
 function layout(){
+ pending=false;
  const grid=document.getElementById('grid'); if(!grid)return;
  const cards=Array.from(grid.children); if(!cards.length)return;
- const r=cards[0].getBoundingClientRect(),cw=r.width,ch=r.height;
- if(!cw||!ch)return;
+ const r=cards[0].getBoundingClientRect(),cw=r.width;
+ if(!cw)return;
  const W=grid.clientWidth;if(!W)return;
-
- let cols=1;
- for(let n=1;n<=cards.length;n++){
-   const g=(W-n*cw)/(n+1);
-   if(g>=MIN-0.001 && g<=MAX+0.001) cols=n;
-   else if(g<MIN) break;
- }
- if(cols<cards.length){
-   const next=(W-(cols+1)*cw)/(cols+2);
-   if(next>=MIN-0.001) cols++;
- }
+ let cols=Math.max(1,Math.floor((W+MIN)/(cw+MIN)));
+ cols=Math.min(cols,cards.length);
  let gap=(W-cols*cw)/(cols+1);
+ while(cols<cards.length){
+   const candidate=(W-(cols+1)*cw)/(cols+2);
+   if(candidate>=MIN-0.01){cols++;gap=candidate;} else break;
+ }
  gap=Math.max(MIN,Math.min(MAX,gap));
-
- cards.forEach(c=>{c.style.margin='0';c.style.position='static';c.style.transform='none';});
-
  grid.style.display='grid';
  grid.style.gridTemplateColumns=`repeat(${cols}, ${cw}px)`;
  grid.style.columnGap=`${gap}px`;
  grid.style.rowGap=`${gap}px`;
  grid.style.padding=`${gap}px`;
-
- const header=document.querySelector('header');
- if(header){
-   const hr=header.getBoundingClientRect(),gr=grid.getBoundingClientRect();
-   grid.style.transform=`translateY(${hr.bottom-gr.top}px)`;
- }
 }
-let raf=0;
-function schedule(){cancelAnimationFrame(raf);raf=requestAnimationFrame(layout);}
-addEventListener('load',schedule);
-addEventListener('DOMContentLoaded',schedule);
+function schedule(){if(pending)return;pending=true;requestAnimationFrame(layout);}
+addEventListener('load',schedule,{once:true});
+addEventListener('DOMContentLoaded',schedule,{once:true});
 addEventListener('resize',schedule,{passive:true});
 addEventListener('orientationchange',schedule,{passive:true});
-if(window.ResizeObserver){
- const ro=new ResizeObserver(schedule);
- ro.observe(document.documentElement);
- const g=document.getElementById('grid');if(g)ro.observe(g);
-}
-setTimeout(schedule,50);setTimeout(schedule,250);
+if(window.visualViewport)visualViewport.addEventListener('resize',schedule,{passive:true});
+setTimeout(schedule,100);setTimeout(schedule,300);
 })();
 </script>
