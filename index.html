@@ -1211,91 +1211,71 @@ function render(){const list=results();grid.replaceChildren();if(!list.length){c
 search.addEventListener('input',render);
 async function doCopy(){if(!output.value)return;try{await navigator.clipboard.writeText(output.value);}catch(e){const t=document.createElement('textarea');t.value=output.value;t.style.position='fixed';t.style.left='-9999px';document.body.appendChild(t);t.focus();t.select();document.execCommand('copy');t.remove();}copy.textContent='Copied!';copy.classList.add('copied');setTimeout(()=>{copy.textContent='Copy';copy.classList.remove('copied');},1200);}copy.onclick=doCopy;render();
 </script>
-<style id="v18-layout-rules">
-/* V18: V15/V8 card geometry is the immutable unit. */
-main{max-width:none !important;margin:0 !important;padding:10px 10px 18px !important}
-#grid{
-  width:100% !important;
-  max-width:none !important;
-  display:grid !important;
-  grid-template-columns:repeat(auto-fill,var(--card-w)) !important;
-  grid-auto-rows:var(--card-h) !important;
-  justify-content:start !important;
-  align-content:start !important;
-  column-gap:10px !important;
-  row-gap:10px !important;
-}
-/* Remove every artificial width/column cap from the deck. */
-.head,.foot{max-width:none !important;width:100% !important}
+<style id="v16-ui-stability">
+/* V16: preserve V15 card geometry; stabilize page chrome and remove grid side gutters. */
+#grid{justify-content:space-between}
+main{padding-left:0;padding-right:0}
 
-/* Text remains unbolded, as in V16. */
+/* Keep the header at a fixed reference size instead of viewport-scaled typography. */
+h1{font-size:44px;white-space:nowrap;font-weight:400 !important;-webkit-text-stroke:0}
+.sub{font-size:11px;font-weight:400 !important}
+#search{height:47px;font-size:15px;font-weight:400 !important}
+
+/* Keep footer controls at the V15 reference dimensions. */
+.out{height:45px;font-size:12px;font-weight:400 !important}
+.copy{height:45px;font-size:14px;font-weight:400 !important}
+
+/* Remove synthetic bolding everywhere without changing the existing typeface or sizes. */
 body,body *{font-weight:400 !important}
-h1{font-size:44px !important;line-height:.98 !important;white-space:nowrap !important;-webkit-text-stroke:0 !important}
-.sub{font-size:11px !important;line-height:1.35 !important}
-#search{height:47px !important;font-size:15px !important}
-.out{height:45px !important;font-size:12px !important}
-.copy{height:45px !important;font-size:14px !important}
+</style>
 
-/* Keep the header/footer layout dimensions independent of responsive width. */
-header{padding-left:10px !important;padding-right:10px !important}
-footer{padding-left:10px !important;padding-right:10px !important}
+<style id="v24-structural-layout">
+/* V24: structural fix. Card internals and --card-w/--card-h are untouched. */
+html,body{margin:0;min-width:0;width:100%;}
+body{padding-bottom:0;min-height:100dvh;overflow-x:hidden;}
 
-/* No breakpoint is allowed to introduce a column cap or fractional columns. */
-@media (min-width:1px){#grid{grid-template-columns:repeat(auto-fill,var(--card-w)) !important}}
+/* Remove the old 1100px container ceiling. */
+.head,main,.foot{max-width:none !important;width:100% !important;margin-left:0 !important;margin-right:0 !important;}
+main{padding-left:0 !important;padding-right:0 !important;}
+
+/* Header/footer are fixed-size layout regions in CSS pixels. */
+header{box-sizing:border-box;position:sticky;top:0;}
+.head{box-sizing:border-box;padding-left:10px;padding-right:10px;}
+footer{box-sizing:border-box;position:fixed;left:0;right:0;bottom:0;}
+.foot{box-sizing:border-box;padding-left:8px;padding-right:8px;}
+
+/* Do not let viewport-based rules alter chrome typography. */
+h1{font-size:44px !important;line-height:.98 !important;}
+.sub{font-size:11px !important;line-height:1.35 !important;}
+#search{height:47px !important;font-size:15px !important;}
+.out{height:45px !important;font-size:12px !important;}
+.copy{height:45px !important;font-size:14px !important;}
+
+/* JS below sets the exact number of fixed card tracks and a single uniform
+   horizontal gap. The cards themselves retain their original 79x96 size. */
+#grid{width:100% !important;max-width:none !important;margin:0 !important;padding:0 !important;display:grid !important;justify-content:start !important;align-content:start !important;row-gap:10px !important;}
 </style>
 <script>
-/* V18 chrome scale guard: compensate header/footer for browser zoom while leaving
-   the card grid itself completely untouched. */
 (function(){
-  const header=document.querySelector('header');
-  const footer=document.querySelector('footer');
-  if(!header||!footer)return;
-  let baseDpr=window.devicePixelRatio||1;
-  let last=1;
-  function apply(){
-    const vv=window.visualViewport;
-    let z=vv&&vv.scale&&vv.scale>0 ? vv.scale : (window.devicePixelRatio||1)/baseDpr;
-    if(!isFinite(z)||z<=0) z=1;
-    /* On ordinary mobile layout, visualViewport.scale is the useful zoom signal.
-       On desktop, DPR changes with browser zoom in Chromium/Firefox. */
-    if(z<0.5||z>4) z=1;
-    const inv=1/z;
-    if(Math.abs(inv-last)<.002)return;
-    last=inv;
-    [header,footer].forEach(el=>{
-      el.style.setProperty('--chrome-inv-zoom',inv);
-      el.style.transform='scale('+inv+')';
-      el.style.transformOrigin='top left';
-      el.style.width=(100/inv)+'%';
-    });
+  const grid=document.getElementById('grid');
+  if(!grid) return;
+  const CARD=79, MIN=6, MAX=16;
+  function layoutDeck(){
+    const w=grid.clientWidth || document.documentElement.clientWidth;
+    const n=Math.max(1,Math.floor((w+MIN)/(CARD+MIN)));
+    const gap=(w-n*CARD)/(n+1);
+    const g=Math.max(MIN,Math.min(MAX,gap));
+    grid.style.gridTemplateColumns='repeat('+n+','+CARD+'px)';
+    grid.style.columnGap=g.toFixed(3)+'px';
+    grid.style.paddingLeft='0px';
+    grid.style.paddingRight='0px';
   }
-  apply();
-  window.addEventListener('resize',apply,{passive:true});
-  window.addEventListener('orientationchange',()=>setTimeout(apply,50),{passive:true});
-  if(window.visualViewport) visualViewport.addEventListener('resize',apply,{passive:true});
+  const run=()=>requestAnimationFrame(layoutDeck);
+  window.addEventListener('resize',run,{passive:true});
+  if(window.visualViewport) window.visualViewport.addEventListener('resize',run,{passive:true});
+  document.addEventListener('DOMContentLoaded',run);
+  setTimeout(run,0); setTimeout(run,100);
 })();
 </script>
-</body></html>
 
-<style id="v23-grid-spacing">
-#grid{
-  width:100% !important;
-  max-width:none !important;
-  box-sizing:border-box !important;
-  margin:0 !important;
-  padding:0 !important;
-  display:grid !important;
-  grid-template-columns:repeat(auto-fit,minmax(0,max-content)) !important;
-  column-gap:clamp(6px,1.5vw,16px) !important;
-  row-gap:10px !important;
-  justify-content:space-evenly !important;
-  align-content:start !important;
-}
-#grid > *{
-  justify-self:start !important;
-  box-sizing:border-box !important;
-}
-@media (min-width:1px){
-  #grid{width:100% !important;max-width:none !important;}
-}
-</style>
+</body></html>
