@@ -94,6 +94,16 @@ footer{position:fixed;z-index:30;left:0;right:0;bottom:0;padding:8px 8px calc(8p
 .page-corner.right span:nth-child(3){width:74px;right:-16px;bottom:55px;background:var(--yellow);transform:rotate(45deg)}
 @media(max-width:360px){.copy{min-width:62px}.page-corner span{height:11px}}
 
+
+/* V39: never show an unprocessed sprite. The sprite becomes visible only
+   after cropping/normalization and final sizing have completed. */
+.pokemon-card img.sprite-pending{
+  opacity:0 !important;
+}
+.pokemon-card img.sprite-ready{
+  opacity:1 !important;
+}
+
 </style>
 <style id="v31-v15-architecture">
 /*
