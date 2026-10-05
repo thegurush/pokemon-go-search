@@ -65,9 +65,11 @@ main{max-width:1100px;margin:auto;padding:0}
   transform:none;
   transform-origin:center bottom;
   margin:0;
-  position:absolute;
-  left:50%;
-  bottom:0;
+  position:static;
+  left:auto;
+  bottom:auto;
+  align-self:center;
+  justify-self:center;
   z-index:0;
 }
 .num{align-self:auto;min-height:1em;position:relative;z-index:2;font-family:"Lilita One",sans-serif;font-size:7px;color:var(--accent);margin:2px 0;font-weight:700;letter-spacing:.02em}
@@ -1529,4 +1531,6 @@ main{
   schedule();
 })();
 </script>
+
+<!-- V38: sprites start in their final centered grid position to avoid the right-edge first-paint state. -->
 </body></html>
