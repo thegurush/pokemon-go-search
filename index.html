@@ -1435,10 +1435,86 @@ async function doCopy(){if(!output.value)return;try{await navigator.clipboard.wr
 /* V35: spacing is fluid; cards remain exactly 79x96. */
 </style>
 
-<style id="v32-fixed-chrome">
-/* Chrome uses the V15 reference geometry. No JS zoom compensation or transforms. */
-header{transform:none!important;zoom:1!important;}
-footer{transform:none!important;zoom:1!important;}
-.head,.foot{transform:none!important;zoom:1!important;}
+<style id="v36-fixed-chrome">
+/*
+  V36 fixed chrome experiment.
+  The V35 card/grid system is untouched. Header and footer are taken out of
+  normal flow and visually counter-scaled against Safari's page zoom. Their
+  layout boxes remain stable; only the visual transform compensates for zoom.
+*/
+header{
+  position:fixed !important;
+  left:0 !important;
+  right:0 !important;
+  top:0 !important;
+  width:100% !important;
+  max-width:none !important;
+  transform-origin:top left !important;
+  transform:scale(var(--chrome-inverse-zoom,1)) !important;
+}
+footer{
+  position:fixed !important;
+  left:0 !important;
+  right:0 !important;
+  bottom:0 !important;
+  width:100% !important;
+  max-width:none !important;
+  transform-origin:bottom left !important;
+  transform:scale(var(--chrome-inverse-zoom,1)) !important;
+}
+main{
+  padding-top:var(--header-space,0px) !important;
+  padding-bottom:var(--footer-space,0px) !important;
+}
 </style>
+<script id="v36-fixed-chrome-engine">
+(function(){
+  'use strict';
+
+  /*
+    The important distinction from V18: we never resize the chrome itself.
+    We only apply one inverse visual transform for the current visualViewport
+    scale, and separately reserve the transformed chrome's physical height.
+    The grid remains completely independent.
+  */
+  const root=document.documentElement;
+  const header=document.querySelector('header');
+  const footer=document.querySelector('footer');
+  let raf=0;
+
+  function update(){
+    raf=0;
+    if(!header || !footer) return;
+
+    const vv=window.visualViewport;
+    const scale=(vv && Number.isFinite(vv.scale) && vv.scale>0) ? vv.scale : 1;
+    const inverse=1/scale;
+
+    root.style.setProperty('--chrome-inverse-zoom', String(inverse));
+
+    // offsetHeight is the untransformed CSS layout height. Dividing by the
+    // zoom factor reserves exactly the amount of CSS space occupied visually
+    // by the counter-scaled fixed chrome.
+    const headerSpace=header.offsetHeight*inverse;
+    const footerSpace=footer.offsetHeight*inverse;
+    root.style.setProperty('--header-space', headerSpace+'px');
+    root.style.setProperty('--footer-space', footerSpace+'px');
+  }
+
+  function schedule(){
+    if(raf) return;
+    raf=requestAnimationFrame(update);
+  }
+
+  window.addEventListener('load',schedule,{passive:true});
+  window.addEventListener('resize',schedule,{passive:true});
+  window.addEventListener('orientationchange',schedule,{passive:true});
+  if(window.visualViewport){
+    window.visualViewport.addEventListener('resize',schedule,{passive:true});
+    window.visualViewport.addEventListener('scroll',schedule,{passive:true});
+  }
+  document.addEventListener('DOMContentLoaded',schedule,{once:true});
+  schedule();
+})();
+</script>
 </body></html>
