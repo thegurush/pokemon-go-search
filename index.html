@@ -30,8 +30,8 @@ h1::after{content:"";display:block;width:64px;height:5px;margin:8px auto 0;backg
 #search{font-family:"Lilita One",sans-serif;width:100%;height:47px;border:3px solid var(--blue);border-radius:5px;background:#202d29;color:var(--cream);font-family:"Lilita One",sans-serif;font-size:15px;font-weight:400;padding:0 13px;outline:none;box-shadow:inset 0 0 0 2px #18221f,4px 4px 0 rgba(0,0,0,.16)}
 #search::placeholder{color:#bdb4a4}
 #search:focus{border-color:var(--yellow);box-shadow:inset 0 0 0 2px #18221f,4px 4px 0 rgba(0,0,0,.16)}
-main{max-width:1100px;margin:auto;padding:10px 6px 18px}
-#grid{display:grid;grid-template-columns:repeat(auto-fill,var(--card-w));justify-content:center;gap:10px}
+main{max-width:1100px;margin:auto;padding:0}
+#grid{display:grid;grid-template-columns:repeat(auto-fill,var(--card-w));justify-content:start;gap:0;padding:0}
 .card{--accent:var(--blue);min-width:0;width:var(--card-w);height:var(--card-h);border:3px solid var(--accent);border-radius:7px;background:var(--panel);color:var(--cream);padding:4px;display:grid;grid-template-rows:minmax(0,1fr) auto auto;align-items:stretch;justify-items:center;cursor:pointer;position:relative;transition:transform .1s ease,border-color .12s ease,background .12s ease,box-shadow .12s ease;overflow:hidden;box-shadow:3px 3px 0 rgba(0,0,0,.16)}
 .card::before{content:"";position:absolute;left:-1px;top:-1px;width:20px;height:20px;background:var(--accent);clip-path:polygon(0 0,100% 0,0 100%);opacity:.98}
 .card::after{content:"";position:absolute;right:-1px;bottom:-1px;width:18px;height:18px;background:var(--accent);clip-path:polygon(100% 0,100% 100%,0 100%);opacity:.92}
@@ -104,8 +104,8 @@ footer{position:fixed;z-index:30;left:0;right:0;bottom:0;padding:8px 8px calc(8p
 
   Grid contract:
     - fixed card tracks
-    - one identical gap for left edge, every column gap, and right edge
-    - preferred gap range 6px..16px
+    - one identical dynamically calculated gap for all deck edges and rows
+    - gap stays visually close to the former 10px target
     - no max-width or column-count ceiling
     - no ResizeObserver feedback loop
     - no scroll listener
@@ -195,23 +195,21 @@ h1{
 }
 
 /*
-  The deck is deliberately not given a max-width. The JS below chooses the
-  fixed number of 79px tracks and one shared gap. Padding is the same gap,
-  so the left and right edge spacing are mathematically identical to the
-  inter-card spacing whenever a valid 6..16px solution exists.
+  The deck is deliberately not given a max-width. V35 chooses the fixed
+  number of 79px tracks and one shared gap from the actual available width.
+  That same gap is used for the left/right/top/bottom deck edges and every
+  inter-card row/column gap.
 */
 #grid{
   box-sizing:border-box !important;
   width:100% !important;
   max-width:none !important;
   margin:0 !important;
-  padding:0 !important;
+  padding:0;
   display:grid !important;
-  justify-content:start !important;
-  align-content:start !important;
+  justify-content:start;
+  align-content:start;
   grid-auto-rows:var(--card-h) !important;
-  column-gap:0 !important;
-  row-gap:0 !important;
 }
 
 /*
@@ -1354,69 +1352,65 @@ function render(){const list=results();grid.replaceChildren();if(!list.length){c
 search.addEventListener('input',render);
 async function doCopy(){if(!output.value)return;try{await navigator.clipboard.writeText(output.value);}catch(e){const t=document.createElement('textarea');t.value=output.value;t.style.position='fixed';t.style.left='-9999px';document.body.appendChild(t);t.focus();t.select();document.execCommand('copy');t.remove();}copy.textContent='Copied!';copy.classList.add('copied');setTimeout(()=>{copy.textContent='Copy';copy.classList.remove('copied');},1200);}copy.onclick=doCopy;render();
 </script>
-<script id="v32-stable-layout-engine">
+<script id="v35-fluid-gap-layout-engine">
 (function(){
   'use strict';
 
   const CARD_W = 79;
-  const GAP_MIN = 6;
-  const GAP_MAX = 16;
-  let lastColumns = null;
+  const TARGET_GAP = 10;
   let raf = 0;
 
   /*
-    V32 architecture:
-    - The V15 card is sacred: 79x96 and its internal/sprite CSS is untouched.
-    - The deck is solved from the ACTUAL grid width, not documentElement width.
-    - One gap value is used everywhere: left edge, every column gap, right edge,
-      and every row gap.
-    - No max-width, no column ceiling, no ResizeObserver, no scroll listener,
-      and no repeated correction loop.
+    V35 layout architecture:
+    - The V15 card is sacred: 79x96. Card geometry and sprite rules are untouched.
+    - No hard 6..16px gap band. No artificial max-width or column ceiling.
+    - For the current available width, choose the integer column count whose
+      resulting shared gap is closest to 10px, while keeping the gap positive.
+    - That ONE calculated gap is used for BOTH horizontal and vertical spacing,
+      including the deck's left/right/top/bottom padding.
+    - The deck therefore always fills the available width without a leftover
+      right-side remainder, while keeping the visual gap close to the old target.
+    - Layout is recalculated only from viewport/layout changes, never from scroll.
   */
   function solve(width){
-    if(!Number.isFinite(width) || width <= 0) return {columns:1,gap:GAP_MIN};
+    if(!Number.isFinite(width) || width <= 0) return {columns:1,gap:TARGET_GAP};
 
-    // Prefer the largest column count whose common gap is inside 6..16px.
-    // Because both outer edges are included, the equation is:
-    //   width = n*79 + (n+1)*gap
-    let best = null;
-    const maxN = Math.max(1, Math.floor(width / CARD_W));
-    for(let n=maxN; n>=1; n--){
-      const gap = (width - n*CARD_W)/(n+1);
-      if(gap >= GAP_MIN - 0.0001 && gap <= GAP_MAX + 0.0001){
-        best = {columns:n,gap:Math.max(GAP_MIN,Math.min(GAP_MAX,gap))};
-        break;
+    // Pick the column count nearest the ideal 10px-gap solution.
+    const ideal=(width-TARGET_GAP)/(CARD_W+TARGET_GAP);
+    const candidates=new Set();
+    const base=Math.floor(ideal);
+    for(let n=base-2;n<=base+2;n++){
+      if(n>=1) candidates.add(n);
+    }
+
+    let best=null;
+    for(const n of candidates){
+      const gap=(width-n*CARD_W)/(n+1);
+      if(gap<0) continue;
+      const score=Math.abs(gap-TARGET_GAP);
+      if(!best || score<best.score || (score===best.score && n>best.columns)){
+        best={columns:n,gap,score};
       }
     }
-    if(best) return best;
 
-    // If the largest count would require >16px, drop one column. This is the
-    // important distinction: preserve the 79px card and the shared-gap rule,
-    // not the previous column count. A narrower viewport must never carry an
-    // old landscape column count into portrait.
-    const columns = Math.max(1, Math.floor((width-GAP_MIN)/(CARD_W+GAP_MIN)));
-    const gap = (width-columns*CARD_W)/(columns+1);
-    return {columns, gap:Math.max(GAP_MIN,Math.min(GAP_MAX,gap))};
+    if(!best) return {columns:1,gap:Math.max(0,width-CARD_W)/2};
+    return {columns:best.columns,gap:best.gap};
   }
 
   function apply(){
     raf=0;
     const grid=document.getElementById('grid');
     if(!grid) return;
-
-    // clientWidth is the authoritative CSS layout width of the actual deck.
     const width=grid.clientWidth;
     if(!width) return;
 
     const {columns,gap}=solve(width);
-    lastColumns=columns;
     const g=gap.toFixed(4)+'px';
 
     grid.style.gridTemplateColumns='repeat('+columns+','+CARD_W+'px)';
     grid.style.columnGap=g;
     grid.style.rowGap=g;
-    grid.style.paddingLeft=g;
-    grid.style.paddingRight=g;
+    grid.style.padding=g;
     grid.style.justifyContent='start';
     grid.style.alignContent='start';
   }
@@ -1432,10 +1426,14 @@ async function doCopy(){if(!output.value)return;try{await navigator.clipboard.wr
   if(window.visualViewport) window.visualViewport.addEventListener('resize',schedule,{passive:true});
   document.addEventListener('DOMContentLoaded',schedule,{once:true});
   setTimeout(schedule,0);
-  setTimeout(schedule,250);
+  setTimeout(schedule,100);
 })();
 </script>
 
+
+<style id="v35-layout-notes">
+/* V35: spacing is fluid; cards remain exactly 79x96. */
+</style>
 
 <style id="v32-fixed-chrome">
 /* Chrome uses the V15 reference geometry. No JS zoom compensation or transforms. */
