@@ -1435,12 +1435,13 @@ async function doCopy(){if(!output.value)return;try{await navigator.clipboard.wr
 /* V35: spacing is fluid; cards remain exactly 79x96. */
 </style>
 
-<style id="v36-fixed-chrome">
+<style id="v37-fixed-chrome">
 /*
-  V36 fixed chrome experiment.
+  V37 fixed chrome width compensation experiment.
   The V35 card/grid system is untouched. Header and footer are taken out of
-  normal flow and visually counter-scaled against Safari's page zoom. Their
-  layout boxes remain stable; only the visual transform compensates for zoom.
+  normal flow and visually counter-scaled against Safari's page zoom. The
+  vertical size is counter-scaled as before, while the CSS width is expanded
+  by the same zoom factor so the transformed result remains full viewport width.
 */
 header{
   position:fixed !important;
@@ -1451,6 +1452,7 @@ header{
   max-width:none !important;
   transform-origin:top left !important;
   transform:scale(var(--chrome-inverse-zoom,1)) !important;
+  width:var(--chrome-layout-width,100%) !important;
 }
 footer{
   position:fixed !important;
@@ -1461,13 +1463,14 @@ footer{
   max-width:none !important;
   transform-origin:bottom left !important;
   transform:scale(var(--chrome-inverse-zoom,1)) !important;
+  width:var(--chrome-layout-width,100%) !important;
 }
 main{
   padding-top:var(--header-space,0px) !important;
   padding-bottom:var(--footer-space,0px) !important;
 }
 </style>
-<script id="v36-fixed-chrome-engine">
+<script id="v37-fixed-chrome-engine">
 (function(){
   'use strict';
 
@@ -1491,6 +1494,15 @@ main{
     const inverse=1/scale;
 
     root.style.setProperty('--chrome-inverse-zoom', String(inverse));
+
+    // Uniform inverse scaling keeps the visual height fixed, but it would
+    // also shrink the visual width. Expand the untransformed CSS width by
+    // the same zoom factor so after transform the chrome is still exactly
+    // the viewport width. Use a pixel value rather than CSS multiplication
+    // so Safari does not have to resolve a zoom-sensitive percentage.
+    const viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+    const chromeLayoutWidth = viewportWidth * scale;
+    root.style.setProperty('--chrome-layout-width', chromeLayoutWidth+'px');
 
     // offsetHeight is the untransformed CSS layout height. Dividing by the
     // zoom factor reserves exactly the amount of CSS space occupied visually
