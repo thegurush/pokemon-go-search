@@ -1550,4 +1550,59 @@ main{
 </script>
 
 <!-- V38: sprites start in their final centered grid position to avoid the right-edge first-paint state. -->
+<!-- V41: background sprite preload enabled; normal top-to-bottom order. -->
+
+<script id="v41-background-sprite-preload">
+(function(){
+  'use strict';
+
+  /* V41:
+     Preload sprites in normal top-to-bottom order.
+     This does not change the V40 visibility gate or sprite sizing.
+     It only asks the browser to fetch sprites in the background ahead of use.
+  */
+
+  const PRELOAD_BATCH = 12;
+  const PRELOAD_DELAY = 40;
+  let preloadIndex = 0;
+  let started = false;
+
+  function getSpriteIds(){
+    if(!Array.isArray(window.POKEMON)) return [];
+    return window.POKEMON.map(p => p && p.id).filter(Boolean);
+  }
+
+  function preloadBatch(){
+    const ids = getSpriteIds();
+    if(!ids.length || preloadIndex >= ids.length) return;
+
+    const end = Math.min(preloadIndex + PRELOAD_BATCH, ids.length);
+
+    for(let i = preloadIndex; i < end; i++){
+      const img = new Image();
+      img.decoding = 'async';
+      img.src = (typeof SPRITE_BASE === 'string' ? SPRITE_BASE : '') + ids[i] + '.png';
+    }
+
+    preloadIndex = end;
+
+    if(preloadIndex < ids.length){
+      setTimeout(preloadBatch, PRELOAD_DELAY);
+    }
+  }
+
+  function start(){
+    if(started) return;
+    started = true;
+    setTimeout(preloadBatch, 250);
+  }
+
+  if('requestIdleCallback' in window){
+    requestIdleCallback(start, {timeout:1000});
+  }else{
+    window.addEventListener('load', start, {once:true, passive:true});
+  }
+})();
+</script>
+
 </body></html>
