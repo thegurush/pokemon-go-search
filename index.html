@@ -1329,217 +1329,118 @@ function sizeCroppedSprite(img){
   img.style.margin='0';
 }
 
+const spriteQueue=[];
+let spriteQueueRunning=false;
+function queueSpriteNormalization(img){
+  spriteQueue.push(img);
+  if(spriteQueueRunning)return;
+  spriteQueueRunning=true;
+  const pump=()=>{
+    const next=spriteQueue.shift();
+    if(!next){spriteQueueRunning=false;return;}
+    if(next.isConnected && next.complete && next.naturalWidth) normalizeSprite(next);
+    // Yield after every sprite so taps, scrolling, and Safari UI remain responsive.
+    setTimeout(pump,0);
+  };
+  setTimeout(pump,0);
+}
 function relayoutSprites(){
   document.querySelectorAll('.sprite').forEach(img=>{
-    if(img.complete && img.naturalWidth) normalizeSprite(img);
+    if(img.complete && img.naturalWidth) queueSpriteNormalization(img);
   });
 }
 
-function render(){const list=results();grid.replaceChildren();if(!list.length){const e=document.createElement('div');e.className='empty';e.textContent='No Pokémon found.';grid.appendChild(e);return;}const f=document.createDocumentFragment();for(const p of list){const b=document.createElement('button');b.type='button';b.className='card'+(selected.has(p.id)?' selected':'');b.setAttribute('aria-pressed',selected.has(p.id));const img=document.createElement('img');img.className='sprite';img.src=SPRITE_BASE+p.id+'.png';img.alt='';img.width=64;img.height=64;img.loading='lazy';img.decoding='async';img.crossOrigin='anonymous';img.onload=()=>normalizeSprite(img);const colors=cardColor.get(p.id)||CARD_PALETTE[0];b.style.setProperty('--accent',colors.accent);b.style.background=colors.bg;const n=document.createElement('div');n.className='num';n.textContent='#'+String(p.id).padStart(3,'0');const name=document.createElement('div');name.className='name';name.textContent=p.name;const slot=document.createElement('div');slot.className='sprite-slot';slot.appendChild(img);b.append(slot,n,name);b.onclick=()=>{const isSelected=selected.has(p.id);if(isSelected) selected.delete(p.id); else selected.add(p.id);const nowSelected=!isSelected;b.classList.toggle('selected',nowSelected);b.setAttribute('aria-pressed',nowSelected?'true':'false');if(nowSelected){b.classList.remove('selection-pop');void b.offsetWidth;b.classList.add('selection-pop');}else{b.classList.remove('selection-pop');}updateOutput();};f.appendChild(b);}grid.appendChild(f);}
+function render(){const list=results();grid.replaceChildren();if(!list.length){const e=document.createElement('div');e.className='empty';e.textContent='No Pokémon found.';grid.appendChild(e);return;}const f=document.createDocumentFragment();for(const p of list){const b=document.createElement('button');b.type='button';b.className='card'+(selected.has(p.id)?' selected':'');b.setAttribute('aria-pressed',selected.has(p.id));const img=document.createElement('img');img.className='sprite';img.src=SPRITE_BASE+p.id+'.png';img.alt='';img.width=64;img.height=64;img.loading='lazy';img.decoding='async';img.crossOrigin='anonymous';img.onload=()=>queueSpriteNormalization(img);const colors=cardColor.get(p.id)||CARD_PALETTE[0];b.style.setProperty('--accent',colors.accent);b.style.background=colors.bg;const n=document.createElement('div');n.className='num';n.textContent='#'+String(p.id).padStart(3,'0');const name=document.createElement('div');name.className='name';name.textContent=p.name;const slot=document.createElement('div');slot.className='sprite-slot';slot.appendChild(img);b.append(slot,n,name);b.onclick=()=>{const isSelected=selected.has(p.id);if(isSelected) selected.delete(p.id); else selected.add(p.id);const nowSelected=!isSelected;b.classList.toggle('selected',nowSelected);b.setAttribute('aria-pressed',nowSelected?'true':'false');if(nowSelected){b.classList.remove('selection-pop');void b.offsetWidth;b.classList.add('selection-pop');}else{b.classList.remove('selection-pop');}updateOutput();};f.appendChild(b);}grid.appendChild(f);}
 search.addEventListener('input',render);
 async function doCopy(){if(!output.value)return;try{await navigator.clipboard.writeText(output.value);}catch(e){const t=document.createElement('textarea');t.value=output.value;t.style.position='fixed';t.style.left='-9999px';document.body.appendChild(t);t.focus();t.select();document.execCommand('copy');t.remove();}copy.textContent='Copied!';copy.classList.add('copied');setTimeout(()=>{copy.textContent='Copy';copy.classList.remove('copied');},1200);}copy.onclick=doCopy;render();
 </script>
-<script id="v31-v15-layout-engine">
+<script id="v32-stable-layout-engine">
 (function(){
   'use strict';
 
   const CARD_W = 79;
   const GAP_MIN = 6;
   const GAP_MAX = 16;
-
   let lastColumns = null;
-  let timer = 0;
-  let applying = false;
+  let raf = 0;
 
   /*
-    Browser zoom compensation.
-
-    V18 proved that inverse scaling can hold the header/footer at their V15
-    reference size, but its per-event updates caused visible flashing and
-    positional feedback. Here the compensation is deliberately isolated from
-    the deck and applied only after the viewport has settled.
+    V32 architecture:
+    - The V15 card is sacred: 79x96 and its internal/sprite CSS is untouched.
+    - The deck is solved from the ACTUAL grid width, not documentElement width.
+    - One gap value is used everywhere: left edge, every column gap, right edge,
+      and every row gap.
+    - No max-width, no column ceiling, no ResizeObserver, no scroll listener,
+      and no repeated correction loop.
   */
-  const baseDpr = window.devicePixelRatio || 1;
+  function solve(width){
+    if(!Number.isFinite(width) || width <= 0) return {columns:1,gap:GAP_MIN};
 
-  function zoomFactor(){
-    const vv = window.visualViewport;
-
-    // iOS Safari pinch/browser zoom.
-    if(vv && Number.isFinite(vv.scale) && vv.scale > 0){
-      return vv.scale;
-    }
-
-    // Desktop Chromium/Firefox browser zoom.
-    const dpr = window.devicePixelRatio || baseDpr;
-    const z = dpr / baseDpr;
-    return Number.isFinite(z) && z > 0 ? z : 1;
-  }
-
-  function setChromeZoom(z){
-    const inv = Math.max(.25, Math.min(4, 1 / z));
-    const header = document.querySelector('header');
-    const footer = document.querySelector('footer');
-    const head = document.querySelector('.head');
-    const foot = document.querySelector('.foot');
-
-    if(!header || !footer || !head || !foot) return;
-
-    /*
-      Keep the visible chrome at the V15 reference scale while allowing its
-      layout boxes to shrink/grow inversely so the physical position of the
-      deck/footer does not chase the old unscaled chrome.
-    */
-    const safeTop = parseFloat(
-      getComputedStyle(document.documentElement)
-        .getPropertyValue('env(safe-area-inset-top)')
-    ) || 0;
-
-    const safeBottom = parseFloat(
-      getComputedStyle(document.documentElement)
-        .getPropertyValue('env(safe-area-inset-bottom)')
-    ) || 0;
-
-    // V15 reference chrome heights:
-    // header content/padding/border ≈ 161px + safe-top
-    // footer controls/padding/border = 64px + safe-bottom
-    const headerReference = 161 + safeTop;
-    const footerReference = 64 + safeBottom;
-
-    header.style.height = (headerReference * inv) + 'px';
-    footer.style.height = (footerReference * inv) + 'px';
-
-    head.style.transformOrigin = 'top left';
-    head.style.transform = 'scale(' + inv + ')';
-    head.style.width = (100 / inv) + '%';
-
-    foot.style.transformOrigin = 'top left';
-    foot.style.transform = 'scale(' + inv + ')';
-    foot.style.width = (100 / inv) + '%';
-  }
-
-  /*
-    Find the largest fixed-card column count that gives a single common gap
-    between 6px and 16px, including BOTH outer edges.
-
-    g = (W - n*C) / (n+1)
-
-    This is the key invariant: the deck cannot independently invent a right
-    margin, left margin, or inter-column gap.
-  */
-  function solveGrid(width){
-    if(!Number.isFinite(width) || width <= 0){
-      return {columns:1,gap:GAP_MIN};
-    }
-
-    let valid = null;
-
-    for(let n=1; ; n++){
-      const g = (width - n * CARD_W) / (n + 1);
-
-      if(g < GAP_MIN){
+    // Prefer the largest column count whose common gap is inside 6..16px.
+    // Because both outer edges are included, the equation is:
+    //   width = n*79 + (n+1)*gap
+    let best = null;
+    const maxN = Math.max(1, Math.floor(width / CARD_W));
+    for(let n=maxN; n>=1; n--){
+      const gap = (width - n*CARD_W)/(n+1);
+      if(gap >= GAP_MIN - 0.0001 && gap <= GAP_MAX + 0.0001){
+        best = {columns:n,gap:Math.max(GAP_MIN,Math.min(GAP_MAX,gap))};
         break;
       }
-
-      if(g <= GAP_MAX){
-        valid = {columns:n,gap:g};
-      }
     }
+    if(best) return best;
 
-    if(valid){
-      return valid;
-    }
-
-    /*
-      There are mathematically narrow widths between adjacent valid ranges
-      where no integer column count can satisfy both the fixed 79px card and
-      the strict 6..16px gap range simultaneously.
-
-      In those cases preserve the previous column state instead of causing
-      column-count oscillation. The deck remains deterministic and symmetric;
-      it does NOT resize cards or introduce a width/column ceiling.
-    */
-    let columns = lastColumns;
-
-    if(!columns){
-      columns = Math.max(1, Math.floor((width + GAP_MIN) / (CARD_W + GAP_MIN)));
-    }
-
-    const raw = (width - columns * CARD_W) / (columns + 1);
-    const gap = Math.max(GAP_MIN, Math.min(GAP_MAX, raw));
-
-    return {columns, gap};
+    // If the largest count would require >16px, drop one column. This is the
+    // important distinction: preserve the 79px card and the shared-gap rule,
+    // not the previous column count. A narrower viewport must never carry an
+    // old landscape column count into portrait.
+    const columns = Math.max(1, Math.floor((width-GAP_MIN)/(CARD_W+GAP_MIN)));
+    const gap = (width-columns*CARD_W)/(columns+1);
+    return {columns, gap:Math.max(GAP_MIN,Math.min(GAP_MAX,gap))};
   }
 
-  function applyLayout(){
-    timer = 0;
-    if(applying) return;
-
-    const grid = document.getElementById('grid');
+  function apply(){
+    raf=0;
+    const grid=document.getElementById('grid');
     if(!grid) return;
 
-    applying = true;
+    // clientWidth is the authoritative CSS layout width of the actual deck.
+    const width=grid.clientWidth;
+    if(!width) return;
 
-    try{
-      const width = document.documentElement.clientWidth || grid.clientWidth;
-      const solution = solveGrid(width);
-      lastColumns = solution.columns;
+    const {columns,gap}=solve(width);
+    lastColumns=columns;
+    const g=gap.toFixed(4)+'px';
 
-      const gap = solution.gap;
-      const gapPx = gap.toFixed(4) + 'px';
-
-      /*
-        Only the GRID's own geometry changes here.
-        No .card style, margin, transform, position, width, height, or sprite
-        property is ever touched.
-      */
-      grid.style.gridTemplateColumns =
-        'repeat(' + solution.columns + ', ' + CARD_W + 'px)';
-
-      grid.style.columnGap = gapPx;
-      grid.style.rowGap = gapPx;
-      grid.style.paddingLeft = gapPx;
-      grid.style.paddingRight = gapPx;
-      grid.style.justifyContent = 'start';
-
-      setChromeZoom(zoomFactor());
-    } finally {
-      applying = false;
-    }
+    grid.style.gridTemplateColumns='repeat('+columns+','+CARD_W+'px)';
+    grid.style.columnGap=g;
+    grid.style.rowGap=g;
+    grid.style.paddingLeft=g;
+    grid.style.paddingRight=g;
+    grid.style.justifyContent='start';
+    grid.style.alignContent='start';
   }
 
   function schedule(){
-    clearTimeout(timer);
-    /*
-      One settled pass rather than a stream of corrections. This is what
-      prevents the V18-style flashing during pinch/browser zoom.
-    */
-    timer = setTimeout(applyLayout, 120);
+    if(raf) cancelAnimationFrame(raf);
+    raf=requestAnimationFrame(apply);
   }
 
-  /*
-    Render/search changes replace the grid's children. They do not need a
-    ResizeObserver because card geometry is fixed and the grid width is the
-    viewport width. A short scheduled pass is sufficient.
-  */
-  window.addEventListener('load', schedule, {passive:true});
-  window.addEventListener('resize', schedule, {passive:true});
-  window.addEventListener('orientationchange', schedule, {passive:true});
-
-  if(window.visualViewport){
-    window.visualViewport.addEventListener('resize', schedule, {passive:true});
-  }
-
-  /*
-    Initial pass after V15's existing render() has created the cards.
-  */
-  if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', schedule, {once:true});
-  }else{
-    schedule();
-  }
-
-  setTimeout(schedule, 250);
+  window.addEventListener('load',schedule,{passive:true});
+  window.addEventListener('resize',schedule,{passive:true});
+  window.addEventListener('orientationchange',schedule,{passive:true});
+  if(window.visualViewport) window.visualViewport.addEventListener('resize',schedule,{passive:true});
+  document.addEventListener('DOMContentLoaded',schedule,{once:true});
+  setTimeout(schedule,0);
+  setTimeout(schedule,250);
 })();
 </script>
 
+
+<style id="v32-fixed-chrome">
+/* Chrome uses the V15 reference geometry. No JS zoom compensation or transforms. */
+header{transform:none!important;zoom:1!important;}
+footer{transform:none!important;zoom:1!important;}
+.head,.foot{transform:none!important;zoom:1!important;}
+</style>
 </body></html>
