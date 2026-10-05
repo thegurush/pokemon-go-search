@@ -231,6 +231,7 @@ h1{
 </style>
 
 <!-- V40: sprites remain hidden until final crop/size normalization completes. -->
+<!-- V42: aggressive all-sprite preload; no intentional batching/throttling. -->
 </head><body>
 <header><div class="head"><div class="title"><h1>Tap to String</h1></div><p class="sub">Pokemon Go image based search string generator.</p><input id="search" type="search" inputmode="search" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="Search by name or Pokédex number…" aria-label="Search Pokémon"></div></header>
 <main><section id="grid" aria-label="Released Pokémon"></section></main>
@@ -1562,9 +1563,6 @@ main{
      It only asks the browser to fetch sprites in the background ahead of use.
   */
 
-  const PRELOAD_BATCH = 12;
-  const PRELOAD_DELAY = 40;
-  let preloadIndex = 0;
   let started = false;
 
   function getSpriteIds(){
@@ -1572,35 +1570,30 @@ main{
     return window.POKEMON.map(p => p && p.id).filter(Boolean);
   }
 
-  function preloadBatch(){
+  function preloadAllSprites(){
     const ids = getSpriteIds();
-    if(!ids.length || preloadIndex >= ids.length) return;
+    if(!ids.length) return;
 
-    const end = Math.min(preloadIndex + PRELOAD_BATCH, ids.length);
+    const base = (typeof SPRITE_BASE === 'string' ? SPRITE_BASE : '');
 
-    for(let i = preloadIndex; i < end; i++){
+    for(const id of ids){
       const img = new Image();
       img.decoding = 'async';
-      img.src = (typeof SPRITE_BASE === 'string' ? SPRITE_BASE : '') + ids[i] + '.png';
-    }
-
-    preloadIndex = end;
-
-    if(preloadIndex < ids.length){
-      setTimeout(preloadBatch, PRELOAD_DELAY);
+      img.fetchPriority = 'high';
+      img.src = base + id + '.png';
     }
   }
 
   function start(){
     if(started) return;
     started = true;
-    setTimeout(preloadBatch, 250);
+    preloadAllSprites();
   }
 
-  if('requestIdleCallback' in window){
-    requestIdleCallback(start, {timeout:1000});
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', start, {once:true});
   }else{
-    window.addEventListener('load', start, {once:true, passive:true});
+    start();
   }
 })();
 </script>
