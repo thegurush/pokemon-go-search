@@ -328,6 +328,27 @@ h1{
  .tts-fixture:not(:empty):before,#tts-parent:not(:empty):after{margin:0 2px}
 }
 @media(prefers-reduced-motion:reduce){#tts-message,.tts-switch-track,.tts-switch-thumb{transition:none}}
+/* Follow-up layout: one consistent space between every visible header row. */
+.head{display:flex;flex-direction:column;gap:6px}
+.head>.title,.head>.sub,#tts-active,#tts-builder,#tts-search-wrap,#tts-main-controls,#tts-popup,#tts-start{margin:0}
+.head>.title h1{margin:0}
+.head>.title h1::after{margin-top:3px}
+.head>.sub{max-width:none;width:100%}
+header{padding-top:max(6px,env(safe-area-inset-top));padding-bottom:6px}
+#tts-start{color:var(--yellow);align-self:center}
+#tts-builder .tts-circle{width:39px;height:39px;box-shadow:1px 1px 0 #0002}
+#tts-builder .tts-circle svg{width:25px;height:25px}
+#tts-builder .tts-cell{width:45px;min-width:45px}
+#tts-active .tts-circle,#tts-active .tts-portions .tts-circle{width:17px;height:17px;box-shadow:1px 1px 0 #0002}
+#tts-active svg{width:12px;height:12px}
+#tts-active .open .tts-circle{outline-offset:-1px}
+.tts-fixture:not(:empty)::before,#tts-parent:not(:empty)::after{width:2px;flex-shrink:0;height:29px;background:var(--cream);opacity:.8;margin:0 5px}
+.tts-structural-divider{width:2px;height:15px;background:var(--cream);opacity:.8;margin:0 5px}
+#tts-popup{height:100px}
+/* Keep selection motion within the tray's available clearance. */
+#tts-builder .tts-cell.pop .tts-circle{animation:ttsIconPulse .22s ease-out}
+@keyframes ttsIconPulse{50%{filter:saturate(var(--icon-saturation)) brightness(1.12)}}
+@media(prefers-reduced-motion:reduce){#tts-builder .tts-cell.pop .tts-circle{animation:none}}
 
 </style>
 </head><body>
@@ -2025,7 +2046,7 @@ const NUMERIC={
 (function(){
 'use strict';
 const C=TTSCompiler,clone=x=>JSON.parse(JSON.stringify(x));
-const S={main:{},mainMode:{exclude:false,evo:false,selected:false,boot:false,alive:false},filters:[],builder:null,visit:null,filterMode:{evo:false,selected:false},popup:null,seq:0,advancedOpen:false};
+const S={main:{},mainMode:{exclude:false,evo:false,selected:false,boot:false,alive:false},filters:[],builder:null,visit:null,filterMode:{evo:false,selected:false},popup:null,seq:0,advancedOpen:false,actionsOpen:false};
 const el=(tag,cls,text)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined)e.textContent=text;return e;};
 const head=document.querySelector('.head');
 const active=el('div');active.id='tts-active';active.hidden=true;active.setAttribute('aria-label','Active Filters');
@@ -2052,15 +2073,15 @@ function notify(text,warning=false,clickedName=''){
  if(warning&&clickedName){msg.append(el('span','tts-message-name',clickedName),el('span','tts-message-separator',' · '),el('span','tts-message-error',text));}
  else msg.textContent=text;
  msg.classList.toggle('warning',warning);msg.hidden=false;
- const duration=warning?3000:5000;if(warning)messageFadeTimer=setTimeout(()=>msg.classList.add('fading'),duration-350);
+ const duration=2000;messageFadeTimer=setTimeout(()=>msg.classList.add('fading'),duration-350);
  messageTimer=setTimeout(clearMessage,duration);
 }
 function clearMessage(){clearTimeout(messageTimer);clearTimeout(messageFadeTimer);msg.hidden=true;msg.classList.remove('fading');msg.replaceChildren();}
 function newPortion(){return {values:{},exclude:false,order:[]};}
-function start(){S.advancedOpen=true;if(S.builder)return;S.builder={filter:{id:++S.seq,portions:[newPortion()],scope:[]},index:0,path:[],scroll:{},paths:{},editing:false};lastValid=[];clearMessage();}
+function start(){S.advancedOpen=true;if(S.builder)return;S.actionsOpen=false;S.builder={filter:{id:++S.seq,portions:[newPortion()],scope:[]},index:0,path:[],scroll:{},paths:{},editing:false};lastValid=[];clearMessage();}
 function markFamily(f){const p=current();if(!p.order.includes(f))p.order.push(f);}
 function key(){return S.builder?S.builder.index+'/'+(S.builder.path.join('/')||'root'):'root';}
-function remember(){if(S.builder&&!S.visit){S.builder.scroll[key()]=middle.scrollLeft;S.builder.paths[S.builder.index]=[...S.builder.path];}}
+function remember(){if(S.builder&&!S.visit&&!S.actionsOpen){S.builder.scroll[key()]=middle.scrollLeft;S.builder.paths[S.builder.index]=[...S.builder.path];}}
 function navigate(path){remember();S.builder.path=path;renderUI();}
 function disabledReason(k,x){const v=val(),excluded=current()?.exclude;
  if(['attack','defense','hp'].includes(k)&&excluded)return 'IV disabled by Exclude';
@@ -2167,12 +2188,17 @@ function rangeControl(k,f){
 }
 function excludeReason(){const v=val();if(['attack','defense','hp'].some(k=>v[k]!==undefined))return 'Exclude disabled by IV';if(v.mega||v.megalevel?.length)return 'Exclude disabled by Mega Level';return '';}
 function renderConfirm(){confirm.replaceChildren();if(!S.builder||S.visit||S.popup!==null)return;
- const p=C.portion(current()),all=C.filter(S.builder.filter);
- if(p.valid)confirm.append(cell('Add Filter','#d2b34e','plus',addPortion));
- confirm.append(cell('Select Pokémon','#9d7db9','card',enterScope));
- if(p.valid||current().exclude){const reason=excludeReason();confirm.append(cell('Exclude','#c75d64','eye',()=>{if(reason){notify(reason,true,'Exclude');return;}current().exclude=!current().exclude;notify(current().exclude?'Exclude On':'Exclude Off');refresh();},{chosen:current().exclude,disabled:!!reason}));}
- if(all.valid)confirm.append(cell('Create Filter','#79a768','check',save));
- confirm.append(cell('Discard Current Filter','#c75d64','close',discard));
+ const control=cell(S.actionsOpen?'Close filter actions':'Open filter actions','#79a768','check',()=>{if(!S.actionsOpen)remember();S.actionsOpen=!S.actionsOpen;clearMessage();renderUI();},{parent:S.actionsOpen});
+ control.setAttribute('aria-expanded',String(S.actionsOpen));control.setAttribute('aria-controls','tts-middle');confirm.append(control);
+}
+function renderActions(){
+ const p=C.portion(current()),all=C.filter(S.builder.filter),reason=excludeReason();
+ const action=(name,fill,symbol,handler,disabled=false,chosen)=>middle.append(cell(name,fill,symbol,()=>{if(disabled){notify(name==='Exclude'&&reason?reason:'Complete a valid filter first',true,name);return;}handler();},{disabled,chosen}));
+ action('Add Filter','#d2b34e','plus',()=>{S.actionsOpen=false;addPortion();},!p.valid);
+ action('Select Pokémon','#9d7db9','card',enterScope);
+ action('Exclude','#c75d64','eye',()=>{current().exclude=!current().exclude;notify(current().exclude?'Exclude On':'Exclude Off');refresh();},!!reason||(!p.valid&&!current().exclude),current().exclude);
+ action('Create Filter','#79a768','check',save,!all.valid);
+ action('Discard Current Filter','#c75d64','close',discard);
 }
 function textControl(label,on,fn,cls='',toggle=false){
  const b=el('button','tts-text '+cls+(on?' on':'')+(toggle?' tts-toggle':''));b.type='button';b.setAttribute('aria-label',label);
@@ -2187,10 +2213,10 @@ function resetEmptySelected(scope,before){const mode=scope?S.filterMode:S.mainMo
 function bulk(on,scope){const before=selectedCount(scope);const ids=results().map(p=>p.id);if(scope){const set=new Set(S.builder.filter.scope);ids.forEach(id=>on?set.add(id):set.delete(id));S.builder.filter.scope=[...set];}else{ids.forEach(id=>{if(on)S.main[id]=S.mainMode.exclude?'exclude':'include';else if(!S.mainMode.exclude||S.main[id]==='exclude')delete S.main[id];});if(on&&ids.length)S.mainMode.boot=true;}resetEmptySelected(scope,before);refresh(true);}
 function enterScope(){remember();clearMessage();S.visit={scope:[...S.builder.filter.scope]};renderUI();renderDeck();}
 function leaveScope(commit){const before=selectedCount(true);if(!commit){S.builder.filter.scope=[...S.visit.scope];resetEmptySelected(true,before);}S.visit=null;clearMessage();refresh(true);}
-function save(){if(!C.filter(S.builder.filter).valid)return;const b=S.builder,finished=clone(b.filter);finished.portions=finished.portions.filter(p=>!C.portion(p).empty);if(b.editing){const i=S.filters.findIndex(f=>f.id===finished.id);S.filters[i]=finished;}else S.filters.push(finished);S.builder=null;S.visit=null;lastValid=[];clearMessage();S.popup=b.editing?finished.id:null;refresh(true);revealActive(finished.id);}
-function discard(){const b=S.builder;if(!b)return;if(b.editing)S.filters=S.filters.filter(f=>f.id!==b.filter.id);S.builder=null;S.visit=null;S.popup=null;lastValid=[];clearMessage();refresh(true);}
+function save(){if(!C.filter(S.builder.filter).valid)return;S.actionsOpen=false;const b=S.builder,finished=clone(b.filter);finished.portions=finished.portions.filter(p=>!C.portion(p).empty);if(b.editing){const i=S.filters.findIndex(f=>f.id===finished.id);S.filters[i]=finished;}else S.filters.push(finished);S.builder=null;S.visit=null;lastValid=[];clearMessage();S.popup=b.editing?finished.id:null;refresh(true);revealActive(finished.id);}
+function discard(){S.actionsOpen=false;const b=S.builder;if(!b)return;if(b.editing)S.filters=S.filters.filter(f=>f.id!==b.filter.id);S.builder=null;S.visit=null;S.popup=null;lastValid=[];clearMessage();refresh(true);}
 function showPopup(id){if(S.builder)return;clearMessage();S.popup=S.popup===id?null:id;renderUI();}
-function beginEdit(){if(S.builder)return;S.advancedOpen=true;const f=S.filters.find(f=>f.id===S.popup);if(!f)return;clearMessage();S.builder={filter:clone(f),index:0,path:[],scroll:{},paths:{},editing:true};lastValid=[clone(f)];S.popup=null;refresh(true);}
+function beginEdit(){if(S.builder)return;S.actionsOpen=false;S.advancedOpen=true;const f=S.filters.find(f=>f.id===S.popup);if(!f)return;clearMessage();S.builder={filter:clone(f),index:0,path:[],scroll:{},paths:{},editing:true};lastValid=[clone(f)];S.popup=null;refresh(true);}
 edit.onclick=beginEdit;
 function renderUI(){
  const s=S.builder;const mainCount=Object.keys(S.main).length;
@@ -2202,6 +2228,7 @@ function renderUI(){
  const scrollPos=s?s.scroll[key()]||0:middle.scrollLeft;
  parent.replaceChildren();middle.replaceChildren();middle.classList.toggle('tts-controls-scroll',!!S.visit);confirm.replaceChildren();
  if(S.visit){controls(middle,true);confirm.append(cell('Commit Pokémon selection','#79a768','check',()=>leaveScope(true)),cell('Cancel Pokémon selection','#c75d64','close',()=>leaveScope(false)));return;}
+ if(s&&S.actionsOpen){renderActions();renderConfirm();middle.scrollLeft=0;return;}
  const path=s?.path||[];
  if(!path.length)Object.keys(FAMILIES).forEach(f=>middle.append(familyButton(f)));
  else{
@@ -2210,12 +2237,12 @@ function renderUI(){
  }
  renderConfirm();middle.scrollLeft=scrollPos;popKey=null;
 }
-middle.addEventListener('scroll',()=>{if(S.builder&&!S.visit)S.builder.scroll[key()]=middle.scrollLeft;},{passive:true});
+middle.addEventListener('scroll',()=>{if(S.builder&&!S.visit&&!S.actionsOpen)S.builder.scroll[key()]=middle.scrollLeft;},{passive:true});
 function revealActive(id){requestAnimationFrame(()=>{const node=active.querySelector('[data-filter-id="'+id+'"]');if(node){if(node.offsetLeft<active.scrollLeft)active.scrollLeft=node.offsetLeft;else if(node.offsetLeft+node.offsetWidth>active.scrollLeft+active.clientWidth)active.scrollLeft=node.offsetLeft+node.offsetWidth-active.clientWidth;}});}
 function portionFamily(p){return C.portion(p).families[0]||p.provisional;}
 function selectPortion(index){
  const b=S.builder;if(!b||S.visit||index===b.index||!b.filter.portions[index])return;
- remember();b.index=index;
+ remember();S.actionsOpen=false;b.index=index;
  const family=portionFamily(current());b.path=b.paths[index]?[...b.paths[index]]:family&&FAMILIES[family][3]?[family]:[];
  clearMessage();renderUI();renderDeck();revealPortion(index);
 }
@@ -2276,7 +2303,7 @@ function renderPopup(){const f=S.filters.find(f=>f.id===S.popup);if(!f){S.popup=
 document.addEventListener('click',e=>{const path=e.composedPath();if(S.popup!==null&&!path.includes(popup)&&!path.includes(active)&&!path.includes(tray)){S.popup=null;renderUI();}});
 results=function(){const scope=!!S.visit,mode=scope?S.filterMode:S.mainMode,selectedScope=new Set(S.builder?.filter.scope||[]);let pool=POKEMON;
  if(mode.selected)pool=pool.filter(p=>scope?selectedScope.has(p.id):mode.exclude?S.main[p.id]==='exclude':!!S.main[p.id]);
- const q=norm(search.value.trim());if(q){const generation=q.match(/^(?:gen|generation)\s*([1-9])$/);if(TYPES.includes(q))pool=pool.filter(p=>TTS_META[p.id].types.includes(q));else if(generation)pool=pool.filter(p=>TTS_META[p.id].generation===Number(generation[1]));else if(['legendary','mythical','ultra beast','ultrabeast'].includes(q)){const category=q.replace(' ','');pool=pool.filter(p=>TTS_META[p.id][category]);}else pool=pool.filter(p=>norm(p.name).includes(q)||String(p.id).includes(q));}
+ const q=norm(search.value.trim());if(q){const generation=q.match(/^(?:gen|generation)\s*([1-9])$/);if(TYPES.includes(q))pool=pool.filter(p=>TTS_META[p.id].types.includes(q));else if(['kanto','johto','hoenn','sinnoh','unova','kalos','alola','galar','hisui','paldea'].includes(q))pool=pool.filter(p=>TTS_META[p.id].region===q);else if(generation)pool=pool.filter(p=>TTS_META[p.id].generation===Number(generation[1]));else if(['legendary','mythical','ultra beast','ultrabeast'].includes(q)){const category=q.replace(' ','');pool=pool.filter(p=>TTS_META[p.id][category]);}else pool=pool.filter(p=>norm(p.name).includes(q)||String(p.id).includes(q));}
  if(mode.evo){const chains=new Set(pool.map(p=>TTS_META[p.id].family));pool=POKEMON.filter(p=>chains.has(TTS_META[p.id].family));}return pool;
 };
 function badgeCounts(id){let purple=0,red=0,previewPurple=0,previewRed=0;for(const f of S.filters){if(S.builder?.editing&&S.builder.filter.id===f.id)continue;const c=f.scope.length?(f.scope.includes(id)?C.filter(f):{purple:false,red:false}):TTSApplicability.badges(f,TTS_META[id]);if(c.purple)purple++;if(c.red)red++;}
