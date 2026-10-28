@@ -350,6 +350,10 @@ header{padding-top:max(6px,env(safe-area-inset-top));padding-bottom:6px}
 @keyframes ttsIconPulse{50%{filter:saturate(var(--icon-saturation)) brightness(1.12)}}
 @media(prefers-reduced-motion:reduce){#tts-builder .tts-cell.pop .tts-circle{animation:none}}
 
+/* Shared tray stroke and depth, including search, messages and raw output. */
+:root{--tray-stroke:2px;--tray-shadow:inset 0 0 0 1px #18221f,3px 3px 0 #0002}
+#search,#search:focus,#tts-builder,#tts-active,#tts-main-controls,#tts-popup,#tts-message,#tts-output{border-width:var(--tray-stroke);border-style:solid;border-radius:5px;box-shadow:var(--tray-shadow)}
+
 </style>
 </head><body>
 <header><div class="head"><div class="title"><h1>Tap to String</h1></div><p class="sub">Pokemon Go image based search string generator.</p><input id="search" type="search" inputmode="search" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="Search by name or Pokédex number…" aria-label="Search Pokémon"></div></header>
