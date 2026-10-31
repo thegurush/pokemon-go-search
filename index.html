@@ -470,6 +470,32 @@ input.tts-bubble{top:2.5px;height:21.5px;line-height:17.5px}
 #tts-main-controls .tts-bulk{height:23.1px;min-width:31.68px;font-size:14.96px;color:#4b574d;white-space:nowrap;padding:2.5px}
 #tts-main-controls .tts-bulk:disabled{opacity:1}
 
+/* V47 targeted card-state and tray presentation. */
+#tts-start{color:var(--bg);box-shadow:3px 3px 0 #0002}
+#tts-main-controls .tts-bulk[data-bulk=all]{background:var(--green)}
+.tts-tag-input{height:calc(100% - 10px);margin:5px 0}
+/* Bounds reference the tray's inner edge, not the text glyphs. */
+input.tts-bubble{top:5px;height:21.5px}
+#tts-main-controls.scope-controls{justify-content:center}
+.scope-controls .tts-selection-scroll{justify-content:space-evenly;padding:0 3px}
+.scope-controls .tts-control-divider{margin:0}
+.scope-controls .tts-scope-confirm{gap:3px;padding:0 3px}
+/* Scope color uses the same border footprint as ordinary selection. */
+.card.scope-selected{outline:none;border-color:var(--purple);box-shadow:0 0 0 1px var(--purple),4px 4px 0 #0003}
+.card.scope-selected::before,.card.scope-selected::after{background:var(--purple)}
+/* One visual recipe shared by Main Exclude and excluded draft scope. */
+.card.selection-excluded,.card.selection-excluded.passive-main{--selection-edge:color-mix(in srgb,var(--accent) 65%,black);border-style:dashed;border-color:var(--selection-edge);background:color-mix(in srgb,var(--card-base) 65%,black)!important;box-shadow:3px 3px 0 #0002}
+.card.selection-excluded.scope-selected{--selection-edge:var(--purple);border-color:var(--purple);box-shadow:3px 3px 0 #0002}
+.card.selection-excluded .sprite-slot,.card.selection-excluded .name,.card.selection-excluded .num{opacity:.28}
+/* Cover the border at the existing filled corners only; leave the rest dashed. */
+.card.selection-excluded::before{left:-3px;top:-3px;width:22px;height:22px;background:var(--selection-edge);opacity:1}
+.card.selection-excluded::after{right:-3px;bottom:-3px;width:20px;height:20px;background:var(--selection-edge);opacity:1}
+.card.scope-selected{box-shadow:4px 4px 0 #0003}
+.card.selection-excluded,.card.selection-excluded.passive-main{background:linear-gradient(135deg,var(--selection-edge) 0 15px,transparent 15px) top left/22px 22px no-repeat,linear-gradient(315deg,var(--selection-edge) 0 13.5px,transparent 13.5px) bottom right/20px 20px no-repeat,color-mix(in srgb,var(--card-base) 65%,black)!important;background-origin:border-box;background-clip:border-box}
+.card.selection-excluded,.card.selection-excluded.passive-main{background-origin:border-box!important;background-clip:border-box!important}
+input.tts-bubble{appearance:textfield;-moz-appearance:textfield}
+input.tts-bubble::-webkit-inner-spin-button,input.tts-bubble::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+
 </style>
 </head><body>
 <header><div class="head"><div class="title"><h1>Tap to String</h1></div><p class="sub">Pokemon Go image based search string generator.</p><input id="search" type="search" inputmode="search" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="Search by name or Pokédex number…" aria-label="Search Pokémon"></div></header>
@@ -2217,6 +2243,7 @@ function controls(target,scope){
     bulkFlash={kind,label,until:performance.now()+350};bulk(on,scope,ids);
    },100)));
   },'tts-bulk');
+  b.dataset.bulk=label.toLowerCase();
   if(bulkFlash?.kind===kind&&bulkFlash.label===label&&performance.now()<bulkFlash.until)b.classList.add('bulk-flash');add(b);
  }
  target.append(scroll);scroll.scrollLeft=controlScroll[kind];scroll.onscroll=()=>{controlScroll[kind]=scroll.scrollLeft;};
@@ -2353,7 +2380,7 @@ function badgeCounts(id,knownKey){
 }
 const decorated=new WeakMap();
 
-function decorateCard(b,p,knownKey){const counts=badgeCounts(p.id,knownKey),signature=JSON.stringify([S.main[p.id],!!S.visit,S.builder?.filter.scope.includes(p.id),counts]);if(decorated.get(b)===signature)return;decorated.set(b,signature);const state=S.main[p.id],scopePreview=!!S.builder?.filter.scope.includes(p.id);b.classList.toggle('scope-selected',scopePreview);b.style.setProperty('--card-base',cardColor.get(p.id).bg);b.classList.toggle('selected',state==='include');b.classList.toggle('main-excluded',state==='exclude');b.classList.toggle('passive-main',!!S.visit&&!!state);b.setAttribute('aria-pressed',String(S.visit?S.builder.filter.scope.includes(p.id):!!state));b.setAttribute('aria-label',p.name+(state?' — '+(state==='include'?'Included':'Excluded'):'')+(S.visit&&S.builder.filter.scope.includes(p.id)?' — filter selected':''));b.dataset.pokemonId=p.id;
+function decorateCard(b,p,knownKey){const counts=badgeCounts(p.id,knownKey),signature=JSON.stringify([S.main[p.id],!!S.visit,S.builder?.filter.scope.includes(p.id),counts]);if(decorated.get(b)===signature)return;decorated.set(b,signature);const state=S.main[p.id],scopePreview=!!S.builder?.filter.scope.includes(p.id);b.classList.toggle('scope-selected',scopePreview);b.classList.toggle('selection-excluded',state==='exclude'||scopePreview&&counts.previewRed>0);b.style.setProperty('--card-base',cardColor.get(p.id).bg);b.classList.toggle('selected',state==='include');b.classList.toggle('main-excluded',state==='exclude');b.classList.toggle('passive-main',!!S.visit&&!!state);b.setAttribute('aria-pressed',String(S.visit?S.builder.filter.scope.includes(p.id):!!state));b.setAttribute('aria-label',p.name+(state?' — '+(state==='include'?'Included':'Excluded'):'')+(S.visit&&S.builder.filter.scope.includes(p.id)?' — filter selected':''));b.dataset.pokemonId=p.id;
  b.querySelector('.tts-badges')?.remove();const badges=el('div','tts-badges');badges.setAttribute('aria-hidden','true');b.style.setProperty('--badge-ink',cardColor.get(p.id).bg);
  for(const color of ['purple','red']){const completed=counts[color],currentCount=scopePreview?0:counts['preview'+(color==='purple'?'Purple':'Red')];if(!completed&&!currentCount)continue;const badge=el('span','tts-badge '+color+(S.visit&&!currentCount?' dim':''),String(completed+currentCount));badges.append(badge);}b.append(badges);
  b.onclick=()=>{const scope=!!S.visit,before=selectedCount(scope);if(S.visit){const set=new Set(S.builder.filter.scope);set.has(p.id)?set.delete(p.id):set.add(p.id);S.builder.filter.scope=[...set];}else{const target=S.mainMode.exclude?'exclude':'include';if(S.main[p.id]===target)delete S.main[p.id];else S.main[p.id]=target;S.mainMode.boot=true;}resetEmptySelected(scope,before);if(S.visit?S.builder.filter.scope.includes(p.id):!!S.main[p.id]){b.classList.remove('selection-pop');void b.offsetWidth;b.classList.add('selection-pop');}refresh(false);};
