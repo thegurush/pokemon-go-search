@@ -418,6 +418,18 @@ header,footer{will-change:transform;backface-visibility:hidden}
 /* Match both the string field and its outer footer divider to the header tray stroke. */
 #tts-output{border-width:var(--tray-stroke)!important;box-shadow:var(--tray-shadow)!important}
 footer{border-top-width:var(--tray-stroke)}
+/* V44: stable randomized tray outlines, compact 40%-larger switches, shorter title. */
+#tts-builder,#tts-active,#tts-main-controls,#tts-popup,#tts-output{border-color:var(--tray-accent,var(--blue))}
+#tts-search-wrap #search,#tts-search-wrap #search:focus{border-color:var(--tray-accent,var(--blue))}
+#tts-popup::before{border-color:var(--tray-accent,var(--blue))}
+.head>.title h1{font-size:22px!important}
+.card .tts-badge{font-weight:700!important;-webkit-text-stroke:.2px currentColor}
+#tts-main-controls .tts-switch-track,#tts-middle.tts-controls-scroll .tts-switch-track{width:35px;height:18.2px;border-width:1.4px;border-radius:14px;flex:none}
+#tts-main-controls .tts-switch-thumb,#tts-middle.tts-controls-scroll .tts-switch-thumb{width:12.6px;height:12.6px;top:1.4px;left:1.4px}
+#tts-main-controls .tts-toggle[aria-checked=true] .tts-switch-thumb,#tts-middle.tts-controls-scroll .tts-toggle[aria-checked=true] .tts-switch-thumb{transform:translateX(15.4px)}
+#tts-main-controls{overflow-x:auto;justify-content:space-between;scrollbar-width:none}
+#tts-main-controls .tts-toggle{flex:none}
+.tts-hide .tts-circle{--icon-fill:#bdb4a4;color:var(--cream);font-size:16px;font-weight:400;filter:none;box-shadow:none}
 
 </style>
 </head><body>
@@ -1963,6 +1975,12 @@ const popup=el('div');popup.id='tts-popup';popup.hidden=true;const popupText=el(
 const preview=el('div','out');preview.id='tts-output';preview.setAttribute('aria-label','Generated Pokémon GO search string');preview.setAttribute('role','status');preview.tabIndex=0;const previewText=el('span');previewText.id='tts-output-text';preview.append(previewText);output.after(preview);output.hidden=true;
 let messageTimer,messageFadeTimer,changedTimer,footerFrame=0,footerRevision=0,lastValid=[],popKey=null;
 startControl.onclick=()=>{S.advancedOpen=true;renderUI();};
+// Stable per-load colors, drawn from the same palette as card outlines.
+let previousTrayColor='';
+for(const node of [active,tray,searchWrap,toolbar,popup,preview]){const choices=CARD_PALETTE.map(c=>c.accent).filter(c=>c!==previousTrayColor);const color=choices[Math.floor(Math.random()*choices.length)];node.style.setProperty('--tray-accent',color);previousTrayColor=color;}
+function hideAdvanced(){remember();S.advancedOpen=false;S.popup=null;clearMessage();renderUI();}
+function hideButton(){const b=el('button','tts-cell tts-hide');b.type='button';b.setAttribute('aria-label','Hide Advanced Filtering');b.title='Hide Advanced Filtering';b.append(el('span','tts-circle','Hide'));b.onclick=hideAdvanced;return b;}
+
 let normalActiveScroll=0,structuralScroll=0,structuralKey='',structuralSignature='';
 const originalRender=render;
 const spriteCache=new Map(),normalizeOriginal=normalizeSprite;
@@ -1992,7 +2010,7 @@ function newPortion(){return {values:{},exclude:false,order:[]};}
 function start(){S.advancedOpen=true;if(S.builder)return;S.actionsOpen=false;S.builder={filter:{id:++S.seq,portions:[newPortion()],scope:[]},index:0,path:[],scroll:{},paths:{},editing:false};lastValid=[];clearMessage();}
 function markFamily(f){const p=current();if(!p.order.includes(f))p.order.push(f);}
 function key(){return S.builder?S.builder.index+'/'+(S.builder.path.join('/')||'root'):'root';}
-function remember(){if(S.builder&&!S.visit&&!S.actionsOpen){S.builder.scroll[key()]=middle.scrollLeft;S.builder.paths[S.builder.index]=[...S.builder.path];}}
+function remember(){if(S.builder&&S.advancedOpen&&!S.visit&&!S.actionsOpen){S.builder.scroll[key()]=middle.scrollLeft;S.builder.paths[S.builder.index]=[...S.builder.path];}}
 function navigate(path){remember();S.builder.path=path;renderUI();}
 function disabledReason(k,x){const v=val(),excluded=current()?.exclude;
  if(['attack','defense','hp'].includes(k)&&excluded)return 'IV disabled by Exclude';
@@ -2146,15 +2164,15 @@ function renderUI(){
  const s=S.builder;const mainCount=Object.keys(S.main).length;
  const alive=S.mainMode.boot&&(mainCount>0||S.mainMode.evo);
  if(S.mainMode.alive&&!alive)S.mainMode.exclude=false;S.mainMode.alive=alive;
- toolbar.hidden=!!s||!alive;controls(toolbar,false);copy.disabled=!!s;
- startControl.hidden=S.advancedOpen||S.popup!==null;startControl.setAttribute('aria-expanded',String(S.advancedOpen));tray.hidden=!S.advancedOpen||S.popup!==null;searchWrap.hidden=S.popup!==null;popup.hidden=S.popup===null;renderActive();
+ toolbar.hidden=!!S.visit||(!s&&!alive);controls(toolbar,false);copy.disabled=!!s;
+ startControl.hidden=S.advancedOpen||S.popup!==null;startControl.setAttribute('aria-expanded',String(S.advancedOpen));tray.hidden=!S.advancedOpen||S.popup!==null;searchWrap.hidden=S.popup!==null;popup.hidden=S.popup===null;renderActive();if(!S.advancedOpen)active.hidden=true;
  if(S.popup!==null){renderPopup();return;}
  const scrollPos=s?s.scroll[key()]||0:middle.scrollLeft;
  parent.replaceChildren();middle.replaceChildren();middle.classList.toggle('tts-controls-scroll',!!S.visit);confirm.replaceChildren();
  if(S.visit){controls(middle,true);confirm.append(cell('Commit Pokémon selection','#79a768','check',()=>leaveScope(true),{placement:256}),cell('Cancel Pokémon selection','#c75d64','close',()=>leaveScope(false),{placement:257}));return;}
  if(s&&S.actionsOpen){renderActions();renderConfirm();middle.scrollLeft=0;return;}
  const path=s?.path||[];
- if(!path.length)Object.keys(FAMILIES).forEach(f=>middle.append(familyButton(f)));
+ if(!path.length){Object.keys(FAMILIES).forEach(f=>middle.append(familyButton(f)));middle.append(hideButton());}
  else{
  const f=path[0],g=path[1],descriptor=g?GROUPS[g]:FAMILIES[f];parent.append(cell('Back from '+descriptor[0],descriptor[1],'back',()=>navigate(path.slice(0,-1)),{placement:TTSIcons.route('backs',path.join('/')),parent:true}));
  const content=FAMILIES[f][3];if(g)renderContent(f,g);else if(Array.isArray(content))content.forEach(x=>middle.append(groupButton(x,f)));else renderContent(f,content);
@@ -2180,6 +2198,7 @@ function revealPortion(index){requestAnimationFrame(()=>{
  const r=node.getBoundingClientRect(),v=scroller.getBoundingClientRect();if(r.left<v.left)scroller.scrollLeft-=v.left-r.left;else if(r.right>v.right)scroller.scrollLeft+=r.right-v.right;
 });}
 function renderActive(){
+ if(!S.advancedOpen){active.hidden=true;return;}
  const oldScroller=active.querySelector('.tts-portions');if(oldScroller)structuralScroll=oldScroller.scrollLeft;else if(!active.classList.contains('structural'))normalActiveScroll=active.scrollLeft;
  active.replaceChildren();active.classList.toggle('structural',!!S.builder);active.classList.toggle('frozen',S.popup!==null);
  if(S.builder){
@@ -2232,9 +2251,18 @@ function positionPopupPointer(){
 }
 active.addEventListener('scroll',positionPopupPointer,{passive:true});window.addEventListener('resize',positionPopupPointer,{passive:true});window.visualViewport?.addEventListener('resize',()=>requestAnimationFrame(positionPopupPointer),{passive:true});
 document.addEventListener('click',e=>{const path=e.composedPath();if(S.popup!==null&&!path.includes(popup)&&!path.includes(active)&&!path.includes(tray)){S.popup=null;renderUI();}});
+function matchesDeckTerm(p,q){
+ const meta=TTS_META[p.id],generation=q.match(/^(?:gen|generation)\s*([1-9])$/);
+ if(TYPES.includes(q))return meta.types.includes(q);
+ if(['kanto','johto','hoenn','sinnoh','unova','kalos','alola','galar','hisui','paldea'].includes(q))return meta.region===q;
+ if(generation)return meta.generation===Number(generation[1]);
+ if(['legendary','mythical','ultra beast','ultrabeast'].includes(q))return !!meta[q.replace(' ','')];
+ return norm(p.name).includes(q)||String(p.id).includes(q);
+}
 results=function(){const scope=!!S.visit,mode=scope?S.filterMode:S.mainMode,selectedScope=new Set(S.builder?.filter.scope||[]);let pool=POKEMON;
  if(mode.selected)pool=pool.filter(p=>scope?selectedScope.has(p.id):mode.exclude?S.main[p.id]==='exclude':!!S.main[p.id]);
- const q=norm(search.value.trim());if(q){const generation=q.match(/^(?:gen|generation)\s*([1-9])$/);if(TYPES.includes(q))pool=pool.filter(p=>TTS_META[p.id].types.includes(q));else if(['kanto','johto','hoenn','sinnoh','unova','kalos','alola','galar','hisui','paldea'].includes(q))pool=pool.filter(p=>TTS_META[p.id].region===q);else if(generation)pool=pool.filter(p=>TTS_META[p.id].generation===Number(generation[1]));else if(['legendary','mythical','ultra beast','ultrabeast'].includes(q)){const category=q.replace(' ','');pool=pool.filter(p=>TTS_META[p.id][category]);}else pool=pool.filter(p=>norm(p.name).includes(q)||String(p.id).includes(q));}
+ const terms=norm(search.value).split('&').map(group=>group.split(',').map(t=>t.trim()).filter(Boolean)).filter(group=>group.length);
+ if(terms.length)pool=pool.filter(p=>terms.every(group=>group.some(term=>matchesDeckTerm(p,term))));
  if(mode.evo){const chains=new Set(pool.map(p=>TTS_META[p.id].family));pool=POKEMON.filter(p=>chains.has(TTS_META[p.id].family));}return pool;
 };
 let badgeKey='',badgePlans=[],badgeCache=new Map();
