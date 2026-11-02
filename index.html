@@ -564,6 +564,17 @@ input.tts-bubble::-webkit-inner-spin-button,input.tts-bubble::-webkit-outer-spin
 header{border-bottom:calc(2 * var(--tray-stroke)) solid var(--chrome-accent)}
 footer{border-top:calc(2 * var(--tray-stroke)) solid var(--chrome-accent)}
 
+/* V52: requested spacing and message treatments. */
+:root{--message-gray:#BDB4A4;--advanced-circle:56.5px}
+#tts-builder .tts-cell{width:59.25px;min-width:59.25px;padding:0 1.375px}
+#tts-message,#tts-message .tts-message-name,#tts-message .tts-message-separator{color:var(--message-gray);text-align:center}
+#tts-message .tts-message-error{color:var(--red)}
+#tts-main-controls .tts-bulk.bulk-flash{animation-duration:.12s;animation-iteration-count:1}
+.tts-cell.dual-locked .tts-circle{opacity:.35}
+/* Dim all parts of passive Main Included borders consistently; scope stays purple. */
+.card.selected.passive-main:not(.scope-selected){--passive-edge:color-mix(in srgb,var(--cream) 50%,var(--card-base));border-color:var(--passive-edge);box-shadow:0 0 0 1px var(--passive-edge),4px 4px 0 #0003}
+.card.selected.passive-main:not(.scope-selected)::before,.card.selected.passive-main:not(.scope-selected)::after{background:var(--passive-edge);opacity:1}
+
 </style>
 </head><body>
 <header><div class="head"><div class="title"><h1>Tap to String</h1></div><p class="sub">Pokemon Go image based search string generator.</p><input id="search" type="search" inputmode="search" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="Search by name or Pokédex number…" aria-label="Search Pokémon"></div></header>
@@ -2106,7 +2117,7 @@ const msg=el('div');msg.id='tts-message';msg.hidden=true;msg.setAttribute('role'
 const toolbar=el('div');toolbar.id='tts-main-controls';toolbar.hidden=true;searchWrap.after(toolbar);
 const popup=el('div');popup.id='tts-popup';popup.hidden=true;const popupText=el('div');popupText.id='tts-popup-text';const edit=el('button','tts-edit','EDIT');edit.type='button';popup.append(popupText,edit);tray.before(popup);
 const preview=el('div','out');preview.id='tts-output';preview.setAttribute('aria-label','Generated Pokémon GO search string');preview.setAttribute('role','status');preview.tabIndex=0;const previewText=el('span');previewText.id='tts-output-text';preview.append(previewText);output.after(preview);output.hidden=true;
-let bulkFlash=null;const controlScroll={main:0,scope:0};
+const controlScroll={main:0,scope:0};
 let messageTimer,messageFadeTimer,changedTimer,footerFrame=0,footerRevision=0,lastValid=[],popKey=null;
 startControl.onclick=()=>{S.advancedOpen=true;renderUI();};
 // Stable per-load colors, drawn from the same palette as card outlines.
@@ -2139,7 +2150,7 @@ function notify(text,warning=false,clickedName='',role,placement){
  if(warning&&clickedName){msg.append(el('span','tts-message-error',text),el('span','tts-message-separator',' · '),el('span','tts-message-name',clickedName));}
  else msg.textContent=text;
  msg.classList.toggle('warning',warning);msg.hidden=false;
- const paint=warning?'#C45F57':placement!==undefined?TTSIcons.fill(TTSIcons.row(placement)):criterionPaint(role||S.builder?.path.at(-1)||current()?.order.at(-1));msg.style.setProperty('--message-fill',paint);msg.style.borderColor=warning?'#C45F57':(paint.match(/#[0-9a-f]{6}/i)?.[0]||'var(--cream)');msg.classList.remove('outline-flash');void msg.offsetWidth;msg.classList.add('outline-flash');
+ const paint=warning?'#C45F57':role==='deselected'?'#BDB4A4':placement!==undefined?TTSIcons.fill(TTSIcons.row(placement)):criterionPaint(role||S.builder?.path.at(-1)||current()?.order.at(-1));msg.style.setProperty('--message-fill',paint);msg.style.borderColor=warning?'#C45F57':(paint.match(/#[0-9a-f]{6}/i)?.[0]||'var(--cream)');msg.classList.remove('outline-flash');void msg.offsetWidth;msg.classList.add('outline-flash');
  msg.style.fontSize=getComputedStyle(search).fontSize;const duration=2000;messageFadeTimer=setTimeout(()=>msg.classList.add('fading'),duration-350);
  messageTimer=setTimeout(clearMessage,duration);
 }
@@ -2149,7 +2160,9 @@ function start(){S.advancedOpen=true;if(S.builder)return;S.actionsOpen=false;S.b
 function markFamily(f){const p=current();if(!p.order.includes(f))p.order.push(f);}
 function key(){return S.builder?S.builder.index+'/'+(S.builder.path.join('/')||'root'):'root';}
 function remember(){if(S.builder&&S.advancedOpen&&!S.visit&&!S.actionsOpen){S.builder.scroll[key()]=middle.scrollLeft;S.builder.paths[S.builder.index]=[...S.builder.path];}}
-function navigate(path){remember();S.builder.path=path;renderUI();}
+function dualLocked(){return S.builder?.path.join('/')==='type/dual'&&val().dual?.length===1;}
+function dualError(name){notify('Dual type needs at least two types selected.',true,name);}
+function navigate(path){if(dualLocked()&&path.join('/')!=='type/dual'){dualError('Back from Dual');return;}remember();S.builder.path=path;renderUI();}
 function disabledReason(k,x){const v=val(),excluded=current()?.exclude;
  if(['attack','defense','hp'].includes(k)&&excluded)return 'IV disabled by Exclude';
  if((k==='mega'||k==='megalevel')&&excluded)return 'Mega Level disabled by Exclude';
@@ -2171,7 +2184,7 @@ function setChoice(k,x,f,mode='multi',label){start();const reason=disabledReason
  markFamily(f);popKey=selectedNow?k+':'+x:null;
  if(selectedNow&&['attack','defense','hp'].includes(k))notify('Exclude disabled by IV',true,label||String(x));
  else if(selectedNow&&['mega','megalevel'].includes(k))notify('Exclude disabled by Mega Level',true,label||String(x));
- else if(k==='effective'&&selectedNow)notify('2nd Charged Move not included',true,label||String(x));else notify(label||String(x),false,'',k,TTSIcons.routes.options[k+':'+x]||TTSIcons.routes.groups[x]||TTSIcons.routes.families[k]);
+ else if(k==='effective'&&selectedNow)notify('2nd Charged Move not included',true,label||String(x));else if(!selectedNow)notify(label||String(x),false,'','deselected');else notify(label||String(x),false,'',k,TTSIcons.routes.options[k+':'+x]||TTSIcons.routes.groups[x]||TTSIcons.routes.families[k]);
  refresh();
 }
 function cell(label,fill,symbol,fn,opts={}){
@@ -2258,8 +2271,10 @@ function rangeControl(k,f){
  let dragPreview=null;const get=()=>val()[k]?.values||[],pct=x=>index(x)/max;const positions=()=>dragPreview||get().map(pct);
  const inset=7.35,hitWidth=29.4;const posStyle=p=>'calc(var(--range-left) + '+inset+'px + (100% - var(--range-left) - var(--range-right) - '+(2*inset)+'px) * '+p+')';
  const pointerIndex=x=>{const r=track.getBoundingClientRect();const scale=r.width/track.offsetWidth;return (x-r.left-inset*scale)/(r.width-2*inset*scale)*max;};
- function hint(){notify('Tap on the bar to add another knob.',false,'',k);}
- function change(a,render=true){if(a.length)val()[k]={values:a};else delete val()[k];markFamily(f);if(render)refresh();else{updateFooter();renderActive();renderConfirm();}if(a.length===1)hint();else clearMessage();}
+ function hint(){notify('tap the bar to add another knob.',false,'',k);}
+ const below=n=>spec.steps?[...spec.steps].reverse().find(x=>x<n):n-1,above=n=>spec.steps?spec.steps.find(x=>x>n):n+1;
+ const separate=(a,i,x)=>a.length!==2?x:i===0?(x>=a[1]?below(a[1]):x):(x<=a[0]?above(a[0]):x);
+ function change(a,render=true){const before=[...get()];if(a.length)val()[k]={values:a};else delete val()[k];markFamily(f);if(render)refresh();else{updateFooter();renderActive();renderConfirm();}if(!a.length)notify(label,false,'',k);else if(a.length===1&&!before.length)hint();else if(a.length===1)notify(label+': '+a[0],false,'',k);else clearMessage();}
  function layout(){if(!box.isConnected)return;const w=box.clientWidth,left=leftWidth+10,right=rightWidth+10,gap=4,bubbles=[...box.querySelectorAll('.tts-bubble')];
  const widths=bubbles.map(e=>Math.min(Math.ceil(measure.measureText(e.tagName==='INPUT'?e.value:e.textContent).width)+8,(w-5-gap*(bubbles.length-1))/bubbles.length));
  let centers=(positions().length?positions():[.5]).map(p=>left+inset+(w-left-right-2*inset)*p);
@@ -2270,19 +2285,21 @@ function rangeControl(k,f){
  }
  function sync(){const vals=get(),ps=positions();fill.style.left=ps.length===2?'calc('+inset+'px + (100% - '+(2*inset)+'px) * '+ps[0]+')':'0px';fill.style.width=ps.length===2?'calc((100% - '+(2*inset)+'px) * '+(ps[1]-ps[0])+')':'0px';box.querySelectorAll('.tts-knob').forEach((b,i)=>{const n=vals[i],p=ps[i]??.5;b.style.left=posStyle(p);b.classList.toggle('single',vals.length===1);b.setAttribute('aria-valuetext',n===undefined?'Unset; tap or drag to set':String(n));if(n!==undefined)b.setAttribute('aria-valuenow',n);const e=box.querySelector('[data-bubble="'+i+'"]');if(e){if(e.tagName==='INPUT')e.value=n;else e.textContent=n===undefined?'-':n;}});layout();}
  function draw(){box.querySelectorAll('.tts-knob,.tts-bubble').forEach(e=>e.remove());const vals=get();(vals.length?vals:[null]).forEach((n,i)=>{
- const b=el('button','tts-knob'+(n===null?' neutral':''));b.type='button';const art=el('span','tts-knob-art');art.setAttribute('aria-hidden','true');b.append(art);b.setAttribute('role','slider');b.setAttribute('aria-label',label+' endpoint '+(i+1));b.setAttribute('aria-valuemin',first);b.setAttribute('aria-valuemax',last);b.onfocus=()=>{if(get().length<=1)hint();};
+ const b=el('button','tts-knob'+(n===null?' neutral':''));b.type='button';const art=el('span','tts-knob-art');art.setAttribute('aria-hidden','true');b.append(art);b.setAttribute('role','slider');b.setAttribute('aria-label',label+' endpoint '+(i+1));b.setAttribute('aria-valuemin',first);b.setAttribute('aria-valuemax',last);
  const toggle=()=>{const a=get();if(!a.length)change([valueAt(max/2)]);else change(a.filter((_,j)=>j!==i));};
- b.onkeydown=e=>{if(['Enter',' '].includes(e.key)){e.preventDefault();toggle();return;}let ix=n===null?max/2:index(n);if(['ArrowRight','ArrowUp'].includes(e.key))ix++;else if(['ArrowLeft','ArrowDown'].includes(e.key))ix--;else if(['Delete','Backspace'].includes(e.key)){e.preventDefault();change(vals.filter((_,j)=>j!==i));return;}else return;e.preventDefault();const a=[...vals];a[i]=valueAt(ix);if(a.length===2)a[i]=i===0?Math.min(a[i],a[1]):Math.max(a[i],a[0]);change(a);};
- b.onpointerdown=e=>{e.stopPropagation();e.preventDefault();const startX=e.clientX,initial=[...get()];let moved=false,releaseIndex=n===null?max/2:index(n);b.setPointerCapture(e.pointerId);if(initial.length<=1)hint();
- b.onpointermove=ev=>{if(Math.abs(ev.clientX-startX)>3)moved=true;if(!moved)return;let ix=Math.max(0,Math.min(max,(n===null?max/2:index(n))+pointerIndex(ev.clientX)-pointerIndex(startX)));if(initial.length===2)ix=i===0?Math.min(ix,index(initial[1])):Math.max(ix,index(initial[0]));releaseIndex=ix;dragPreview=initial.length?initial.map(pct):[ix/max];dragPreview[i]=ix/max;sync();const bubble=box.querySelector('[data-bubble="'+i+'"]'),preview=valueAt(ix);if(bubble){if(bubble.tagName==='INPUT')bubble.value=preview;else bubble.textContent=preview;}layout();};
- const finish=()=>{b.onpointermove=null;b.onpointerup=null;b.onpointercancel=null;dragPreview=null;if(!moved){toggle();return;}const a=initial.length?[...initial]:[valueAt(releaseIndex)];let x=valueAt(releaseIndex);if(a.length===2)x=i===0?Math.min(x,a[1]):Math.max(x,a[0]);a[i]=x;change(a);};b.onpointerup=finish;b.onpointercancel=finish;};box.append(b);
- const bubble=el(n!==null&&editable?'input':'span','tts-bubble');bubble.dataset.bubble=i;if(n!==null&&editable){bubble.type='number';bubble.inputMode='numeric';bubble.value=n;bubble.min=first;bubble.max=last;bubble.step=1;bubble.oninput=layout;bubble.setAttribute('aria-label',label+' value '+(i+1));bubble.onchange=()=>{const raw=bubble.value.trim(),x=Number(raw);if(!raw||!Number.isFinite(x)){draw();return;}const a=[...get()];let v=Math.max(first,Math.min(last,Math.round(x)));if(a.length===2)v=i===0?Math.min(v,a[1]):Math.max(v,a[0]);a[i]=v;change(a);};bubble.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();bubble.blur();}};}else bubble.textContent=n===null?'-':n;box.append(bubble);
+ b.onkeydown=e=>{if(['Enter',' '].includes(e.key)){e.preventDefault();toggle();return;}let ix=n===null?max/2:index(n);if(['ArrowRight','ArrowUp'].includes(e.key))ix++;else if(['ArrowLeft','ArrowDown'].includes(e.key))ix--;else if(['Delete','Backspace'].includes(e.key)){e.preventDefault();change(vals.filter((_,j)=>j!==i));return;}else return;e.preventDefault();const a=[...vals];a[i]=valueAt(ix);if(a.length===2)a[i]=separate(a,i,a[i]);change(a);};
+ b.onpointerdown=e=>{e.stopPropagation();e.preventDefault();const startX=e.clientX,initial=[...get()];let moved=false,releaseIndex=n===null?max/2:index(n);b.setPointerCapture(e.pointerId);
+ b.onpointermove=ev=>{if(Math.abs(ev.clientX-startX)>3)moved=true;if(!moved)return;let ix=Math.max(0,Math.min(max,(n===null?max/2:index(n))+pointerIndex(ev.clientX)-pointerIndex(startX)));if(initial.length===2)ix=i===0?Math.min(ix,index(below(initial[1]))):Math.max(ix,index(above(initial[0])));releaseIndex=ix;dragPreview=initial.length?initial.map(pct):[ix/max];dragPreview[i]=ix/max;sync();const bubble=box.querySelector('[data-bubble="'+i+'"]'),preview=valueAt(ix);if(bubble){if(bubble.tagName==='INPUT')bubble.value=preview;else bubble.textContent=preview;}layout();};
+ const finish=()=>{b.onpointermove=null;b.onpointerup=null;b.onpointercancel=null;dragPreview=null;if(!moved){toggle();return;}const a=initial.length?[...initial]:[valueAt(releaseIndex)];let x=valueAt(releaseIndex);if(a.length===2)x=separate(a,i,x);a[i]=x;change(a);};b.onpointerup=finish;b.onpointercancel=finish;};box.append(b);
+ const bubble=el(n!==null&&editable?'input':'span','tts-bubble');bubble.dataset.bubble=i;if(n!==null&&editable){bubble.type='number';bubble.inputMode='numeric';bubble.value=n;bubble.min=first;bubble.max=last;bubble.step=1;bubble.oninput=layout;bubble.setAttribute('aria-label',label+' value '+(i+1));bubble.onchange=()=>{const raw=bubble.value.trim(),x=Number(raw);if(!raw||!Number.isFinite(x)){draw();return;}const a=[...get()];let v=Math.max(first,Math.min(last,Math.round(x)));if(a.length===2)v=separate(a,i,v);a[i]=v;change(a);};bubble.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();bubble.blur();}};}else bubble.textContent=n===null?'-':n;box.append(bubble);
  });sync();requestAnimationFrame(layout);}
- let trackStart=null;track.onpointerdown=e=>{trackStart={x:e.clientX,y:e.clientY};};track.onpointercancel=()=>trackStart=null;track.onpointerup=e=>{if(!trackStart)return;const start=trackStart;trackStart=null;if(Math.hypot(e.clientX-start.x,e.clientY-start.y)>8)return;const a=[...get()],ix=Math.max(0,Math.min(max,pointerIndex(e.clientX))),x=valueAt(ix);if(!a.length){change([x]);return;}if(a.length===1){if(x!==a[0])change([...a,x].sort((a,b)=>a-b));return;}const i=Math.abs(index(a[0])-ix)<=Math.abs(index(a[1])-ix)?0:1;a[i]=i===0?Math.min(x,a[1]):Math.max(x,a[0]);change(a);};draw();const observer=new ResizeObserver(()=>{if(!box.isConnected){observer.disconnect();return;}layout();});observer.observe(box);return box;
+ let trackStart=null;track.onpointerdown=e=>{trackStart={x:e.clientX,y:e.clientY};};track.onpointercancel=()=>trackStart=null;track.onpointerup=e=>{if(!trackStart)return;const start=trackStart;trackStart=null;if(Math.hypot(e.clientX-start.x,e.clientY-start.y)>8)return;const a=[...get()],ix=Math.max(0,Math.min(max,pointerIndex(e.clientX))),x=valueAt(ix);if(!a.length){change([x]);return;}if(a.length===1){if(x!==a[0])change([...a,x].sort((a,b)=>a-b));return;}const i=Math.abs(index(a[0])-ix)<=Math.abs(index(a[1])-ix)?0:1;a[i]=separate(a,i,x);change(a);};draw();const observer=new ResizeObserver(()=>{if(!box.isConnected){observer.disconnect();return;}layout();});observer.observe(box);return box;
 }
 function excludeReason(){const v=val();if(['attack','defense','hp'].some(k=>v[k]!==undefined))return 'Exclude disabled by IV';if(v.mega||v.megalevel?.length)return 'Exclude disabled by Mega Level';return '';}
 function renderConfirm(){confirm.replaceChildren();if(!S.builder||S.visit||S.popup!==null)return;
- const control=cell(S.actionsOpen?'Close filter actions':'Open filter actions','#79a768','check',()=>{if(!S.actionsOpen)remember();S.actionsOpen=!S.actionsOpen;clearMessage();renderUI();},{placement:251,parent:S.actionsOpen});
+ const control=cell(S.actionsOpen?'Close filter actions':'Open filter actions','#79a768','check',()=>{if(dualLocked()){dualError('Open filter actions');return;}if(!S.actionsOpen)remember();S.actionsOpen=!S.actionsOpen;clearMessage();renderUI();},{placement:251,parent:S.actionsOpen,disabled:!!dualLocked()});
+ if(dualLocked())control.classList.add('dual-locked');
+ if(S.actionsOpen){const c=TTSIcons.create(251,'selected');c.querySelector('.tts-selected-check').remove();const chevron=TTSIcons.create(TTSIcons.route('backs','moves')).querySelector('.tts-parent-chevron').cloneNode(true);chevron.style.transform='scaleX(-1)';c.append(chevron);control.replaceChildren(c);control.classList.add('action-back');}
  control.setAttribute('aria-expanded',String(S.actionsOpen));control.setAttribute('aria-controls','tts-middle');confirm.append(control);
 }
 function incompleteReason(all=false){
@@ -2299,7 +2316,7 @@ function renderActions(){
  const action=(name,fill,symbol,handler,disabled=false,chosen)=>middle.append(cell(name,fill,symbol,()=>{if(disabled){notify(name==='Exclude'&&reason?reason:incompleteReason(name==='Create Filter'),true,name);return;}handler();},{placement:name==='Exclude'?(disabled?260:chosen?259:250):TTSIcons.route('controls',name),disabled,chosen}));
  action('Add Filter','#d2b34e','plus',()=>{S.actionsOpen=false;addPortion();},!p.valid);
  action('Select Pokémon','#9d7db9','card',enterScope);
- action('Exclude','#c75d64','eye',()=>{current().exclude=!current().exclude;notify(current().exclude?'Exclude On':'Exclude Off');refresh();},!!reason||(!p.valid&&!current().exclude),current().exclude);
+ action('Exclude','#c75d64','eye',()=>{current().exclude=!current().exclude;notify(current().exclude?'Exclude On':'Exclude Off',false,'',current().exclude?undefined:'deselected');refresh();},!!reason||(!p.valid&&!current().exclude),current().exclude);
  action('Create Filter','#79a768','check',save,!all.valid);
  action('Discard Current Filter','#c75d64','close',discard);
 }
@@ -2322,11 +2339,11 @@ function controls(target,scope){
    // Present feedback before the potentially expensive deck mutation.
    requestAnimationFrame(()=>requestAnimationFrame(()=>setTimeout(()=>{
     if(!b.isConnected||S.visit!==visit||S.builder!==builder||mode.exclude!==excluded)return;
-    bulkFlash={kind,label,until:performance.now()+350};bulk(on,scope,ids);
+    bulk(on,scope,ids);
    },100)));
   },'tts-bulk');
   b.dataset.bulk=label.toLowerCase();
-  if(bulkFlash?.kind===kind&&bulkFlash.label===label&&performance.now()<bulkFlash.until)b.classList.add('bulk-flash');add(b);
+  add(b);
  }
  target.append(scroll);scroll.scrollLeft=controlScroll[kind];scroll.onscroll=()=>{controlScroll[kind]=scroll.scrollLeft;};
  if(scope){const fixed=el('div','tts-scope-confirm');fixed.append(el('span','tts-control-divider'),cell('Commit Pokémon selection','#8CAF69','check',()=>leaveScope(true),{placement:256}),el('span','tts-control-divider'),cell('Cancel Pokémon selection','#C45F57','close',()=>leaveScope(false),{placement:257}));target.append(fixed);}requestAnimationFrame(layoutSelectionSpacing);
@@ -2358,7 +2375,7 @@ function renderUI(){
  const path=s?.path||[];
  if(!path.length){Object.keys(FAMILIES).forEach(f=>middle.append(familyButton(f)));middle.append(hideButton());}
  else{
- const f=path[0],g=path[1],descriptor=g==='customtag'?['Custom Tag',FAMILIES.tags[1]]:g?GROUPS[g]:FAMILIES[f];parent.append(cell('Back from '+descriptor[0],descriptor[1],'back',()=>navigate(path.slice(0,-1)),{placement:TTSIcons.route('backs',g==='customtag'?'tags':path.join('/')),parent:true}));
+ const f=path[0],g=path[1],descriptor=g==='customtag'?['Custom Tag',FAMILIES.tags[1]]:g?GROUPS[g]:FAMILIES[f];parent.append(cell('Back from '+descriptor[0],descriptor[1],'back',()=>navigate(path.slice(0,-1)),{placement:TTSIcons.route('backs',g==='customtag'?'tags':path.join('/')),parent:true,disabled:!!dualLocked()}));if(dualLocked())parent.firstElementChild.classList.add('dual-locked');
  const content=FAMILIES[f][3];if(g)renderContent(f,g);else if(Array.isArray(content))content.forEach(x=>middle.append(groupButton(x,f)));else renderContent(f,content);
  }
  renderConfirm();middle.scrollLeft=scrollPos;popKey=null;
@@ -2368,7 +2385,7 @@ function revealActive(id){requestAnimationFrame(()=>{const node=active.querySele
 function portionFamily(p){return C.portion(p).families[0]||p.provisional;}
 function selectPortion(index){
  const b=S.builder;if(!b||S.visit||index===b.index||!b.filter.portions[index])return;
- remember();S.actionsOpen=false;b.index=index;
+ if(dualLocked()){dualError('Switch portion');return;}remember();S.actionsOpen=false;b.index=index;
  const family=portionFamily(current());b.path=b.paths[index]?[...b.paths[index]]:family&&FAMILIES[family][3]?[family]:[];
  clearMessage();renderUI();renderDeck();revealPortion(index);
 }
