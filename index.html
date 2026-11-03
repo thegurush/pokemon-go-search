@@ -604,6 +604,15 @@ footer{border-top:calc(2 * var(--tray-stroke)) solid var(--chrome-accent)}
 #tts-builder{padding-left:2.5px;padding-right:2.5px}
 #tts-builder .tts-cell{width:61.5px;min-width:61.5px;padding:0 2.5px}
 
+/* Selection owns the card fill; random colors return after deselection. */
+.card.selected{--selected-fill:color-mix(in srgb,var(--cream) 15%,var(--bg));background:var(--selected-fill)!important}
+.card.scope-selected,.card.scope-selected.passive-main{--selected-fill:color-mix(in srgb,var(--purple) 15%,var(--bg));background:var(--selected-fill)!important;border-style:solid;border-color:var(--purple);box-shadow:4px 4px 0 #0003}
+.card.scope-selected::before,.card.scope-selected::after{background:var(--purple);opacity:1}
+.card.scope-selected .sprite-slot,.card.scope-selected .name,.card.scope-selected .num{opacity:1}
+/* Only the active filter's Exclude state controls its selected preview. */
+.card.scope-selected.selection-excluded{box-shadow:3px 3px 0 #0002;--selection-edge:var(--purple);border-style:dashed;background:linear-gradient(135deg,var(--selection-edge) 0 15px,transparent 15px) top left/22px 22px no-repeat,linear-gradient(315deg,var(--selection-edge) 0 13.5px,transparent 13.5px) bottom right/20px 20px no-repeat,color-mix(in srgb,var(--selected-fill) 65%,black)!important;background-origin:border-box!important;background-clip:border-box!important}
+.card.scope-selected.selection-excluded .sprite-slot,.card.scope-selected.selection-excluded .name,.card.scope-selected.selection-excluded .num{opacity:.28}
+
 </style>
 </head><body>
 <header><div class="head"><div class="title"><h1>Tap to String</h1></div><p class="sub">Pokemon Go image based search string generator.</p><input id="search" type="search" inputmode="search" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="Search by name or Pokédex number…" aria-label="Search Pokémon"></div></header>
@@ -2131,12 +2140,12 @@ function current(){return S.builder?.filter.portions[S.builder.index];}
 function val(){return current()?.values||{};}
 function familyColor(f){const fill=FAMILIES[f]?.[1]||'#64829a';return fill.match(/#[0-9a-f]{6}/i)?.[0]||fill;}
 function criterionPaint(key){const role={generation:'generation',megalevel:'mega',size:'size',maxkind:'max',catch:'catch',evolution:'evolution',background:'background',customtag:'tags',tagmode:'tags'}[key]||key,id=TTSIcons.routes.groups[role]||TTSIcons.routes.families[role];return id?TTSIcons.fill(TTSIcons.row(id)):'var(--cream)';}
-function notify(text,warning=false,clickedName='',role,placement,flash=true){
+function notify(text,warning=false,clickedName='',role,placement,flash=true,paintOverride){
  clearTimeout(messageTimer);clearTimeout(messageFadeTimer);msg.classList.remove('fading');msg.replaceChildren();
  if(warning&&clickedName){msg.append(el('span','tts-message-error',text),el('span','tts-message-separator',' · '),el('span','tts-message-name',clickedName));}
  else msg.textContent=text;
  msg.classList.toggle('warning',warning);msg.hidden=false;
- const paint=warning?'#C45F57':role==='deselected'?'#BDB4A4':placement!==undefined?TTSIcons.fill(TTSIcons.row(placement)):criterionPaint(role||S.builder?.path.at(-1)||current()?.order.at(-1));msg.style.setProperty('--message-fill',paint);msg.style.borderColor=warning?'#C45F57':(paint.match(/#[0-9a-f]{6}/i)?.[0]||'var(--cream)');msg.classList.remove('outline-flash');if(flash){void msg.offsetWidth;msg.classList.add('outline-flash');}
+ const paint=paintOverride|| (warning?'#C45F57':role==='deselected'?'#BDB4A4':placement!==undefined?TTSIcons.fill(TTSIcons.row(placement)):criterionPaint(role||S.builder?.path.at(-1)||current()?.order.at(-1)));msg.style.setProperty('--message-fill',paint);msg.style.borderColor=warning?'#C45F57':(paint.match(/#[0-9a-f]{6}/i)?.[0]||'var(--cream)');msg.classList.remove('outline-flash');if(flash){void msg.offsetWidth;msg.classList.add('outline-flash');}
  msg.style.fontSize=getComputedStyle(search).fontSize;const duration=2000;messageFadeTimer=setTimeout(()=>msg.classList.add('fading'),duration-350);
  messageTimer=setTimeout(clearMessage,duration);
 }
@@ -2257,10 +2266,10 @@ function rangeControl(k,f){
  let dragPreview=null;const get=()=>val()[k]?.values||[],pct=x=>index(x)/max;const positions=()=>dragPreview||get().map(pct);
  const inset=7.35,hitWidth=29.4;const posStyle=p=>'calc(var(--range-left) + '+inset+'px + (100% - var(--range-left) - var(--range-right) - '+(2*inset)+'px) * '+p+')';
  const pointerIndex=x=>{const r=track.getBoundingClientRect();const scale=r.width/track.offsetWidth;return (x-r.left-inset*scale)/(r.width-2*inset*scale)*max;};
- function hint(){notify('tap the bar to add another knob.',false,'',k);}
+ function hint(){notify('Tap on the bar to add another knob.',false,'',k);}
  const below=n=>spec.steps?[...spec.steps].reverse().find(x=>x<n):n-1,above=n=>spec.steps?spec.steps.find(x=>x>n):n+1;
  const separate=(a,i,x)=>a.length!==2?x:i===0?(x>=a[1]?below(a[1]):x):(x<=a[0]?above(a[0]):x);
- function change(a,render=true){const before=[...get()];if(a.length)val()[k]={values:a};else delete val()[k];markFamily(f);if(render)refresh();else{updateFooter();renderActive();renderConfirm();}if(!a.length)notify(label,false,'',k);else if(a.length===1&&!before.length)hint();else {const changed=a.find((n,i)=>n!==before[i])??a[0];notify(label+': '+changed,false,'',k,undefined,false);}}
+ function change(a,render=true){const before=[...get()];if(a.length)val()[k]={values:a};else delete val()[k];markFamily(f);if(render)refresh();else{updateFooter();renderActive();renderConfirm();}if(!a.length)notify(label,false,'',k);else if(a.length===1&&!before.length)hint();else {const changed=a.find((n,i)=>n!==before[i])??a[0];notify(label+': '+changed,false,'',k,undefined,before.length!==a.length);}}
  function layout(){if(!box.isConnected)return;const w=box.clientWidth,left=leftWidth+10,right=rightWidth+10,gap=4,bubbles=[...box.querySelectorAll('.tts-bubble')];
  const widths=bubbles.map(e=>Math.min(Math.ceil(measure.measureText(e.tagName==='INPUT'?e.value:e.textContent).width)+8,(w-5-gap*(bubbles.length-1))/bubbles.length));
  let centers=(positions().length?positions():[.5]).map(p=>left+inset+(w-left-right-2*inset)*p);
@@ -2311,17 +2320,18 @@ function textControl(label,on,fn,cls='',toggle=false){
  if(toggle){b.setAttribute('role','switch');b.setAttribute('aria-checked',String(on));b.append(el('span','tts-toggle-label',label));const track=el('span','tts-switch-track');track.setAttribute('aria-hidden','true');track.append(el('span','tts-switch-thumb'));b.append(track);}
  else b.textContent=label;b.onclick=fn;return b;
 }
+function controlNotice(label,color){notify(label,false,'',undefined,undefined,true,color);}
 function controls(target,scope){
  const mode=scope?S.filterMode:S.mainMode,kind=scope?'scope':'main';target.replaceChildren();target.classList.toggle('scope-controls',scope);
  const scroll=el('div','tts-selection-scroll');scroll.setAttribute('aria-label',scope?'Filter Card selection controls':'Main Card selection controls');
  const add=b=>{if(scroll.children.length)scroll.append(el('span','tts-control-divider'));scroll.append(b);};
  if(!scope)add(textControl('EXCLUDE',mode.exclude,()=>{mode.exclude=!mode.exclude;refresh(true);},'exclude',true));
- add(textControl('EVOLUTION',mode.evo,()=>{mode.evo=!mode.evo;refresh(true);},'',true));
- add(textControl('SELECTED',mode.selected,()=>{mode.selected=!mode.selected;refresh(true);},'',true));
+ add(textControl('EVOLUTION',mode.evo,()=>{mode.evo=!mode.evo;refresh(true);if(scope)controlNotice('Evolution '+(mode.evo?'On':'Off'),mode.evo?'#48A38C':'#BDB4A4');},'',true));
+ add(textControl('SELECTED',mode.selected,()=>{mode.selected=!mode.selected;refresh(true);if(scope)controlNotice('Selected '+(mode.selected?'On':'Off'),mode.selected?'#48A38C':'#BDB4A4');},'',true));
  for(const [label,on] of [['ALL',true],['NONE',false]]){
   const b=textControl(label,false,()=>{
    if(b.disabled)return;const visit=S.visit,builder=S.builder,excluded=mode.exclude,ids=results().map(p=>p.id);
-   b.disabled=true;b.classList.remove('bulk-flash');void b.offsetWidth;b.classList.add('bulk-flash');
+   if(scope)controlNotice(label,on?'#8CAF69':'#BDB4A4');b.disabled=true;b.classList.remove('bulk-flash');void b.offsetWidth;b.classList.add('bulk-flash');
    // Present feedback before the potentially expensive deck mutation.
    requestAnimationFrame(()=>requestAnimationFrame(()=>setTimeout(()=>{
     if(!b.isConnected||S.visit!==visit||S.builder!==builder||mode.exclude!==excluded)return;
@@ -2332,7 +2342,7 @@ function controls(target,scope){
   add(b);
  }
  target.append(scroll);scroll.scrollLeft=controlScroll[kind];scroll.onscroll=()=>{controlScroll[kind]=scroll.scrollLeft;};
- if(scope){const fixed=el('div','tts-scope-confirm');fixed.append(el('span','tts-control-divider'),cell('Commit Pokémon selection','#8CAF69','check',()=>leaveScope(true),{placement:256}),el('span','tts-control-divider'),cell('Cancel Pokémon selection','#C45F57','close',()=>leaveScope(false),{placement:257}));target.append(fixed);}requestAnimationFrame(layoutSelectionSpacing);
+ if(scope){const fixed=el('div','tts-scope-confirm');fixed.append(el('span','tts-control-divider'),cell('Commit Pokémon selection','#8CAF69','check',()=>{leaveScope(true);controlNotice('Commit Pokémon selection','#8CAF69');},{placement:256}),el('span','tts-control-divider'),cell('Cancel Pokémon selection','#C45F57','close',()=>{leaveScope(false);controlNotice('Cancel Pokémon selection','#C45F57');},{placement:257}));target.append(fixed);}requestAnimationFrame(layoutSelectionSpacing);
 }
 
 function layoutSelectionSpacing(){if(toolbar.hidden)return;const buttons=[...toolbar.querySelectorAll('button')],sum=buttons.reduce((n,b)=>n+b.offsetWidth,0);const gap=Math.max(4,(toolbar.clientWidth-sum)/(buttons.length+1));toolbar.style.setProperty('--selection-gap',gap+'px');}
@@ -2340,7 +2350,7 @@ new ResizeObserver(layoutSelectionSpacing).observe(toolbar);
 function selectedCount(scope){return scope?(S.builder?.filter.scope.length||0):Object.values(S.main).filter(state=>!S.mainMode.exclude||state==='exclude').length;}
 function resetEmptySelected(scope,before){const mode=scope?S.filterMode:S.mainMode;if(mode.selected&&before>0&&selectedCount(scope)===0)mode.selected=false;}
 function bulk(on,scope,ids=results().map(p=>p.id)){const before=selectedCount(scope);if(scope){const set=new Set(S.builder.filter.scope);ids.forEach(id=>on?set.add(id):set.delete(id));S.builder.filter.scope=[...set];}else{ids.forEach(id=>{if(on)S.main[id]=S.mainMode.exclude?'exclude':'include';else if(!S.mainMode.exclude||S.main[id]==='exclude')delete S.main[id];});if(on&&ids.length)S.mainMode.boot=true;}resetEmptySelected(scope,before);refresh(true);}
-function enterScope(){remember();S.visit={scope:[...S.builder.filter.scope]};renderUI();renderDeck();notify('Apply filter to select pokemon.');}
+function enterScope(){remember();S.visit={scope:[...S.builder.filter.scope]};renderUI();renderDeck();controlNotice('Apply filter to select pokemon.','#927D9E');}
 function leaveScope(commit){const before=selectedCount(true);if(!commit){S.builder.filter.scope=[...S.visit.scope];resetEmptySelected(true,before);}S.visit=null;clearMessage();refresh(true);}
 function save(){if(!C.filter(S.builder.filter).valid)return;S.actionsOpen=false;const b=S.builder,finished=clone(b.filter);finished.portions=finished.portions.filter(p=>!C.portion(p).empty);if(b.editing){const i=S.filters.findIndex(f=>f.id===finished.id);S.filters[i]=finished;}else S.filters.push(finished);S.builder=null;S.visit=null;lastValid=[];clearMessage();S.popup=b.editing?finished.id:null;refresh(true);revealActive(finished.id);}
 function discard(){S.actionsOpen=false;const b=S.builder;if(!b)return;if(b.editing)S.filters=S.filters.filter(f=>f.id!==b.filter.id);S.builder=null;S.visit=null;S.popup=null;lastValid=[];clearMessage();refresh(true);}
@@ -2473,7 +2483,7 @@ function badgeCounts(id,knownKey){
 }
 const decorated=new WeakMap();
 
-function decorateCard(b,p,knownKey){const counts=badgeCounts(p.id,knownKey),signature=JSON.stringify([S.main[p.id],!!S.visit,S.builder?.filter.scope.includes(p.id),counts]);if(decorated.get(b)===signature)return;decorated.set(b,signature);const state=S.main[p.id],scopePreview=!!S.builder?.filter.scope.includes(p.id);b.classList.toggle('scope-selected',scopePreview);b.classList.toggle('selection-excluded',state==='exclude'||scopePreview&&counts.previewRed>0);b.style.setProperty('--card-base',cardColor.get(p.id).bg);b.classList.toggle('selected',state==='include');b.classList.toggle('main-excluded',state==='exclude');b.classList.toggle('passive-main',!!S.visit&&!!state);b.setAttribute('aria-pressed',String(S.visit?S.builder.filter.scope.includes(p.id):!!state));b.setAttribute('aria-label',p.name+(state?' — '+(state==='include'?'Included':'Excluded'):'')+(S.visit&&S.builder.filter.scope.includes(p.id)?' — filter selected':''));b.dataset.pokemonId=p.id;
+function decorateCard(b,p,knownKey){const counts=badgeCounts(p.id,knownKey),signature=JSON.stringify([S.main[p.id],!!S.visit,S.builder?.filter.scope.includes(p.id),counts]);if(decorated.get(b)===signature)return;decorated.set(b,signature);const state=S.main[p.id],scopePreview=!!S.builder?.filter.scope.includes(p.id);b.classList.toggle('scope-selected',scopePreview);b.classList.toggle('selection-excluded',scopePreview?counts.previewRed>0:state==='exclude');b.style.setProperty('--card-base',cardColor.get(p.id).bg);b.classList.toggle('selected',state==='include');b.classList.toggle('main-excluded',state==='exclude');b.classList.toggle('passive-main',!!S.visit&&!!state);b.setAttribute('aria-pressed',String(S.visit?S.builder.filter.scope.includes(p.id):!!state));b.setAttribute('aria-label',p.name+(state?' — '+(state==='include'?'Included':'Excluded'):'')+(S.visit&&S.builder.filter.scope.includes(p.id)?' — filter selected':''));b.dataset.pokemonId=p.id;
  b.querySelector('.tts-badges')?.remove();const badges=el('div','tts-badges');badges.setAttribute('aria-hidden','true');b.style.setProperty('--badge-ink',cardColor.get(p.id).bg);
  for(const color of ['purple','red']){const completed=counts[color],currentCount=scopePreview?0:counts['preview'+(color==='purple'?'Purple':'Red')];if(!completed&&!currentCount)continue;const badge=el('span','tts-badge '+color+(S.visit&&!currentCount?' dim':''),String(completed+currentCount));badges.append(badge);}b.append(badges);
  b.onclick=()=>{const scope=!!S.visit,before=selectedCount(scope);if(S.visit){const set=new Set(S.builder.filter.scope);set.has(p.id)?set.delete(p.id):set.add(p.id);S.builder.filter.scope=[...set];}else{const target=S.mainMode.exclude?'exclude':'include';if(S.main[p.id]===target)delete S.main[p.id];else S.main[p.id]=target;S.mainMode.boot=true;}resetEmptySelected(scope,before);if(S.visit?S.builder.filter.scope.includes(p.id):!!S.main[p.id]){b.classList.remove('selection-pop');void b.offsetWidth;b.classList.add('selection-pop');}refresh(false);};
