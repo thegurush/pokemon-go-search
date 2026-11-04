@@ -637,7 +637,6 @@ footer{will-change:auto;backface-visibility:visible}
 #search::-webkit-search-cancel-button{-webkit-appearance:none;appearance:none}
 .tts-search-clear{position:absolute;right:4px;top:50%;transform:translateY(-50%);width:36px;height:36px;display:grid;place-items:center;border:0;background:transparent;color:var(--muted);font:24px/1 sans-serif;cursor:pointer}
 #tts-message{z-index:2}
-.card:has(.tts-badge) .num{min-height:17px;line-height:17px;margin:2px 0}
 .card .tts-badges{left:6px;right:6px;bottom:calc(4px + 1.08 * 8px + 4px)}
 .card .tts-badge{-webkit-text-stroke:.35px currentColor}
 header{z-index:1000;isolation:isolate;pointer-events:auto}
@@ -661,7 +660,7 @@ footer{z-index:1001;isolation:isolate;pointer-events:auto}
 @media(prefers-reduced-motion:reduce){#tts-active .badge-breath::after{animation:none;opacity:1}}
 
 /* Badge feedback is transient; it never changes selection or adds a check. */
-#tts-active .badge-breath::after{outline-color:var(--cream);animation:ttsOutlineFlash 2.4s ease-out 1}
+#tts-active .badge-breath::after{outline-color:var(--cream);animation:ttsBadgeBreath 2.4s ease-in-out 1}
 .tts-badge-shade{position:absolute;inset:0;border-radius:50%;background:#000;opacity:0;pointer-events:none}
 #tts-active .badge-breath .tts-badge-shade{animation:ttsBadgeDarken 2.4s ease-in-out}
 #tts-active .badge-breath .tts-master{animation:ttsBadgeArtwork 2.4s ease-in-out}
