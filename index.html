@@ -655,10 +655,11 @@ footer{z-index:1001;isolation:isolate;pointer-events:auto}
 .card .tts-badge[role=button]{pointer-events:auto;cursor:pointer}
 .card .tts-badge[role=button]::before{content:'';position:absolute;inset:-2px;border-radius:50%}
 .card .tts-badge[role=button]:focus-visible{outline:1px solid var(--cream);outline-offset:2px}
-#tts-active .badge-breath{position:relative}
-#tts-active .badge-breath::after{content:'';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:17px;height:17px;border-radius:50%;outline:1.5px solid var(--badge-breath-color);pointer-events:none;animation:ttsBadgeBreath 2.4s ease-in-out;opacity:0}
-@keyframes ttsBadgeBreath{0%,100%{opacity:0}50%{opacity:1}}
-@media(prefers-reduced-motion:reduce){#tts-active .badge-breath::after{animation:none;opacity:1}}
+#tts-active .badge-breath{position:relative}#tts-active .badge-breath .tts-circle{animation:ttsBadgeIconFade 2.4s ease-in-out both}#tts-active .badge-breath .tts-selected-check{visibility:hidden}
+@keyframes ttsBadgeIconFade{0%,100%{filter:brightness(1)}35%,65%{filter:brightness(.55)}}
+#tts-active .badge-breath::after{content:'';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:17px;height:17px;border-radius:50%;outline:2px solid var(--cream);pointer-events:none;animation:ttsBadgeBreath 2.4s ease-in-out;opacity:0}
+@keyframes ttsBadgeBreath{0%,100%{opacity:0;box-shadow:0 0 0 0 transparent}35%,65%{opacity:1;box-shadow:0 0 7px 2px var(--cream)}}
+@media(prefers-reduced-motion:reduce){#tts-active .badge-breath::after{animation:none;opacity:1}#tts-active .badge-breath .tts-circle{animation:none;filter:brightness(.55)}}
 
 </style>
 <script>/* Explicit logo reload requests a fresh 1x viewport, without disabling pinch zoom. */
@@ -2103,8 +2104,16 @@ function hasKnown(node,meta){if(node.op==='atom')return atom(node.value,meta)!==
 function prepare(filter){
  const C=root.TTSCompiler,parts=filter.portions.map(p=>({p,c:C.portion(p)})).filter(x=>!x.c.empty);
  if(!parts.length||parts.some(x=>!x.c.valid))return ()=>({purple:false,red:false});
- const included=parts.filter(x=>!x.p.exclude).map(x=>x.c.ast),excluded=parts.filter(x=>x.p.exclude).map(x=>x.c.ast.arg),context=C.and(included),negative=C.or(excluded);
- return meta=>{const applies=evaluate(context,meta)!==false;return {purple:applies&&included.some(n=>hasKnown(n,meta)&&evaluate(n,meta)!==false),red:applies&&excluded.some(n=>hasKnown(n,meta)&&evaluate(n,meta)!==false)};};
+ const included=parts.filter(x=>!x.p.exclude).map(x=>x.c.ast),excluded=parts.filter(x=>x.p.exclude).map(x=>x.c.ast.arg);
+ // A global badge represents an attributable species relationship, not
+ // satisfaction of the entire filter. Unknown criteria do not cancel a
+ // known Legendary, Mythical, Ultra Beast, Type, or Region relationship.
+ function related(node,meta){
+  if(node.op==='atom')return atom(node.value,meta)===true;
+  if(node.op==='not')return related(node.arg,meta);
+  return node.args.some(child=>related(child,meta));
+ }
+ return meta=>({purple:included.some(n=>related(n,meta)),red:excluded.some(n=>related(n,meta))});
 }
 function badges(filter,meta){return prepare(filter)(meta);}
 
@@ -2255,7 +2264,9 @@ function key(){return S.builder?S.builder.index+'/'+(S.builder.path.join('/')||'
 function remember(){if(S.builder&&S.advancedOpen&&!S.visit&&!S.actionsOpen){S.builder.scroll[key()]=middle.scrollLeft;S.builder.paths[S.builder.index]=[...S.builder.path];}}
 function dualLocked(){return S.builder?.path.join('/')==='type/dual'&&val().dual?.length===1;}
 function dualError(name){notify('Dual type needs at least two types selected.',true,name);}
-function navigate(path){if(dualLocked()&&path.join('/')!=='type/dual'){dualError('Back from Dual');return;}remember();S.builder.path=path;renderUI();}
+function navigate(path){if(dualLocked()&&path.join('/')!=='type/dual'){dualError('Back from Dual');return;}remember();
+ if(!path.length&&S.builder){const b=S.builder,p=current();if(p?.provisional&&!C.portion(p).valid){delete p.provisional;if(C.portion(p).empty&&b.filter.portions.length>1){b.filter.portions.splice(b.index,1);b.index=Math.max(0,b.index-1);}}}
+ S.builder.path=path;renderUI();}
 function disabledReason(k,x){const v=val(),excluded=current()?.exclude;
  if(['attack','defense','hp'].includes(k)&&excluded)return 'IV disabled by Exclude';
  if((k==='mega'||k==='megalevel')&&excluded)return 'Mega Level disabled by Exclude';
@@ -2291,7 +2302,11 @@ tray.addEventListener('pointerdown',e=>{pointerStart={x:e.clientX,y:e.clientY};d
 function criterionFamily(k){return ({slots:'moves',movetype:'moves',elite:'moves',weather:'moves',types:'type',dual:'type',weakness:'type',effective:'type',attack:'iv',defense:'iv',hp:'iv',appraisal:'iv',maxkind:'max',maxeligible:'max',maxattack:'max',maxguard:'max',maxspirit:'max',megalevel:'mega',megaevolve:'mega',day:'date',year:'date',buddylevel:'buddy',candykm:'buddy',candyxl:'candy',tagmode:'tags'})[k]||k;}
 function isConfigured(f){return current()&&Object.entries(val()).some(([k,v])=>criterionFamily(k)===f&&(Array.isArray(v)?v.length:v!==undefined&&v!==false));}
 function familyButton(f){const [label,fill,symbol,children]=FAMILIES[f];return cell(label,fill,symbol,()=>{
- start();current().provisional=f;
+ start();
+ // A root-level parent choice starts a new portion when the current
+ // portion is already valid; an Add Filter blank portion is reused.
+ if(S.builder.path.length===0&&C.portion(current()).valid){remember();S.builder.filter.portions.push(newPortion());S.builder.index=S.builder.filter.portions.length-1;S.builder.path=[];}
+ current().provisional=f;renderActive();
  if(!children){setChoice(f,true,f,'toggle',label);return;}
  notify(label,false,'',f);navigate([f]);
  },{placement:f==='shiny'&&isConfigured(f)?253:TTSIcons.route('families',f),chosen:!!isConfigured(f),pop:popKey===f+':true'});}
@@ -2384,7 +2399,7 @@ function rangeControl(k,f){
  b.onpointerdown=e=>{e.stopPropagation();e.preventDefault();const startX=e.clientX,initial=[...get()];let moved=false,releaseIndex=n===null?max/2:index(n);b.setPointerCapture(e.pointerId);
  b.onpointermove=ev=>{if(Math.abs(ev.clientX-startX)>3)moved=true;if(!moved)return;let ix=Math.max(0,Math.min(max,(n===null?max/2:index(n))+pointerIndex(ev.clientX)-pointerIndex(startX)));if(initial.length===2)ix=i===0?Math.min(ix,index(below(initial[1]))):Math.max(ix,index(above(initial[0])));releaseIndex=ix;dragPreview=initial.length?initial.map(pct):[ix/max];dragPreview[i]=ix/max;sync();const bubble=box.querySelector('[data-bubble="'+i+'"]'),preview=valueAt(ix);if(bubble){if(bubble.tagName==='INPUT')bubble.value=preview;else bubble.textContent=preview;}layout();};
  const finish=()=>{b.onpointermove=null;b.onpointerup=null;b.onpointercancel=null;dragPreview=null;if(!moved){toggle();return;}const a=initial.length?[...initial]:[valueAt(releaseIndex)];let x=valueAt(releaseIndex);if(a.length===2)x=separate(a,i,x);a[i]=x;change(a);};b.onpointerup=finish;b.onpointercancel=finish;};box.append(b);
- const bubble=el(n!==null&&editable?'input':'span','tts-bubble');bubble.dataset.bubble=i;if(n!==null&&editable){bubble.type='number';bubble.inputMode='numeric';bubble.value=n;bubble.min=first;bubble.max=last;bubble.step=1;bubble.oninput=layout;bubble.setAttribute('aria-label',label+' value '+(i+1));bubble.onchange=()=>{const raw=bubble.value.trim(),x=Number(raw);if(!raw||!Number.isFinite(x)){draw();return;}const a=[...get()];let v=Math.max(first,Math.min(last,Math.round(x)));if(a.length===2)v=separate(a,i,v);a[i]=v;change(a);};bubble.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();bubble.blur();}};}else bubble.textContent=n===null?'-':n;box.append(bubble);
+ const bubble=el(n!==null&&editable?'input':'span','tts-bubble');bubble.dataset.bubble=i;if(n!==null&&editable){bubble.type='number';bubble.inputMode='numeric';bubble.value=n;bubble.min=first;bubble.max=last;bubble.step=1;bubble.oninput=layout;bubble.setAttribute('aria-label',label+' value '+(i+1));bubble.addEventListener('focus',()=>bubble.select());bubble.addEventListener('pointerup',e=>{if(document.activeElement===bubble){e.preventDefault();bubble.select();}});bubble.onchange=()=>{const raw=bubble.value.trim(),x=Number(raw);if(!raw||!Number.isFinite(x)){draw();return;}const a=[...get()];let v=Math.max(first,Math.min(last,Math.round(x)));if(a.length===2)v=separate(a,i,v);a[i]=v;change(a);};bubble.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();bubble.blur();}};}else bubble.textContent=n===null?'-':n;box.append(bubble);
  });sync();requestAnimationFrame(layout);}
  let trackStart=null;track.onpointerdown=e=>{trackStart={x:e.clientX,y:e.clientY};};track.onpointercancel=()=>trackStart=null;track.onpointerup=e=>{if(!trackStart)return;const start=trackStart;trackStart=null;if(Math.hypot(e.clientX-start.x,e.clientY-start.y)>8)return;const a=[...get()],ix=Math.max(0,Math.min(max,pointerIndex(e.clientX))),x=valueAt(ix);if(!a.length){change([x]);return;}if(a.length===1){if(x!==a[0])change([...a,x].sort((a,b)=>a-b));return;}const i=Math.abs(index(a[0])-ix)<=Math.abs(index(a[1])-ix)?0:1;a[i]=separate(a,i,x);change(a);};draw();const observer=new ResizeObserver(()=>{if(!box.isConnected){observer.disconnect();return;}layout();});observer.observe(box);return box;
 }
@@ -2572,17 +2587,17 @@ function badgeCounts(id,knownKey){
  if(key!==badgeKey){badgeKey=key;badgeCache.clear();badgePlans=[];
  for(const f of S.filters){if(S.builder?.editing&&S.builder.filter.id===f.id)continue;badgePlans.push({filterId:f.id,scope:new Set(f.scope),color:C.filter(f),global:TTSApplicability.prepare(f),preview:false});}
  if(S.builder){const f=S.builder.filter;
- if(f.scope.length){const parts=f.portions.filter(p=>!C.portion(p).empty),states=parts.length?parts:[current()];badgePlans.push({filterId:f.id,scope:new Set(f.scope),color:{purple:states.some(p=>!p.exclude),red:states.some(p=>p.exclude)},preview:true});}
+ if(f.scope.length){const parts=f.portions.filter(p=>!C.portion(p).empty),states=parts.length?parts:[current()];badgePlans.push({filterId:f.id,scope:new Set(f.scope),color:{purple:states.some(p=>!p.exclude),red:states.some(p=>p.exclude)},global:TTSApplicability.prepare(f),preview:true});}
  else if(!S.visit)badgePlans.push({filterId:f.id,scope:new Set(),global:TTSApplicability.prepare(f),preview:true});
  }}
  if(badgeCache.has(id))return badgeCache.get(id);
- const counts={purple:0,red:0,previewPurple:0,previewRed:0,purpleIds:[],redIds:[]};for(const plan of badgePlans){const c=plan.scope.size?(plan.scope.has(id)?plan.color:{}):plan.global(TTS_META[id]);if(c.purple){counts[plan.preview?'previewPurple':'purple']++;counts.purpleIds.push(plan.filterId);}if(c.red){counts[plan.preview?'previewRed':'red']++;counts.redIds.push(plan.filterId);}}
+ const counts={purple:0,red:0,previewPurple:0,previewRed:0,purpleIds:[],redIds:[]};for(const plan of badgePlans){const global=plan.global?plan.global(TTS_META[id]):{};const scoped=plan.scope.has(id)?plan.color:{};const c={purple:!!(global.purple||scoped.purple),red:!!(global.red||scoped.red)};if(c.purple){counts[plan.preview?'previewPurple':'purple']++;counts.purpleIds.push(plan.filterId);}if(c.red){counts[plan.preview?'previewRed':'red']++;counts.redIds.push(plan.filterId);}}
  badgeCache.set(id,counts);return counts;
 }
 function breatheBadgeFilters(ids,color){
  if(!S.advancedOpen){S.advancedOpen=true;renderUI();}
  const buttons=[...active.querySelectorAll('[data-filter-id]')].filter(b=>ids.includes(Number(b.dataset.filterId)));
- for(const b of buttons){clearTimeout(b._badgeBreathTimer);b.style.setProperty('--badge-breath-color',color==='red'?'var(--semantic-red)':'var(--purple)');b.classList.remove('badge-breath');void b.offsetWidth;b.classList.add('badge-breath');b._badgeBreathTimer=setTimeout(()=>b.classList.remove('badge-breath'),2450);}
+ for(const b of buttons){clearTimeout(b._badgeBreathTimer);b.classList.remove('badge-breath');void b.offsetWidth;b.classList.add('badge-breath');b._badgeBreathTimer=setTimeout(()=>b.classList.remove('badge-breath'),2450);}
  const first=buttons[0];if(first&&!S.builder){const r=first.getBoundingClientRect(),v=active.getBoundingClientRect();if(r.left<v.left)active.scrollLeft-=v.left-r.left;else if(r.right>v.right)active.scrollLeft+=r.right-v.right;}
 }
 const decorated=new WeakMap();
