@@ -2000,36 +2000,30 @@ main{
 
 
 
-<script>/* V63 optional review treatment. Original PNGs and optical sizing are unchanged. */
+<script>/* Optional review-only render treatment. Source PNG bytes are never changed.
+ * Each artwork alpha becomes a cutout in the complete colored circle.
+ * Existing state opacity determines cutout strength; outlines remain cream.
+ */
 window.TTSNegativeIcons=(()=>{
- const cache=new Map(),cream='#F6E4C5';
- const css=document.createElement('style');css.textContent=`
- .tts-cutout-fill,.tts-cutout-stroke{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
- .tts-cutout-fill{background:var(--icon-fill);background-size:100% 100%;border-radius:50%}
- #tts-active .tts-circle[data-artwork-treatment]{background:var(--icon-fill)!important;background-size:100% 100%!important}
- #tts-active .tts-cutout-fill,#tts-active .tts-cutout-stroke{display:none!important}
- #tts-active .tts-master{visibility:visible!important}
- `;document.head.append(css);
- const url=svg=>'url("data:image/svg+xml;base64,'+btoa(svg)+'")';
+ const cache=new Map();
  return circle=>{
-  circle.dataset.artworkTreatment='outlined-negative-space-trial';
-  const art=circle.querySelector('.tts-master');
-  if(art.dataset.master==='M097')return; // All confirmation checkmarks stay cream too.
-  if(circle.dataset.state==='selected'){art.style.opacity='1';return;}
-  if(circle.querySelector('.tts-parent-chevron')||circle.dataset.state==='parent')return;
-  const scale=Number(art.dataset.scale)||1,size=512*scale,offset=(512-size)/2;
-  const key=art.dataset.master+':'+scale;let pair=cache.get(key);
-  if(!pair){
-   const image='<image href="'+art.src+'" x="'+offset+'" y="'+offset+'" width="'+size+'" height="'+size+'"';
-   const head='<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">';
-   const mask=head+'<defs><filter id="black"><feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0"/></filter><mask id="cut" maskUnits="userSpaceOnUse" x="0" y="0" width="512" height="512" style="mask-type:luminance"><rect width="512" height="512" fill="white"/>'+image+' filter="url(#black)"/></mask></defs><rect width="512" height="512" fill="white" mask="url(#cut)"/></svg>';
-   // Inward-only edge: ~0.9px at 56.5px diameter. Fine strokes may fill.
-   const stroke=head+'<defs><filter id="edge" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feMorphology in="SourceAlpha" operator="erode" radius="8" result="inner"/><feComposite in="SourceAlpha" in2="inner" operator="out" result="rim"/><feFlood flood-color="'+cream+'"/><feComposite in2="rim" operator="in"/></filter></defs>'+image+' filter="url(#edge)"/></svg>';
-   pair={mask:url(mask),stroke:'data:image/svg+xml;base64,'+btoa(stroke)};cache.set(key,pair);
+  const images=[...circle.querySelectorAll('img')];
+  const key=circle.dataset.placement+':'+circle.dataset.state;
+  let mask=cache.get(key);
+  if(!mask){
+   const layers=images.map(im=>{
+    const check=im.classList.contains('tts-selected-check');
+    const size=check?438:512*(Number(im.dataset.scale)||1),offset=(512-size)/2;
+    return '<image href="'+im.src+'" x="'+offset+'" y="'+offset+'" width="'+size+'" height="'+size+'" opacity="'+(im.style.opacity||1)+'" filter="url(#black)"/>';
+   }).join('');
+   const svg='<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><defs><filter id="black" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0"/></filter><mask id="cut" maskUnits="userSpaceOnUse" x="0" y="0" width="512" height="512" style="mask-type:luminance"><rect width="512" height="512" fill="white"/>'+layers+'</mask></defs><rect width="512" height="512" fill="white" mask="url(#cut)"/></svg>';
+   mask='url("data:image/svg+xml;base64,'+btoa(svg)+'")';cache.set(key,mask);
   }
-  const fill=document.createElement('span');fill.className='tts-cutout-fill';fill.style.maskImage=fill.style.webkitMaskImage=pair.mask;fill.style.maskSize=fill.style.webkitMaskSize='100% 100%';
-  const rim=document.createElement('img');rim.className='tts-cutout-stroke';rim.alt='';rim.setAttribute('aria-hidden','true');rim.draggable=false;rim.src=pair.stroke;rim.style.opacity=art.style.opacity||'1';
-  circle.style.background='transparent';art.style.visibility='hidden';circle.prepend(fill);circle.append(rim);
+  circle.style.maskImage=mask;circle.style.webkitMaskImage=mask;
+  circle.style.maskSize=circle.style.webkitMaskSize='100% 100%';
+  circle.style.maskRepeat=circle.style.webkitMaskRepeat='no-repeat';
+  images.forEach(im=>im.style.visibility='hidden');
+  circle.dataset.artworkTreatment='negative-space-trial';
  };
 })();
 </script><script id="tts-advanced-app">
