@@ -710,18 +710,10 @@ footer{z-index:1001;isolation:isolate;pointer-events:auto}
 .tts-iv button:first-of-type{border-left-color:transparent}
 .tts-iv button:last-of-type{border-right-color:transparent}
 
-/* An inset shadow sits over the fill and directly beneath the colored rim. */
-.tts-range .tts-track::after{
-  content:"";position:absolute;inset:0;border-radius:inherit;
-  box-shadow:inset 0 2px 3px #0006;pointer-events:none;
-}
-.tts-iv::before{
-  content:"";position:absolute;pointer-events:none;
-  top:calc(var(--iv-top) + 2px);
-  left:calc(var(--iv-side) + 2px);right:calc(var(--iv-side) + 2px);
-  height:22px;border-radius:12px;box-shadow:inset 0 2px 3px #0006;z-index:1;
-}
-.tts-iv::after{z-index:2}
+/* Range paint is dimmed independently of the rim, labels and cream knobs. */
+.tts-range .tts-range-fill{filter:brightness(.85)}
+.tts-iv .iv-red,.tts-iv .bar.iv-red,.tts-iv .endpoint.iv-red{background:color-mix(in srgb,var(--red) 85%,black)}
+.tts-iv .iv-gold,.tts-iv .bar.iv-gold{background:color-mix(in srgb,var(--orange) 85%,black)}
 
 </style>
 <script>/* Explicit logo reload requests a fresh 1x viewport, without disabling pinch zoom. */
@@ -2219,7 +2211,7 @@ const TTSIcons=(()=>{
      rim.classList.add('i07-rim');rim.setAttribute('viewBox','0 0 512 512');
      const ring=document.createElementNS(rim.namespaceURI,'circle');
      for(const [name,value] of Object.entries({cx:256,cy:256,r:238,fill:'none',stroke:palette.cream,'stroke-width':36}))ring.setAttribute(name,value);
-     if(selected&&!back){
+     if(selected||current||back){
        if(colors.length===1)ring.setAttribute('stroke',colors[0]);
        else{
          const defs=document.createElementNS(rim.namespaceURI,'defs');
@@ -2501,11 +2493,11 @@ function incompleteReason(all=false){
 function renderActions(){
  const p=C.portion(current()),all=C.filter(S.builder.filter),reason=excludeReason();
  const action=(name,fill,symbol,handler,disabled=false,chosen)=>middle.append(cell(name,fill,symbol,()=>{if(disabled){notify(name==='Exclude'&&reason?reason:incompleteReason(name==='Create Filter'),true,name);return;}handler();const id=name==='Exclude'?(current().exclude?259:250):TTSIcons.route('controls',name);notify(name==='Select Pokémon'?'Apply filter to select pokemon.':name==='Exclude'?(current().exclude?'Exclude On':'Exclude Off'):name==='Create Filter'?'Filter created':name==='Discard Current Filter'?'Filter discarded':name,false,'',undefined,id);},{placement:name==='Exclude'?(disabled?260:chosen?259:250):TTSIcons.route('controls',name),disabled,chosen}));
+ action('Exclude','#c75d64','eye',()=>{current().exclude=!current().exclude;notify(current().exclude?'Exclude On':'Exclude Off',false,'',current().exclude?undefined:'deselected');refresh();},!!reason||(!p.valid&&!current().exclude),current().exclude);
  action('Add Filter','#d2b34e','plus',()=>{S.actionsOpen=false;addPortion();},!p.valid);
  action('Select Pokémon','#9d7db9','card',enterScope);
- action('Exclude','#c75d64','eye',()=>{current().exclude=!current().exclude;notify(current().exclude?'Exclude On':'Exclude Off',false,'',current().exclude?undefined:'deselected');refresh();},!!reason||(!p.valid&&!current().exclude),current().exclude);
- action('Create Filter','#79a768','check',save,!all.valid);
  action('Discard Current Filter','#c75d64','close',discard);
+ action('Create Filter','#79a768','check',save,!all.valid);
 }
 function textControl(label,on,fn,cls='',toggle=false){
  const b=el('button','tts-text '+cls+(on?' on':'')+(toggle?' tts-toggle':''));b.type='button';b.setAttribute('aria-label',label);
