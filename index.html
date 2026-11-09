@@ -2,8 +2,8 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Lilita+One&display=swap');
 *{box-sizing:border-box}body{margin:0;background:#26352f;color:#F6E4C5;font:15px/1.45 system-ui}main{max-width:1060px;margin:auto;padding:20px}h1{font:32px Georgia;margin:0}h2{font-size:17px;margin:0 0 10px}p{color:#d3c8b4;margin:8px 0 16px}button,select,input{font:inherit}button,select{color:#F6E4C5;background:#334139;border:1px solid #637368;border-radius:6px;padding:8px;cursor:pointer}button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid #E8BE58;outline-offset:2px}button:hover{border-color:#F6E4C5}button.primary{background:#E7A338;color:#26352f;font-weight:700}select{width:100%}.layout{display:grid;grid-template-columns:420px 1fr;gap:24px;align-items:start}.preview{position:sticky;top:10px}.slab{background:#202d29;border-radius:10px;padding:12px}.sample{margin:0 0 12px}.sample:last-child{margin-bottom:0}.sample header{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 0}.sample strong{font-size:14px}.sample header select{width:118px;font-size:12px;padding:4px}.surface{padding:0 4px;border-radius:8px;background:var(--tray);overflow:visible}.widget{position:relative;height:66.5px;font:12px 'Lilita One',sans-serif;color:var(--limits)}.track{position:absolute;left:var(--left);right:var(--right);top:22.25px;height:22px;border-radius:12px;background:var(--empty);overflow:hidden;cursor:pointer}.rangefill{position:absolute;top:0;bottom:0;background:var(--fill);filter:brightness(var(--dim));pointer-events:none}.rim{position:absolute;left:calc(var(--left) - var(--thick));right:calc(var(--right) - var(--thick));top:calc(22.25px - var(--thick));height:calc(22px + 2 * var(--thick));border-radius:999px;background:var(--rim);padding:var(--thick);mask:linear-gradient(#fff,#fff) content-box,linear-gradient(#fff,#fff);mask-composite:exclude;-webkit-mask:linear-gradient(#fff,#fff) content-box,linear-gradient(#fff,#fff);-webkit-mask-composite:xor;pointer-events:none;z-index:2}.shade{position:absolute;inset:0;border-radius:inherit;box-shadow:var(--shadow);pointer-events:none;z-index:1}.limit{position:absolute;top:17.25px;line-height:14px;white-space:pre;text-align:center;height:32px;display:flex;align-items:center}.limit.end{right:0}.knob{position:absolute;top:1.25px;width:29.4px;height:64px;transform:translateX(-50%);border:0;background:none;padding:0;touch-action:none;cursor:ew-resize;z-index:3}.outline-shadow{position:absolute;left:calc(var(--left) - var(--thick));right:calc(var(--right) - var(--thick));top:calc(22.25px - var(--thick));height:calc(22px + 2 * var(--thick));border-radius:999px;box-shadow:var(--outershadow);pointer-events:none}.knob i{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:calc(12.7px + 2 * var(--thick));height:calc(30px + 2 * var(--thick));border:var(--thick) solid var(--knobline);border-radius:7.35px;background:var(--knob);pointer-events:none}.knob-shadow{position:absolute;top:50%;transform:translate(-50%,-50%);width:calc(12.7px + 2 * var(--thick));height:calc(30px + 2 * var(--thick));border-radius:7.35px;box-shadow:var(--knobshadow);pointer-events:none;z-index:2}.bubble{position:absolute;top:2.5px;height:14px;min-width:25px;max-width:55px;line-height:12px;padding:0 2px;border:1px solid var(--bubbleline);border-radius:3px;color:var(--bubbletext);background:var(--bubble);text-align:center;font:12px 'Lilita One',sans-serif;transform:translateX(-50%);z-index:4}.iv-track{display:flex;overflow:hidden}.segment{height:22px;width:20%;flex:1;padding:0;border:0;border-radius:0;border-left:2px solid var(--dividers);background:var(--empty);color:var(--ivtext);font:12px 'Lilita One',sans-serif;white-space:nowrap}.segment:first-child{border-left:0}.segment.endpoint{background:var(--endpoint)}.segment.active{background:var(--active);color:var(--selectedtext)}.segment.before{background:var(--before);color:var(--selectedtext)}.controls{display:grid;grid-template-columns:1fr 1fr;gap:10px}.control label{font-size:13px;display:block;margin-bottom:4px}.control small{display:block;color:#b5b7a7;font-size:11px}.control.wide{grid-column:1/-1}.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}details{border-top:1px solid #53665b;padding:12px 0;margin-top:12px}summary{cursor:pointer;font-weight:600}table{font-size:13px;border-collapse:collapse;width:100%;margin:12px 0}td,th{text-align:left;padding:8px;border-bottom:1px solid #53665b;vertical-align:top}.saved{border-top:1px solid #53665b;padding:12px 0}.saved .toolbar{margin:6px 0}.history-card{margin:14px 0;border:1px solid #53665b;border-radius:8px;padding:12px;max-width:420px}.history-card .sample{margin:0}.history-card .sample header{padding:4px 0}#historyGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}#message{min-height:24px;color:#E8BE58;font-size:13px}code{font-size:12px}a{color:#E8BE58}@media(max-width:780px){main{padding:12px}.layout{display:block}.preview{position:relative;top:auto;margin-bottom:20px}.slab{padding:10px}.controls{gap:10px}#historyGrid{grid-template-columns:1fr}h1{font-size:28px}}
-</style>
-<main><p><strong>Updated shadows:</strong> hard edges, zero blur, 16% black like resting cards or 13.3% black like trays. Knob shadows are clipped to the track interior. Knob borders and shadow offsets match the slider outline width.</p><h1>Slider shadow trial</h1><p>Your exported colors · CP, Candy XL and Attack IV</p>
+.shadow-union{position:absolute;inset:0;pointer-events:none;z-index:1}.shadow-union .track{background:transparent;pointer-events:none}.shadow-union .shade{z-index:0}</style>
+<main><p><strong>Updated shadows:</strong> hard edges, zero blur, 16% black like resting cards or 13.3% black like trays. Knob shadows extend left and right, clipped to the track interior. All hard shadows share one opacity layer, so overlaps never darken. Knob borders (when enabled) and shadow offsets match the slider outline width. Choose None to remove a knob outline; placement-colored outlines preserve the complete multicolor fill.</p><h1>Slider shadow trial</h1><p>Your exported colors · CP, Candy XL and Attack IV</p>
 <div class="layout"><div class="preview"><div class="slab" id="preview"></div><p style="font-size:13px">Drag the handles or edit their values. Tap an IV segment. Use the state menu to compare an unset, single-value, or range slider.</p><div class="toolbar"><button class="primary" id="save">Save this variation</button><button id="export">Export choices</button></div><div id="message" role="status" aria-live="polite"></div><div id="saved"></div></div>
 <div>
 <div class="controls">
@@ -49,15 +49,38 @@ function paint(token,id,cfg){
   if(id==='iv')return colors.Yellow;
   return cfg.gradient==='smooth'?'linear-gradient(135deg,'+colors.Pink+','+colors.Orange+')':'linear-gradient(135deg,'+colors.Pink+' 0% 50%,'+colors.Orange+' 50% 100%)';
  }
+ if(token==='None')return 'transparent';
  return legacy[token]??palette[token]??companions[token.replace('Companion ','')];
 }
 function cssVariables(el,id,cfg){
- for(const part of Object.keys(parts)){let color=paint(cfg[part],id,cfg);if(['knobline','bubbleline','bubbletext','limits','dividers','ivtext','selectedtext'].includes(part)&&color.startsWith('linear-gradient'))color=color.match(/#[0-9A-Fa-f]{6}/)[0];el.style.setProperty('--'+part,color);}
+ for(const part of Object.keys(parts)){let color=paint(cfg[part],id,cfg);if(['bubbleline','bubbletext','limits','dividers','ivtext','selectedtext'].includes(part)&&color.startsWith('linear-gradient'))color=color.match(/#[0-9A-Fa-f]{6}/)[0];el.style.setProperty('--'+part,color);}
  el.style.setProperty('--thick',cfg.thick+'px');el.style.setProperty('--dim',cfg.dim);
  const width=cfg.thick+'px',color=cfg.shadowcolor==='Tray shadow'?'rgba(0,0,0,0.1333333333)':'rgba(0,0,0,.16)',hard=width+' '+width+' 0 '+color;
  el.style.setProperty('--shadow',cfg.innerShadow==='yes'?'inset '+hard:cfg.shadow==='yes'?'inset 0 2px 3px #0006':'none');
  el.style.setProperty('--outershadow',cfg.outerShadow==='yes'?hard:'none');
  el.style.setProperty('--knobshadow',cfg.knobShadow==='yes'?hard:'none');
+}
+function styleKnob(el,cfg,id,mode){
+ const fill=paint(mode===1&&cfg.single==='placement'?'Fill':cfg.knob,id,cfg),line=paint(cfg.knobline,id,cfg);
+ const layer=c=>c.startsWith('linear-gradient')?c:'linear-gradient('+c+','+c+')';
+ el.style.borderColor='transparent';
+ if(cfg.knobline==='None'||cfg.knobline==='Open'){
+  el.style.borderWidth='0';el.style.width='12.7px';el.style.height='30px';el.style.background=fill;
+ }else if(line===fill){el.style.background=fill;el.style.backgroundOrigin='border-box';}
+ else{el.style.background=layer(fill)+' padding-box,'+layer(line)+' border-box';}
+}
+function setupShadows(box,cfg){
+ const group=document.createElement('div');group.className='shadow-union';
+ group.style.opacity=cfg.shadowcolor==='Tray shadow'?'0.1333333333':'.16';
+ const w=cfg.thick+'px',hard=w+' '+w+' 0 black';
+ group.style.setProperty('--outershadow',cfg.outerShadow==='yes'?hard:'none');
+ group.style.setProperty('--knobshadow',cfg.knobShadow==='yes'?w+' 0 0 black, -'+w+' 0 0 black':'none');
+ group.innerHTML='<div class="outline-shadow"></div><div class="track shadow-clip"><i class="shade"></i></div>';
+ group.querySelector('.shade').style.boxShadow=cfg.innerShadow==='yes'?'inset '+hard:'none';
+ box.querySelector(':scope > .outline-shadow').style.boxShadow='none';
+ const originalShade=box.querySelector(':scope > .track > .shade');
+ if(originalShade&&cfg.innerShadow==='yes')originalShade.style.boxShadow='none';
+ box.append(group);return group.querySelector('.shadow-clip');
 }
 function proportion(id,value){return id==='xl'?candy.indexOf(value)/(candy.length-1):value/10000;}
 function valueAt(id,p){p=Math.max(0,Math.min(1,p));return id==='xl'?candy[Math.round(p*(candy.length-1))]:Math.round(p*10000);}
@@ -68,7 +91,7 @@ function createSample(id,cfg,interactive=true){
  if(id==='iv'){
   box.style.setProperty('--left','28px');box.style.setProperty('--right','28px');
   box.innerHTML='<span class="limit">0\nIV</span><span class="limit end">15\nIV</span><div class="outline-shadow"></div><div class="track iv-track"></div><div class="rim"></div>';
-  const track=box.querySelector('.track');
+  const track=box.querySelector('.track');setupShadows(box,cfg);
   ['0','1–5','6–10','11–14','15'].forEach((label,i)=>{
    const b=document.createElement('button');b.className='segment'+(i===0||i===4?' endpoint':'');b.textContent=label;
    const selected=values.iv===i,prior=i>0&&i<4&&values.iv>i;
@@ -77,7 +100,7 @@ function createSample(id,cfg,interactive=true){
    if(interactive)b.onclick=()=>{values.iv=selected?null:i;render();};
    track.append(b);
   });
-  const shade=document.createElement('i');shade.className='shade';track.append(shade);
+  const shade=document.createElement('i');shade.className='shade';if(cfg.innerShadow==='yes')shade.style.boxShadow='none';track.append(shade);
   if(interactive){const clear=document.createElement('button');clear.textContent='Clear';clear.style.cssText='font-size:12px;padding:3px 8px';clear.onclick=()=>{values.iv=null;render();};outer.querySelector('header').append(clear);}
   return outer;
  }
@@ -93,16 +116,17 @@ function createSample(id,cfg,interactive=true){
  const left=lw+12,right=rw+12;
  box.style.setProperty('--left',left+'px');box.style.setProperty('--right',right+'px');
  box.innerHTML='<span class="limit">0\n'+model[id].unit+'</span><span class="limit end">'+model[id].max+'\n'+model[id].unit+'</span><div class="outline-shadow"></div><div class="track"><div class="rangefill"></div><i class="shade"></i></div><div class="rim"></div>';
- const track=box.querySelector('.track'),fill=box.querySelector('.rangefill');
+ const track=box.querySelector('.track'),fill=box.querySelector('.rangefill'),shadowTrack=setupShadows(box,cfg);
  const pct=vals.map(v=>proportion(id,v));
  if(mode===2){fill.style.left='calc(5.35px + (100% - 10.7px) * '+pct[0]+')';fill.style.width='calc((100% - 10.7px) * '+(pct[1]-pct[0])+')';}
  else fill.style.width='0px';
  function position(p){return 'calc('+(left+5.35)+'px + (100% - '+(left+right+10.7)+'px) * '+p+')';}
  (mode?vals:[null]).forEach((n,i)=>{
   const p=n===null?.5:proportion(id,n),knob=document.createElement('button');knob.className='knob';knob.innerHTML='<i></i>';knob.style.left=position(p);
-  const knobShadow=document.createElement('i');knobShadow.className='knob-shadow';const shadowPosition=p=>'calc(5.35px + (100% - 10.7px) * '+p+')';knobShadow.style.left=shadowPosition(p);track.append(knobShadow);
+  const knobShadow=document.createElement('i');knobShadow.className='knob-shadow';const shadowPosition=p=>'calc(5.35px + (100% - 10.7px) * '+p+')';knobShadow.style.left=shadowPosition(p);shadowTrack.append(knobShadow);
+  styleKnob(knob.querySelector('i'),cfg,id,mode);if(cfg.knobline==='None'||cfg.knobline==='Open'){knobShadow.style.width='12.7px';knobShadow.style.height='30px';}
   knob.setAttribute('role','slider');knob.setAttribute('aria-label',model[id].name+' endpoint '+(i+1));knob.setAttribute('aria-valuemin','0');knob.setAttribute('aria-valuemax',model[id].max);knob.setAttribute('aria-valuenow',n??model[id].max/2);
-  if(mode===1&&cfg.single==='placement'){knob.querySelector('i').style.background=paint('Fill',id,cfg);knob.querySelector('i').style.borderColor='transparent';}
+  
   const bubble=document.createElement('input');bubble.className='bubble';bubble.value=n??'–';bubble.inputMode='numeric';bubble.setAttribute('aria-label',model[id].name+' value '+(i+1));bubble.style.width=Math.max(25,Math.ceil(measure.measureText(String(n??'–')).width)+8)+'px';bubble.style.left=position(p);
   function commit(v){const a=mode?[...vals]:[v];if(a.length===2){const step=id==='xl'?1:1;const ix=id==='xl'?candy.indexOf(v):v,other=id==='xl'?candy.indexOf(a[1-i]):a[1-i];if(i===0&&ix>=other)v=id==='xl'?candy[other-step]:other-step;if(i===1&&ix<=other)v=id==='xl'?candy[other+step]:other+step;}a[i]=v;values[id]=a;render();}
   if(interactive){
@@ -123,7 +147,7 @@ function makeSelect(key,label,opts,container){
  select.onchange=()=>{selectedIDs().forEach(id=>configs[id][key]=select.value);presetVersion=null;syncControls();render();};
  wrap.append(lab,select);container.append(wrap);
 }
-Object.entries(parts).forEach(([k,label])=>makeSelect(k,label,choices,$('colorControls')));
+Object.entries(parts).forEach(([k,label])=>makeSelect(k,label,k==='knobline'?{None:'None',...choices}:choices,$('colorControls')));
 Object.entries(effectDefs).forEach(([k,[label,opts]])=>makeSelect(k,label,opts,$('effects')));
 function syncControls(){
  for(const key of [...Object.keys(parts),...Object.keys(effectDefs)]){
@@ -138,11 +162,11 @@ for(let v=62;v<=69;v++)$('preset').add(new Option('V'+v,v));
 $('preset').add(new Option('Custom','custom'));$('preset').value='imported';
 $('preset').onchange=()=>{if($('preset').value==='custom')return;presetVersion=$('preset').value==='imported'?'imported':+$('preset').value;configs=presetVersion==='imported'?importedConfigs():presets(presetVersion);if(presetVersion==='imported')values=structuredClone(importedChoice.current.values);syncControls();render();};
 $('target').onchange=syncControls;
-function readSaved(){try{saved=JSON.parse(localStorage.getItem('tts-slider-shadow-trial-v3')||'[]');if(!Array.isArray(saved))saved=[];}catch{saved=[];}}
+function readSaved(){try{saved=JSON.parse(localStorage.getItem('tts-slider-shadow-trial-v4')||'[]');if(!Array.isArray(saved))saved=[];}catch{saved=[];}}
 function drawSaved(){const host=$('saved');host.replaceChildren();saved.forEach((item,i)=>{const row=document.createElement('div');row.className='saved';const label=document.createElement('strong');label.textContent=item.name;const bar=document.createElement('div');bar.className='toolbar';const load=document.createElement('button');load.textContent='Load';load.onclick=()=>{configs=structuredClone(item.configs);values=structuredClone(item.values);presetVersion=null;syncControls();render();};const remove=document.createElement('button');remove.textContent='Remove';remove.onclick=()=>{saved.splice(i,1);persist();drawSaved();};bar.append(load,remove);row.append(label,bar);const details=document.createElement('details');details.innerHTML='<summary>Preview saved variation</summary>';details.addEventListener('toggle',()=>{if(!details.open||details.children.length>1)return;const original=structuredClone(values);values=structuredClone(item.values);for(const id of ['cp','xl','iv'])details.append(createSample(id,item.configs[id],false));values=original;});row.append(details);host.append(row);});}
-function persist(){try{localStorage.setItem('tts-slider-shadow-trial-v3',JSON.stringify(saved));return true;}catch{return false;}}
+function persist(){try{localStorage.setItem('tts-slider-shadow-trial-v4',JSON.stringify(saved));return true;}catch{return false;}}
 $('save').onclick=()=>{const n=(saved.reduce((a,s)=>Math.max(a,s.number||0),0)+1);saved.push({name:'Variation '+n,number:n,configs:structuredClone(configs),values:structuredClone(values)});const ok=persist();drawSaved();$('message').textContent=ok?'Variation '+n+' saved in this browser. Export choices for handoff.':'Variation '+n+' saved for this session. Export choices to keep it.';};
-$('export').onclick=()=>{const payload={study:'Tap to Search slider shadow trial v2',shadowGeometry:{opacity:'Card 0.16 / tray 0.1333333333',knobClip:'Track interior only',blur:0,offsetX:'outline width',offsetY:'outline width',knobBorder:'outline width',direction:'down-right'},current:{configs,values},saved,palette,companions,sources:sourceFiles};const url=URL.createObjectURL(new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='Tap_to_Search_Slider_Shadow_Choices.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);$('message').textContent='Exported current settings and saved variations.';};
+$('export').onclick=()=>{const payload={study:'Tap to Search slider shadow trial v2',shadowGeometry:{opacity:'Card 0.16 / tray 0.1333333333',knobClip:'Track interior only',blur:0,offsetX:'outline width',offsetY:'outline width',knobBorder:'outline width',direction:'Outline down-right; knobs left and right',overlap:'Opaque shadow union composited once at selected opacity'},current:{configs,values},saved,palette,companions,sources:sourceFiles};const url=URL.createObjectURL(new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='Tap_to_Search_Slider_Shadow_Choices.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);$('message').textContent='Exported current settings and saved variations.';};
 $('history').innerHTML=Object.entries(notes).map(([v,n])=>'<tr><td>V'+v+'</td><td>'+n+'</td></tr>').join('');
 let builtHistory=false;[...document.querySelectorAll('details')].find(d=>d.firstElementChild.textContent==='Compare all V62–V69 presets').addEventListener('toggle',e=>{if(!e.target.open||builtHistory)return;builtHistory=true;for(let v=62;v<=69;v++){const card=document.createElement('article');card.className='history-card';card.innerHTML='<h2>V'+v+'</h2><p style="font-size:12px">'+notes[v]+'</p>';const cfg=presets(v);for(const id of ['cp','xl','iv'])card.append(createSample(id,cfg[id],false));$('historyGrid').append(card);}});
 for(const [label,k,i,o] of [['Shadows off',false,false,false],['Knobs',true,false,false],['Inside',false,true,false],['Outside',false,false,true],['All three',true,true,true]]){
