@@ -1,34 +1,78 @@
 #!/usr/bin/env python3
-"""Validated, additive Bulbapedia species update. Fails closed before publication."""
+"""Validated, additive species update from independent release sources. Fails closed before publication."""
 import argparse, csv, datetime as dt, hashlib, html, json, math, re, unicodedata, struct, zlib
 from pathlib import Path
 from urllib.request import Request, urlopen
 from urllib.parse import urlencode
 SOURCE='https://bulbapedia.bulbagarden.net/wiki/List_of_Pok%C3%A9mon_by_availability_in_Pok%C3%A9mon_GO'
-PAGE_TITLE = 'List of Pokémon by availability in Pokémon GO'
-API_URL = 'https://bulbapedia.bulbagarden.net/w/api.php?' + urlencode({
-    'action': 'parse', 'page': PAGE_TITLE, 'prop': 'text',
-    'format': 'json', 'formatversion': '2',
-})
-def fetch_source():
-    request = Request(API_URL, headers={
-        'User-Agent': 'TapToSearchAvailabilityUpdater/1.1 (https://github.com/thegurush/pokemon-go-search; daily availability check)',
-        'Accept': 'application/json',
-    })
-    with urlopen(request, timeout=60) as response:
-        raw = response.read(8_000_001)
-    if len(raw) > 8_000_000:
-        raise ValueError('Availability API response too large; no update made')
-    payload = json.loads(raw.decode('utf-8'))
-    if not isinstance(payload, dict) or 'error' in payload:
-        raise ValueError('Availability API returned an error; no update made')
-    page = payload.get('parse')
-    if not isinstance(page, dict) or page.get('title') != PAGE_TITLE:
-        raise ValueError('Availability API returned an unexpected page; no update made')
-    source = page.get('text')
-    if not isinstance(source, str) or not source.strip():
-        raise ValueError('Availability API returned no HTML; no update made')
-    return source
+SOURCES = {
+    'pvpoke': 'https://raw.githubusercontent.com/pvpoke/pvpoke/master/src/data/gamemaster.json',
+    'dated': 'https://raw.githubusercontent.com/francescog91/pokemon-go-unreleased/main/pokemon-lists/unreleased-report-full.json',
+}
+
+def parse_release_source(kind, payload, today):
+    if not isinstance(payload, dict): raise ValueError('Expected source object')
+    rows = payload.get('pokemon' if kind == 'pvpoke' else 'items')
+    if not isinstance(rows, list) or not rows: raise ValueError('Missing species records')
+    if kind == 'dated':
+        snapshot = dt.date.fromisoformat(payload['date'])
+        if snapshot > today: raise ValueError('Future snapshot date')
+    states = {}; forms = set()
+    for row in rows:
+        if not isinstance(row, dict): raise ValueError('Invalid species record')
+        pid = row.get('dex' if kind == 'pvpoke' else 'id')
+        name = row.get('speciesName' if kind == 'pvpoke' else 'name')
+        if type(pid) is not int or not 0 < pid < 2**53: raise ValueError('Invalid source ID')
+        if not isinstance(name, str) or not name.strip(): raise ValueError('Missing source name')
+        if kind == 'pvpoke':
+            flag = row.get('released'); form = row.get('speciesId')
+            if type(flag) is not bool or not isinstance(form, str) or not form: raise ValueError('Invalid release flag/form')
+            if form in forms: raise ValueError('Duplicate form identifier')
+            forms.add(form)
+            item = {'id': pid, 'name': name.split(' (')[0], 'eligible': flag}
+            # A released form confirms its species. Other unreleased forms do not veto it.
+            if pid not in states or flag: states[pid] = item
+        else:
+            if pid in states: raise ValueError('Duplicate species identifier')
+            day = dt.date.fromisoformat(row['releaseDate'])
+            states[pid] = {'id': pid, 'name': name, 'eligible': day < today, 'released': day.isoformat()}
+    return states
+
+def collect_releases(today, existing, fetch=None):
+    def download(url):
+        with urlopen(Request(url, headers={'User-Agent': 'TapToSearchAvailabilityUpdater/2.0', 'Accept': 'application/json'}), timeout=45) as response:
+            data = response.read(5_000_001)
+        if len(data) > 5_000_000: raise ValueError('Source response too large')
+        return data
+    fetch = fetch or download
+    valid = {}; audit = []
+    for kind, url in SOURCES.items():
+        entry = {'source': kind, 'url': url}
+        try:
+            raw = fetch(url)
+            payload = json.loads(raw)
+            states = parse_release_source(kind, payload, today)
+            positive = {pid for pid, row in states.items() if row['eligible']}
+            if len(positive & existing) < len(existing) * 0.98: raise ValueError('Source lost substantial baseline coverage')
+            entry.update(status='ok', species=len(positive), sha256=hashlib.sha256(raw).hexdigest())
+            if kind == 'dated': entry['snapshotDate'] = payload['date']
+            valid[kind] = states
+        except (ValueError, KeyError, TypeError, OSError) as error:
+            entry.update(status='unavailable', error=str(error))
+            print('WARNING: '+kind+': '+str(error))
+        audit.append(entry)
+    if not valid: raise ValueError('No valid availability sources; last working files preserved')
+    released = {}; disagreements = []
+    for pid in sorted(set().union(*(set(s) for s in valid.values()))):
+        confirmations = [kind for kind, states in valid.items() if pid in states and states[pid]['eligible']]
+        negatives = [kind for kind, states in valid.items() if pid in states and not states[pid]['eligible']]
+        if confirmations:
+            item = dict(valid[confirmations[0]][pid]); item.pop('eligible')
+            item['confirmedBy'] = confirmations
+            released[pid] = item
+            if negatives: disagreements.append({'id': pid, 'confirmedBy': confirmations, 'notConfirmedBy': negatives})
+    return released, {'sources': audit, 'disagreements': disagreements}
+
 
 def parse(source, today):
     start=source.find('id="List_of_Pokémon_by_date"')
@@ -134,10 +178,15 @@ def validate_png(data):
 def main():
     p=argparse.ArgumentParser();p.add_argument('--html',required=True,type=Path);p.add_argument('--source-file',type=Path);p.add_argument('--today',default=dt.datetime.now(dt.timezone.utc).date().isoformat());args=p.parse_args()
     root=Path(__file__).resolve().parent.parent
-    source=args.source_file.read_text() if args.source_file else fetch_source()
-    released=parse(source,dt.date.fromisoformat(args.today));text=args.html.read_text()
+    text=args.html.read_text()
     current=json.loads(re.search(r'const POKEMON=(\[.*?\]);',text,re.S)[1]); ids={p['id'] for p in current}
     validate_data(current, extract(text,'TTS_META'))
+    if args.source_file:
+        source=args.source_file.read_text()
+        released=parse(source,dt.date.fromisoformat(args.today))
+        audit={'sources':[{'source':'legacy-fixture','sha256':hashlib.sha256(source.encode()).hexdigest()}], 'disagreements':[]}
+    else:
+        released,audit=collect_releases(dt.date.fromisoformat(args.today),ids)
     if len(set(released)&ids)<len(ids)*0.98:raise ValueError('Release table lost substantial baseline coverage')
     new=[released[i] for i in sorted(set(released)-ids)]
     with (root/'data/pokemon_species.csv').open() as f:
@@ -157,7 +206,7 @@ def main():
     meta.update({str(k):v for k,v in metadata({x['id'] for x in new},root).items()})
     validate_data(combined,meta)
     output=replace_one(replace_one(text,'POKEMON',combined),'TTS_META',meta)
-    report={'source':SOURCE,'checkedUTC':dt.datetime.now(dt.timezone.utc).isoformat(),'releaseCutoffExclusive':args.today,'sourceSHA256':hashlib.sha256(source.encode()).hexdigest(),'count':len(combined),'added':new,'retainedWithoutSourceDate':sorted(ids-set(released)),'policy':'Additive species only; release dates strictly before cutoff; no inferred evolutions or new form cards.'}
+    report={**audit,'checkedUTC':dt.datetime.now(dt.timezone.utc).isoformat(),'dateCutoffExclusive':args.today,'count':len(combined),'added':new,'retainedWithoutConfirmation':sorted(ids-set(released)),'policy':'Additive species only. Either valid source confirms release; disagreements do not veto. Dated releases require the following UTC day. Preserve existing entries; no duplicate form cards.'}
     # All validation has passed before any output is replaced.
     tmp=args.html.with_suffix('.tmp');tmp.write_text(output);tmp.replace(args.html)
     (root/'data/pokemon_available.json').write_text(json.dumps(combined,indent=2)+'\n')
