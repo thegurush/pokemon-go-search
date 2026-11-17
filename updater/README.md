@@ -1,0 +1,1 @@
+Daily Pokémon availability updater.
