@@ -3,7 +3,33 @@
 import argparse, csv, datetime as dt, hashlib, html, json, math, re, unicodedata, struct, zlib
 from pathlib import Path
 from urllib.request import Request, urlopen
+from urllib.parse import urlencode
 SOURCE='https://bulbapedia.bulbagarden.net/wiki/List_of_Pok%C3%A9mon_by_availability_in_Pok%C3%A9mon_GO'
+PAGE_TITLE = 'List of Pokémon by availability in Pokémon GO'
+API_URL = 'https://bulbapedia.bulbagarden.net/w/api.php?' + urlencode({
+    'action': 'parse', 'page': PAGE_TITLE, 'prop': 'text',
+    'format': 'json', 'formatversion': '2',
+})
+def fetch_source():
+    request = Request(API_URL, headers={
+        'User-Agent': 'TapToSearchAvailabilityUpdater/1.1 (https://github.com/thegurush/pokemon-go-search; daily availability check)',
+        'Accept': 'application/json',
+    })
+    with urlopen(request, timeout=60) as response:
+        raw = response.read(8_000_001)
+    if len(raw) > 8_000_000:
+        raise ValueError('Availability API response too large; no update made')
+    payload = json.loads(raw.decode('utf-8'))
+    if not isinstance(payload, dict) or 'error' in payload:
+        raise ValueError('Availability API returned an error; no update made')
+    page = payload.get('parse')
+    if not isinstance(page, dict) or page.get('title') != PAGE_TITLE:
+        raise ValueError('Availability API returned an unexpected page; no update made')
+    source = page.get('text')
+    if not isinstance(source, str) or not source.strip():
+        raise ValueError('Availability API returned no HTML; no update made')
+    return source
+
 def parse(source, today):
     start=source.find('id="List_of_Pokémon_by_date"')
     if start<0: start=source.find('id="List_of_Pok.C3.A9mon_by_date"')
@@ -108,7 +134,7 @@ def validate_png(data):
 def main():
     p=argparse.ArgumentParser();p.add_argument('--html',required=True,type=Path);p.add_argument('--source-file',type=Path);p.add_argument('--today',default=dt.datetime.now(dt.timezone.utc).date().isoformat());args=p.parse_args()
     root=Path(__file__).resolve().parent.parent
-    source=args.source_file.read_text() if args.source_file else urlopen(Request(SOURCE,headers={'User-Agent':'TapToSearchAvailabilityUpdater/1.0 (daily species availability check)'}),timeout=60).read().decode('utf-8')
+    source=args.source_file.read_text() if args.source_file else fetch_source()
     released=parse(source,dt.date.fromisoformat(args.today));text=args.html.read_text()
     current=json.loads(re.search(r'const POKEMON=(\[.*?\]);',text,re.S)[1]); ids={p['id'] for p in current}
     validate_data(current, extract(text,'TTS_META'))
