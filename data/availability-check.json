@@ -1,0 +1,26 @@
+{
+  "source": "https://bulbapedia.bulbagarden.net/wiki/List_of_Pok%C3%A9mon_by_availability_in_Pok%C3%A9mon_GO",
+  "checkedUTC": "2026-11-16T03:46:21.741049+00:00",
+  "releaseCutoffExclusive": "2026-11-16",
+  "sourceSHA256": "ff64e867334ca2e4f772abce0ce26ac5baee33d4d7813bd8a1b8b0975a893f63",
+  "count": 959,
+  "added": [
+    {
+      "id": 774,
+      "name": "Minior",
+      "released": "2026-10-19"
+    },
+    {
+      "id": 946,
+      "name": "Bramblin",
+      "released": "2026-10-13"
+    },
+    {
+      "id": 947,
+      "name": "Brambleghast",
+      "released": "2026-10-13"
+    }
+  ],
+  "retainedWithoutSourceDate": [],
+  "policy": "Additive species only; release dates strictly before cutoff; no inferred evolutions or new form cards."
+}
