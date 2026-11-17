@@ -1,26 +1,72 @@
 {
-  "source": "https://bulbapedia.bulbagarden.net/wiki/List_of_Pok%C3%A9mon_by_availability_in_Pok%C3%A9mon_GO",
-  "checkedUTC": "2026-11-16T03:46:21.741049+00:00",
-  "releaseCutoffExclusive": "2026-11-16",
-  "sourceSHA256": "ff64e867334ca2e4f772abce0ce26ac5baee33d4d7813bd8a1b8b0975a893f63",
-  "count": 959,
-  "added": [
+  "sources": [
     {
-      "id": 774,
-      "name": "Minior",
-      "released": "2026-10-19"
+      "source": "pvpoke",
+      "url": "https://raw.githubusercontent.com/pvpoke/pvpoke/master/src/data/gamemaster.json",
+      "status": "ok",
+      "species": 954,
+      "sha256": "eb741d416a1070131932166b1a65c4217623e6c9f274b5504e6a92598075ca2f"
     },
     {
-      "id": 946,
-      "name": "Bramblin",
-      "released": "2026-10-13"
-    },
-    {
-      "id": 947,
-      "name": "Brambleghast",
-      "released": "2026-10-13"
+      "source": "dated",
+      "url": "https://raw.githubusercontent.com/francescog91/pokemon-go-unreleased/main/pokemon-lists/unreleased-report-full.json",
+      "status": "ok",
+      "species": 959,
+      "sha256": "065f36c954f90a676c9c759942fcf6d0783b3d993a428139e26b0b7e85fe3446",
+      "snapshotDate": "2026-11-01"
     }
   ],
-  "retainedWithoutSourceDate": [],
-  "policy": "Additive species only; release dates strictly before cutoff; no inferred evolutions or new form cards."
+  "disagreements": [
+    {
+      "id": 132,
+      "confirmedBy": [
+        "dated"
+      ],
+      "notConfirmedBy": [
+        "pvpoke"
+      ]
+    },
+    {
+      "id": 292,
+      "confirmedBy": [
+        "dated"
+      ],
+      "notConfirmedBy": [
+        "pvpoke"
+      ]
+    },
+    {
+      "id": 665,
+      "confirmedBy": [
+        "dated"
+      ],
+      "notConfirmedBy": [
+        "pvpoke"
+      ]
+    },
+    {
+      "id": 789,
+      "confirmedBy": [
+        "dated"
+      ],
+      "notConfirmedBy": [
+        "pvpoke"
+      ]
+    },
+    {
+      "id": 790,
+      "confirmedBy": [
+        "dated"
+      ],
+      "notConfirmedBy": [
+        "pvpoke"
+      ]
+    }
+  ],
+  "checkedUTC": "2026-11-17T23:47:36.213794+00:00",
+  "dateCutoffExclusive": "2026-11-17",
+  "count": 959,
+  "added": [],
+  "retainedWithoutConfirmation": [],
+  "policy": "Additive species only. Either valid source confirms release; disagreements do not veto. Dated releases require the following UTC day. Preserve existing entries; no duplicate form cards."
 }
