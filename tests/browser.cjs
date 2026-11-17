@@ -25,7 +25,7 @@ const {chromium}=require('playwright'),fs=require('fs'),path=require('path'),cp=
   assert((await p.locator('#output').inputValue()).includes('!cp5000'));assert((await p.locator('#output').inputValue()).includes('bulbasaur'));
   await p.evaluate(()=>{TTS.state.popup=null;TTS.refresh();});await p.locator('#search').fill('');
   await p.locator('[data-pokemon-id="4"]').click();assert((await p.locator('#output').inputValue()).includes('charmander'));
-  if(file!=='test-results/v71.html')for(const id of [774,946,947]){await p.locator('#search').fill(String(id));const card=p.locator(`[data-pokemon-id="${id}"]`);assert.equal(await card.count(),1);await card.locator('img').evaluate(img=>{if(img.complete&&img.naturalWidth)return;return new Promise((resolve,reject)=>{img.addEventListener('load',resolve,{once:true});img.addEventListener('error',()=>reject(Error('sprite failed')),{once:true});setTimeout(()=>reject(Error('sprite timeout')),20000);});}
+  if(file!=='test-results/v71.html')for(const id of [774,946,947]){await p.locator('#search').fill(String(id));const card=p.locator(`[data-pokemon-id="${id}"]`);assert.equal(await card.count(),1);await card.locator('img').evaluate(img=>{if(img.complete&&img.naturalWidth)return;return new Promise((resolve,reject)=>{img.addEventListener('load',resolve,{once:true});img.addEventListener('error',()=>reject(Error('sprite failed')),{once:true});setTimeout(()=>reject(Error('sprite timeout')),20000);});});}
   await p.locator('#search').fill('');assert.deepEqual(x.errors,[]);await p.screenshot({path:'test-results/'+path.basename(file)+'.png'});console.log('PASS browser deck, controls, CP keyboard/touch, editing, scope, exclusion, selection, sprites:',file,expected);await p.close();
  }
  await b.close();
