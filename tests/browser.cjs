@@ -4,7 +4,7 @@ const {chromium}=require('playwright'),fs=require('fs'),path=require('path'),cp=
  const baseline=fs.existsSync('baselines/v71.html')?fs.readFileSync('baselines/v71.html','utf8'):cp.execFileSync('git',['show','5c173a0bf25d04256a95edd50957a5114346a2ba:index.html'],{maxBuffer:20e6}).toString();
  const broken=fs.existsSync('baselines/v72.html')?fs.readFileSync('baselines/v72.html','utf8'):cp.execFileSync('git',['show','85a3d2a1b504b25d5a895fa9e7e8f8c45796c182:index.html'],{maxBuffer:20e6}).toString();
  fs.writeFileSync('test-results/v71.html',baseline);fs.writeFileSync('test-results/v72.html',broken);
- async function load(file,width=390){const page=await b.newPage({viewport:{width,height:844},hasTouch:true});let errors=[];page.on('pageerror',e=>errors.push(e.message));await page.goto('file://'+path.resolve(file),{waitUntil:'domcontentloaded'});return {page,errors};}
+ async function load(file,width=390,seeded=false){const page=await b.newPage({viewport:{width,height:844},hasTouch:true});if(seeded)await page.addInitScript(()=>{let seed=0x74;Math.random=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;};});let errors=[];page.on('pageerror',e=>errors.push(e.message));await page.goto('file://'+path.resolve(file),{waitUntil:'domcontentloaded'});return {page,errors};}
  let x=await load('test-results/v72.html');assert(x.errors.some(e=>e.includes('expected 956')));assert.equal(await x.page.locator('#grid .card').count(),0);console.log('PASS V72 failure reproduced in Chromium:',x.errors);await x.page.close();
  for(const file of ['test-results/v71.html','index.html','tests/future.html']){
   x=await load(file);const p=x.page;await p.locator('#tts-start').waitFor();const expected=JSON.parse(fs.readFileSync(file,'utf8').match(/const POKEMON=(\[.*?\]);/s)[1]).length;
@@ -38,8 +38,8 @@ const {chromium}=require('playwright'),fs=require('fs'),path=require('path'),cp=
   for(const pattern of backgroundBlocks){const approved=current.match(pattern),actual=source.match(pattern);assert.equal(approved?.length,1);assert.deepEqual(actual,approved,'Updater must preserve exact background blocks');control=control.replace(pattern,'');}
   const refFile=`test-results/background-control-${tag}.html`;fs.writeFileSync(refFile,control);
   for(const [width,height] of [[390,844],[844,390],[1440,900],[320,568]]){
-   const {page:p,errors}=await load(file,width);await p.setViewportSize({width,height});
-   const {page:ref,errors:refErrors}=await load(refFile,width);await ref.setViewportSize({width,height});
+   const {page:p,errors}=await load(file,width,true);await p.setViewportSize({width,height});
+   const {page:ref,errors:refErrors}=await load(refFile,width,true);await ref.setViewportSize({width,height});
    const expected=JSON.parse(source.match(/const POKEMON=(\[.*?\]);/s)[1]).length;
    assert.equal(await p.locator('#grid .card').count(),expected);assert.equal(await ref.locator('#grid .card').count(),expected);
    for(const expanded of [false,true]){
