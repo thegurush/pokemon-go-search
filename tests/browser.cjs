@@ -1,3 +1,6 @@
+// V77 test correction, 2026-11-18: measure visible #tts-output, not hidden #output.
+// Follow-up to GitHub run 44318894877 at commit 4fbecd3c8a64c6ab644b421dd435c24c89a90bea.
+// Upload only this file to tests/browser.cjs on v77-testing. Full rerun remains pending.
 const {chromium}=require('playwright'),fs=require('fs'),path=require('path'),cp=require('child_process'),assert=require('assert/strict');
 (async()=>{
  const b=await chromium.launch({headless:true,...(process.env.CHROMIUM_EXECUTABLE_PATH?{executablePath:process.env.CHROMIUM_EXECUTABLE_PATH}: {})});fs.mkdirSync('test-results',{recursive:true});
@@ -27,6 +30,34 @@ const {chromium}=require('playwright'),fs=require('fs'),path=require('path'),cp=
   await p.locator('[data-pokemon-id="4"]').click();assert((await p.locator('#output').inputValue()).includes('charmander'));
   if(file!=='test-results/v71.html')for(const id of [774,946,947]){await p.locator('#search').fill(String(id));const card=p.locator(`[data-pokemon-id="${id}"]`);assert.equal(await card.count(),1);await card.locator('img').evaluate(img=>{if(img.complete&&img.naturalWidth)return;return new Promise((resolve,reject)=>{img.addEventListener('load',resolve,{once:true});img.addEventListener('error',()=>reject(Error('sprite failed')),{once:true});setTimeout(()=>reject(Error('sprite timeout')),20000);});});}
   await p.locator('#search').fill('');assert.deepEqual(x.errors,[]);await p.screenshot({path:'test-results/'+path.basename(file)+'.png'});console.log('PASS browser deck, controls, CP keyboard/touch, editing, scope, exclusion, selection, sprites:',file,expected);await p.close();
+ }
+
+ // V77: selection controls live above Copy in the footer, without shifting the deck top.
+ for(const file of ['index.html','tests/future.html'])for(const width of [320,390,1440]){
+  const {page:p,errors}=await load(file,width);await p.evaluate(()=>document.fonts.ready.then(()=>true));await p.waitForTimeout(200);
+  const toolbar=p.locator('footer #tts-main-controls');assert.equal(await toolbar.count(),1);assert.equal(await p.locator('header #tts-main-controls').count(),0);assert(!(await toolbar.isVisible()));
+  const geometry=()=>p.locator('[data-pokemon-id="1"]').boundingBox();const before=await geometry();
+  await p.locator('[data-pokemon-id="1"]').click();await toolbar.waitFor({state:'visible'});await p.waitForTimeout(150);
+  assert(Math.abs((await geometry()).y-before.y)<1,'Opening main selection must not shift deck top');
+  const visibleOutput=p.locator('#tts-output');await visibleOutput.waitFor({state:'visible'});
+  const tr=await toolbar.boundingBox(),out=await visibleOutput.boundingBox();assert(tr&&out,'Footer tray and visible string preview must have layout boxes');assert(tr.y+tr.height<=out.y);assert(tr.x>=0&&tr.x+tr.width<=width);
+  await p.locator('[data-pokemon-id="1"]').click();assert(!(await toolbar.isVisible()));
+  const ids=async q=>{await p.locator('#search').fill(q);return p.locator('#grid .card').evaluateAll(es=>es.map(e=>+e.dataset.pokemonId).sort((a,b)=>a-b));};
+  const mega=await ids('mega');assert(mega.includes(6));assert(!mega.includes(4));assert(!mega.includes(154));assert(!mega.includes(382));
+  assert.deepEqual(await ids('primal'),[382,383]);assert.deepEqual(await ids('mega&water'),[9,80,121,130,260,319,658]);
+  await ids('mega&charizard');await p.locator('[data-pokemon-id="6"]').click();await p.getByRole('switch',{name:'EVOLUTION',exact:true}).click();assert.deepEqual(await ids('mega&charizard'),[4,5,6]);
+  await p.getByRole('switch',{name:'EVOLUTION',exact:true}).click();await p.locator('[data-pokemon-id="6"]').click();await ids('');
+  await p.locator('#tts-start').click();await p.getByRole('button',{name:'Evolution',exact:true}).click();
+  const option=p.getByRole('button',{name:'Mega Evolvable',exact:true});await option.click();assert.equal(await option.getAttribute('aria-pressed'),'true');const placement=await option.getAttribute('data-placement');
+  await p.getByRole('button',{name:'Back from Evolution',exact:true}).click();assert.equal(await p.getByRole('button',{name:'Evolution',exact:true}).getAttribute('aria-pressed'),'true');
+  await p.getByRole('button',{name:'Mega',exact:true}).click();assert.equal(await option.getAttribute('aria-pressed'),'true');assert.equal(await option.getAttribute('data-placement'),placement);
+  await option.click();assert.equal(await option.getAttribute('aria-pressed'),'false');await option.click();
+  await p.getByRole('button',{name:'Open filter actions',exact:true}).click();await p.getByRole('button',{name:'Select Pokémon',exact:true}).click();
+  assert(await toolbar.isVisible());assert.equal(await toolbar.getByRole('button',{name:'Commit Pokémon selection',exact:true}).count(),1);assert.equal(await toolbar.getByRole('switch',{name:'EXCLUDE',exact:true}).count(),0);
+  await ids('mega&charizard');await p.locator('[data-pokemon-id="6"]').click();await p.getByRole('button',{name:'Commit Pokémon selection',exact:true}).click();
+  if(await p.getByRole('button',{name:'Open filter actions',exact:true}).count())await p.getByRole('button',{name:'Open filter actions',exact:true}).click();
+  await p.getByRole('button',{name:'Create Filter',exact:true}).click();const output=await p.locator('#output').inputValue();assert.equal((output.match(/megaevolve/g)||[]).length,1);assert(output.includes('charizard'));
+  assert.deepEqual(errors,[]);console.log('PASS V77 footer layout, deck stability, search and shared Mega Evolvable:',file,width);await p.close();
  }
 
  // Compare identical populations with and without only the approved background blocks.
