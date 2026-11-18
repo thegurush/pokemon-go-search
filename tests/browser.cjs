@@ -4,7 +4,7 @@ const {chromium}=require('playwright'),fs=require('fs'),path=require('path'),cp=
  const baseline=fs.existsSync('baselines/v71.html')?fs.readFileSync('baselines/v71.html','utf8'):cp.execFileSync('git',['show','5c173a0bf25d04256a95edd50957a5114346a2ba:index.html'],{maxBuffer:20e6}).toString();
  const broken=fs.existsSync('baselines/v72.html')?fs.readFileSync('baselines/v72.html','utf8'):cp.execFileSync('git',['show','85a3d2a1b504b25d5a895fa9e7e8f8c45796c182:index.html'],{maxBuffer:20e6}).toString();
  fs.writeFileSync('test-results/v71.html',baseline);fs.writeFileSync('test-results/v72.html',broken);
- async function load(file,width=390){const page=await b.newPage({viewport:{width,height:844},hasTouch:true});let errors=[];page.on('pageerror',e=>errors.push(e.message));await page.goto('file://'+path.resolve(file),{waitUntil:'domcontentloaded'});return {page,errors};}
+ async function load(file,width=390,seeded=false){const page=await b.newPage({viewport:{width,height:844},hasTouch:true});if(seeded)await page.addInitScript(()=>{let seed=0x74;Math.random=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;};});let errors=[];page.on('pageerror',e=>errors.push(e.message));await page.goto('file://'+path.resolve(file),{waitUntil:'domcontentloaded'});return {page,errors};}
  let x=await load('test-results/v72.html');assert(x.errors.some(e=>e.includes('expected 956')));assert.equal(await x.page.locator('#grid .card').count(),0);console.log('PASS V72 failure reproduced in Chromium:',x.errors);await x.page.close();
  for(const file of ['test-results/v71.html','index.html','tests/future.html']){
   x=await load(file);const p=x.page;await p.locator('#tts-start').waitFor();const expected=JSON.parse(fs.readFileSync(file,'utf8').match(/const POKEMON=(\[.*?\]);/s)[1]).length;
@@ -29,25 +29,37 @@ const {chromium}=require('playwright'),fs=require('fs'),path=require('path'),cp=
   await p.locator('#search').fill('');assert.deepEqual(x.errors,[]);await p.screenshot({path:'test-results/'+path.basename(file)+'.png'});console.log('PASS browser deck, controls, CP keyboard/touch, editing, scope, exclusion, selection, sprites:',file,expected);await p.close();
  }
 
- for(const [width,height] of [[390,844],[844,390],[1440,900],[320,568]]){
-  const {page:p,errors}=await load('index.html',width);await p.setViewportSize({width,height});
-  const ref=(await load('test-results/v71.html',width)).page;await ref.setViewportSize({width,height});
-  for(const expanded of [false,true]){
-   if(expanded){await p.locator('#tts-start').click();await ref.locator('#tts-start').click();}
-   await p.waitForTimeout(150);await ref.waitForTimeout(150);
-   const state=page=>page.evaluate(()=>{
-    const style=e=>{const s=getComputedStyle(e),r=e.getBoundingClientRect();return {color:s.backgroundColor,image:s.backgroundImage,w:r.width,h:r.height}};
-    return {body:style(document.body),main:style(document.querySelector('main')),card:style(document.querySelector('.card')),search:style(document.querySelector('#search')),header:style(document.querySelector('header')),footer:style(document.querySelector('footer')),footerHeight:parseFloat(document.documentElement.style.getPropertyValue('--tts-bg-footer'))};
-   });
-   const [a,c]=await Promise.all([state(p),state(ref)]);
-   for(const key of ['body','main','card','search'])assert.deepEqual(a[key],c[key],key+' must retain its solid surface and geometry');
-   for(const key of ['header','footer']){assert(a[key].image.startsWith('url("data:image/svg+xml;base64,'));assert.equal(a[key].w,c[key].w);assert.equal(a[key].h,c[key].h);assert.equal(a[key].color,c[key].color);}
-   assert(Math.abs(a.footerHeight-a.footer.h)<=1);
-   assert.equal(await p.locator('#background-review-controls').count(),0);
+ // Compare identical populations with and without only the approved background blocks.
+ // V71 remains the independent preservation and functional regression baseline.
+ const backgroundBlocks=[/<!-- TTS V74 approved background start -->[\s\S]*?<!-- TTS V74 approved background end -->\n/g,/<!-- TTS V74 background geometry start -->[\s\S]*?<!-- TTS V74 background geometry end -->\n/g];
+ const current=fs.readFileSync('index.html','utf8');
+ for(const [file,tag] of [['index.html','current'],['tests/future.html','future']]){
+  const source=fs.readFileSync(file,'utf8');let control=source;
+  for(const pattern of backgroundBlocks){const approved=current.match(pattern),actual=source.match(pattern);assert.equal(approved?.length,1);assert.deepEqual(actual,approved,'Updater must preserve exact background blocks');control=control.replace(pattern,'');}
+  const refFile=`test-results/background-control-${tag}.html`;fs.writeFileSync(refFile,control);
+  for(const [width,height] of [[390,844],[844,390],[1440,900],[320,568]]){
+   const {page:p,errors}=await load(file,width,true);await p.setViewportSize({width,height});
+   const {page:ref,errors:refErrors}=await load(refFile,width,true);await ref.setViewportSize({width,height});
+   const expected=JSON.parse(source.match(/const POKEMON=(\[.*?\]);/s)[1]).length;
+   assert.equal(await p.locator('#grid .card').count(),expected);assert.equal(await ref.locator('#grid .card').count(),expected);
+   for(const expanded of [false,true]){
+    if(expanded){await p.locator('#tts-start').click();await ref.locator('#tts-start').click();}
+    await Promise.all([p.evaluate(()=>document.fonts.ready.then(()=>true)),ref.evaluate(()=>document.fonts.ready.then(()=>true))]);
+    await p.waitForTimeout(150);await ref.waitForTimeout(150);
+    const state=page=>page.evaluate(()=>{
+     const style=e=>{const s=getComputedStyle(e),r=e.getBoundingClientRect();return {color:s.backgroundColor,image:s.backgroundImage,w:r.width,h:r.height}};
+     return {body:style(document.body),main:style(document.querySelector('main')),card:style(document.querySelector('.card')),search:style(document.querySelector('#search')),header:style(document.querySelector('header')),footer:style(document.querySelector('footer')),footerHeight:parseFloat(document.documentElement.style.getPropertyValue('--tts-bg-footer'))};
+    });
+    const [a,c]=await Promise.all([state(p),state(ref)]);
+    for(const key of ['body','main','card','search'])assert.deepEqual(a[key],c[key],key+' must retain its solid surface and geometry');
+    for(const key of ['header','footer']){assert(a[key].image.startsWith('url("data:image/svg+xml;base64,'));assert.equal(c[key].image,'none');assert.equal(a[key].w,c[key].w);assert.equal(a[key].h,c[key].h);assert.equal(a[key].color,c[key].color);}
+    assert(Math.abs(a.footerHeight-a.footer.h)<=1);
+    assert.equal(await p.locator('#background-review-controls').count(),0);
+   }
+   await p.screenshot({path:`test-results/background-${tag}-${width}x${height}.png`});
+   assert.deepEqual(errors,[]);assert.deepEqual(refErrors,[]);await p.close();await ref.close();
   }
-  await p.screenshot({path:`test-results/background-${width}x${height}.png`});
-  assert.deepEqual(errors,[]);await p.close();await ref.close();
  }
- console.log('PASS background-only surfaces, preserved geometry, expanded/collapsed headers, four viewport sizes');
+ console.log('PASS current and simulated future background-only surfaces, preserved geometry, expanded/collapsed headers, four viewport sizes');
  await b.close();
 })().catch(e=>{console.error(e);process.exit(1)});
