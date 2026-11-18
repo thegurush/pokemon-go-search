@@ -4,7 +4,7 @@ const {chromium}=require('playwright'),fs=require('fs'),path=require('path'),cp=
  const baseline=fs.existsSync('baselines/v71.html')?fs.readFileSync('baselines/v71.html','utf8'):cp.execFileSync('git',['show','5c173a0bf25d04256a95edd50957a5114346a2ba:index.html'],{maxBuffer:20e6}).toString();
  const broken=fs.existsSync('baselines/v72.html')?fs.readFileSync('baselines/v72.html','utf8'):cp.execFileSync('git',['show','85a3d2a1b504b25d5a895fa9e7e8f8c45796c182:index.html'],{maxBuffer:20e6}).toString();
  fs.writeFileSync('test-results/v71.html',baseline);fs.writeFileSync('test-results/v72.html',broken);
- async function load(file,width=390,seeded=false){const page=await b.newPage({viewport:{width,height:844},hasTouch:true});if(seeded)await page.addInitScript(()=>{let seed=0x74;Math.random=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;};});let errors=[];page.on('pageerror',e=>errors.push(e.message));await page.goto('file://'+path.resolve(file),{waitUntil:'domcontentloaded'});return {page,errors};}
+ async function load(file,width=390,seeded=false){const page=await b.newPage({viewport:{width,height:844},hasTouch:true});await page.addInitScript(()=>{const observer=new MutationObserver(()=>{if(document.body){window.__ttsArtAtBody=document.documentElement.style.getPropertyValue('--tts-bg-art');observer.disconnect();}});observer.observe(document,{childList:true,subtree:true});});if(seeded)await page.addInitScript(()=>{let seed=0x74;Math.random=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;};});let errors=[];page.on('pageerror',e=>errors.push(e.message));await page.goto('file://'+path.resolve(file),{waitUntil:'domcontentloaded'});return {page,errors};}
  let x=await load('test-results/v72.html');assert(x.errors.some(e=>e.includes('expected 956')));assert.equal(await x.page.locator('#grid .card').count(),0);console.log('PASS V72 failure reproduced in Chromium:',x.errors);await x.page.close();
  for(const file of ['test-results/v71.html','index.html','tests/future.html']){
   x=await load(file);const p=x.page;await p.locator('#tts-start').waitFor();const expected=JSON.parse(fs.readFileSync(file,'utf8').match(/const POKEMON=(\[.*?\]);/s)[1]).length;
@@ -31,7 +31,7 @@ const {chromium}=require('playwright'),fs=require('fs'),path=require('path'),cp=
 
  // Compare identical populations with and without only the approved background blocks.
  // V71 remains the independent preservation and functional regression baseline.
- const backgroundBlocks=[/<!-- TTS V74 approved background start -->[\s\S]*?<!-- TTS V74 approved background end -->\n/g,/<!-- TTS V74 background geometry start -->[\s\S]*?<!-- TTS V74 background geometry end -->\n/g];
+ const backgroundBlocks=[/<!-- TTS V76 early background start -->[\s\S]*?<!-- TTS V76 early background end -->\n/g,/<!-- TTS V74 approved background start -->[\s\S]*?<!-- TTS V74 approved background end -->\n/g,/<!-- TTS V74 background geometry start -->[\s\S]*?<!-- TTS V74 background geometry end -->\n/g];
  const current=fs.readFileSync('index.html','utf8');
  for(const [file,tag] of [['index.html','current'],['tests/future.html','future']]){
   const source=fs.readFileSync(file,'utf8');let control=source;
@@ -43,6 +43,8 @@ const {chromium}=require('playwright'),fs=require('fs'),path=require('path'),cp=
    const expected=JSON.parse(source.match(/const POKEMON=(\[.*?\]);/s)[1]).length;
    assert.equal(await p.locator('#grid .card').count(),expected);assert.equal(await ref.locator('#grid .card').count(),expected);
    let initialArt;
+   assert.equal(await p.evaluate(()=>window.__ttsArtAtBody),await p.evaluate(()=>document.documentElement.style.getPropertyValue('--tts-bg-art')),'Random artwork must be ready at body insertion');
+   assert(await p.evaluate(()=>!!window.__ttsArtAtBody));
    for(const expanded of [false,true]){
     if(expanded){await p.locator('#tts-start').click();await ref.locator('#tts-start').click();}
     await Promise.all([p.evaluate(()=>document.fonts.ready.then(()=>true)),ref.evaluate(()=>document.fonts.ready.then(()=>true))]);
@@ -58,10 +60,14 @@ const {chromium}=require('playwright'),fs=require('fs'),path=require('path'),cp=
     if(initialArt)assert.equal(a.header.image,initialArt,'Artwork must not rerandomize when filters open');else initialArt=a.header.image;
     const svg=Buffer.from(a.header.image.match(/base64,([A-Za-z0-9+/=]+)/)[1],'base64').toString('latin1');
     const originalSvg=Buffer.from(current.match(/--tts-bg-art:url\("data:image\/svg\+xml;base64,([A-Za-z0-9+/=]+)/)[1],'base64').toString('latin1');
-    assert.match(svg,/<g transform="translate\((0|1024) (0|1536)\) scale\((-?1) (-?1)\)">/);
+    const [,vw,vh]=originalSvg.match(/viewBox="0 0 ([0-9.]+) ([0-9.]+)"/);
+    const transforms=[...svg.matchAll(/<g transform="translate\(([0-9.]+) ([0-9.]+)\) scale\((-?1) (-?1)\)">/g)];
+    assert(transforms.length>0);for(const t of transforms){assert.equal(t[0],transforms[0][0]);assert.equal(+t[1],t[3]==='-1'?+vw:0);assert.equal(+t[2],t[4]==='-1'?+vh:0);}
     const paths=v=>[...v.matchAll(/<path\b[^>]*>/g)].map(m=>m[0]);
-    const colors=paths(svg).map(t=>t.match(/fill="(#[0-9A-Fa-f]{6})"/)[1]);
-    assert.deepEqual(colors.slice().sort(),paths(originalSvg).map(t=>t.match(/fill="(#[0-9A-Fa-f]{6})"/)[1]).sort());
+    const colorTokens=v=>paths(v).flatMap(t=>[...t.matchAll(/(?:fill|stroke)="(#[0-9A-Fa-f]{6})"/g)].map(m=>m[1].toUpperCase()));
+    const before=colorTokens(originalSvg),after=colorTokens(svg),mapping=new Map();
+    assert.equal(after.length,before.length);before.forEach((c,i)=>{if(mapping.has(c))assert.equal(mapping.get(c),after[i]);else mapping.set(c,after[i]);});
+    assert.deepEqual([...new Set(after)].sort(),[...new Set(before)].sort());
     assert.deepEqual(paths(svg).map(t=>t.replace(/(fill|stroke)="#[0-9A-Fa-f]{6}"/g,'$1="COLOR"')),paths(originalSvg).map(t=>t.replace(/(fill|stroke)="#[0-9A-Fa-f]{6}"/g,'$1="COLOR"')));
     assert(Math.abs(a.footerHeight-a.footer.h)<=1);
     assert.equal(await p.locator('#background-review-controls').count(),0);
