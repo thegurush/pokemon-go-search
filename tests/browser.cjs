@@ -42,6 +42,7 @@ const {chromium}=require('playwright'),fs=require('fs'),path=require('path'),cp=
    const {page:ref,errors:refErrors}=await load(refFile,width,true);await ref.setViewportSize({width,height});
    const expected=JSON.parse(source.match(/const POKEMON=(\[.*?\]);/s)[1]).length;
    assert.equal(await p.locator('#grid .card').count(),expected);assert.equal(await ref.locator('#grid .card').count(),expected);
+   let initialArt;
    for(const expanded of [false,true]){
     if(expanded){await p.locator('#tts-start').click();await ref.locator('#tts-start').click();}
     await Promise.all([p.evaluate(()=>document.fonts.ready.then(()=>true)),ref.evaluate(()=>document.fonts.ready.then(()=>true))]);
@@ -53,6 +54,15 @@ const {chromium}=require('playwright'),fs=require('fs'),path=require('path'),cp=
     const [a,c]=await Promise.all([state(p),state(ref)]);
     for(const key of ['body','main','card','search'])assert.deepEqual(a[key],c[key],key+' must retain its solid surface and geometry');
     for(const key of ['header','footer']){assert(a[key].image.startsWith('url("data:image/svg+xml;base64,'));assert.equal(c[key].image,'none');assert.equal(a[key].w,c[key].w);assert.equal(a[key].h,c[key].h);assert.equal(a[key].color,c[key].color);}
+    assert.equal(a.header.image,a.footer.image,'Chrome must share one randomized background');
+    if(initialArt)assert.equal(a.header.image,initialArt,'Artwork must not rerandomize when filters open');else initialArt=a.header.image;
+    const svg=Buffer.from(a.header.image.match(/base64,([A-Za-z0-9+/=]+)/)[1],'base64').toString('latin1');
+    const originalSvg=Buffer.from(current.match(/--tts-bg-art:url\("data:image\/svg\+xml;base64,([A-Za-z0-9+/=]+)/)[1],'base64').toString('latin1');
+    assert.match(svg,/<g transform="translate\((0|1024) (0|1536)\) scale\((-?1) (-?1)\)">/);
+    const paths=v=>[...v.matchAll(/<path\b[^>]*>/g)].map(m=>m[0]);
+    const colors=paths(svg).map(t=>t.match(/fill="(#[0-9A-Fa-f]{6})"/)[1]);
+    assert.deepEqual(colors.slice().sort(),paths(originalSvg).map(t=>t.match(/fill="(#[0-9A-Fa-f]{6})"/)[1]).sort());
+    assert.deepEqual(paths(svg).map(t=>t.replace(/(fill|stroke)="#[0-9A-Fa-f]{6}"/g,'$1="COLOR"')),paths(originalSvg).map(t=>t.replace(/(fill|stroke)="#[0-9A-Fa-f]{6}"/g,'$1="COLOR"')));
     assert(Math.abs(a.footerHeight-a.footer.h)<=1);
     assert.equal(await p.locator('#background-review-controls').count(),0);
    }
