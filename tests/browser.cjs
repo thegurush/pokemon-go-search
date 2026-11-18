@@ -1,3 +1,6 @@
+// V77 test correction, 2026-11-18: measure visible #tts-output, not hidden #output.
+// Follow-up to GitHub run 44318894877 at commit 4fbecd3c8a64c6ab644b421dd435c24c89a90bea.
+// Upload only this file to tests/browser.cjs on v77-testing. Full rerun remains pending.
 const {chromium}=require('playwright'),fs=require('fs'),path=require('path'),cp=require('child_process'),assert=require('assert/strict');
 (async()=>{
  const b=await chromium.launch({headless:true,...(process.env.CHROMIUM_EXECUTABLE_PATH?{executablePath:process.env.CHROMIUM_EXECUTABLE_PATH}: {})});fs.mkdirSync('test-results',{recursive:true});
@@ -36,7 +39,8 @@ const {chromium}=require('playwright'),fs=require('fs'),path=require('path'),cp=
   const geometry=()=>p.locator('[data-pokemon-id="1"]').boundingBox();const before=await geometry();
   await p.locator('[data-pokemon-id="1"]').click();await toolbar.waitFor({state:'visible'});await p.waitForTimeout(150);
   assert(Math.abs((await geometry()).y-before.y)<1,'Opening main selection must not shift deck top');
-  const tr=await toolbar.boundingBox(),out=await p.locator('#output').boundingBox();assert(tr.y+tr.height<=out.y);assert(tr.x>=0&&tr.x+tr.width<=width);
+  const visibleOutput=p.locator('#tts-output');await visibleOutput.waitFor({state:'visible'});
+  const tr=await toolbar.boundingBox(),out=await visibleOutput.boundingBox();assert(tr&&out,'Footer tray and visible string preview must have layout boxes');assert(tr.y+tr.height<=out.y);assert(tr.x>=0&&tr.x+tr.width<=width);
   await p.locator('[data-pokemon-id="1"]').click();assert(!(await toolbar.isVisible()));
   const ids=async q=>{await p.locator('#search').fill(q);return p.locator('#grid .card').evaluateAll(es=>es.map(e=>+e.dataset.pokemonId).sort((a,b)=>a-b));};
   const mega=await ids('mega');assert(mega.includes(6));assert(!mega.includes(4));assert(!mega.includes(154));assert(!mega.includes(382));
