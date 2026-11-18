@@ -29,6 +29,33 @@ const {chromium}=require('playwright'),fs=require('fs'),path=require('path'),cp=
   await p.locator('#search').fill('');assert.deepEqual(x.errors,[]);await p.screenshot({path:'test-results/'+path.basename(file)+'.png'});console.log('PASS browser deck, controls, CP keyboard/touch, editing, scope, exclusion, selection, sprites:',file,expected);await p.close();
  }
 
+ // V77: selection controls live above Copy in the footer, without shifting the deck top.
+ for(const file of ['index.html','tests/future.html'])for(const width of [320,390,1440]){
+  const {page:p,errors}=await load(file,width);await p.evaluate(()=>document.fonts.ready.then(()=>true));await p.waitForTimeout(200);
+  const toolbar=p.locator('footer #tts-main-controls');assert.equal(await toolbar.count(),1);assert.equal(await p.locator('header #tts-main-controls').count(),0);assert(!(await toolbar.isVisible()));
+  const geometry=()=>p.locator('[data-pokemon-id="1"]').boundingBox();const before=await geometry();
+  await p.locator('[data-pokemon-id="1"]').click();await toolbar.waitFor({state:'visible'});await p.waitForTimeout(150);
+  assert(Math.abs((await geometry()).y-before.y)<1,'Opening main selection must not shift deck top');
+  const tr=await toolbar.boundingBox(),out=await p.locator('#output').boundingBox();assert(tr.y+tr.height<=out.y);assert(tr.x>=0&&tr.x+tr.width<=width);
+  await p.locator('[data-pokemon-id="1"]').click();assert(!(await toolbar.isVisible()));
+  const ids=async q=>{await p.locator('#search').fill(q);return p.locator('#grid .card').evaluateAll(es=>es.map(e=>+e.dataset.pokemonId).sort((a,b)=>a-b));};
+  const mega=await ids('mega');assert(mega.includes(6));assert(!mega.includes(4));assert(!mega.includes(154));assert(!mega.includes(382));
+  assert.deepEqual(await ids('primal'),[382,383]);assert.deepEqual(await ids('mega&water'),[9,80,121,130,260,319,658]);
+  await ids('mega&charizard');await p.locator('[data-pokemon-id="6"]').click();await p.getByRole('switch',{name:'EVOLUTION',exact:true}).click();assert.deepEqual(await ids('mega&charizard'),[4,5,6]);
+  await p.getByRole('switch',{name:'EVOLUTION',exact:true}).click();await p.locator('[data-pokemon-id="6"]').click();await ids('');
+  await p.locator('#tts-start').click();await p.getByRole('button',{name:'Evolution',exact:true}).click();
+  const option=p.getByRole('button',{name:'Mega Evolvable',exact:true});await option.click();assert.equal(await option.getAttribute('aria-pressed'),'true');const placement=await option.getAttribute('data-placement');
+  await p.getByRole('button',{name:'Back from Evolution',exact:true}).click();assert.equal(await p.getByRole('button',{name:'Evolution',exact:true}).getAttribute('aria-pressed'),'true');
+  await p.getByRole('button',{name:'Mega',exact:true}).click();assert.equal(await option.getAttribute('aria-pressed'),'true');assert.equal(await option.getAttribute('data-placement'),placement);
+  await option.click();assert.equal(await option.getAttribute('aria-pressed'),'false');await option.click();
+  await p.getByRole('button',{name:'Open filter actions',exact:true}).click();await p.getByRole('button',{name:'Select Pokémon',exact:true}).click();
+  assert(await toolbar.isVisible());assert.equal(await toolbar.getByRole('button',{name:'Commit Pokémon selection',exact:true}).count(),1);assert.equal(await toolbar.getByRole('switch',{name:'EXCLUDE',exact:true}).count(),0);
+  await ids('mega&charizard');await p.locator('[data-pokemon-id="6"]').click();await p.getByRole('button',{name:'Commit Pokémon selection',exact:true}).click();
+  if(await p.getByRole('button',{name:'Open filter actions',exact:true}).count())await p.getByRole('button',{name:'Open filter actions',exact:true}).click();
+  await p.getByRole('button',{name:'Create Filter',exact:true}).click();const output=await p.locator('#output').inputValue();assert.equal((output.match(/megaevolve/g)||[]).length,1);assert(output.includes('charizard'));
+  assert.deepEqual(errors,[]);console.log('PASS V77 footer layout, deck stability, search and shared Mega Evolvable:',file,width);await p.close();
+ }
+
  // Compare identical populations with and without only the approved background blocks.
  // V71 remains the independent preservation and functional regression baseline.
  const backgroundBlocks=[/<!-- TTS V76 early background start -->[\s\S]*?<!-- TTS V76 early background end -->\n/g,/<!-- TTS V74 approved background start -->[\s\S]*?<!-- TTS V74 approved background end -->\n/g,/<!-- TTS V74 background geometry start -->[\s\S]*?<!-- TTS V74 background geometry end -->\n/g];
