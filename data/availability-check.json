@@ -5,7 +5,7 @@
       "url": "https://raw.githubusercontent.com/pvpoke/pvpoke/master/src/data/gamemaster.json",
       "status": "ok",
       "species": 954,
-      "sha256": "54f5c2ea0c8312b3d7d5e36b445241d1b5a798fc421b52b4a855558b569bb903"
+      "sha256": "d8e690f82c24d4037e3bb15ff664b63ff7a11005e8255e40c903e1b01712009b"
     },
     {
       "source": "dated",
@@ -63,7 +63,7 @@
       ]
     }
   ],
-  "checkedUTC": "2026-11-24T00:19:37.319603+00:00",
+  "checkedUTC": "2026-11-24T22:44:22.095600+00:00",
   "dateCutoffExclusive": "2026-11-24",
   "count": 959,
   "added": [],
