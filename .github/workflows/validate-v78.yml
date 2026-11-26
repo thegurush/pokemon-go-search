@@ -1,0 +1,56 @@
+name: Validate V78 candidate
+on:
+  push:
+    branches: [v78-browser-validation]
+    paths: [v78-validation.zip, .github/workflows/validate-v78.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser:
+    if: github.ref == 'refs/heads/v78-browser-validation'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: candidate
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Verify and extract candidate
+        working-directory: .
+        run: |
+          echo "747917443ac8679510dd18dc7605af46e9aab7438b9dcd6d112fe9208df0bf54  v78-validation.zip" | sha256sum --check --strict
+          mkdir candidate
+          unzip -q v78-validation.zip -d candidate
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: pip install -r updater/requirements.txt
+      - run: python -m unittest discover -s tests -p 'test_*.py'
+      - name: Preservation and production sliders
+        run: |
+          node tests/preservation.cjs
+          node tests/sliders.cjs
+      - name: Ranking policy, snapshots, selection and restrictions
+        run: |
+          node tests/rankings.cjs
+          node tests/ranking_build.cjs
+          node tests/ranking_session.cjs
+          node tests/ranking_restrictions.cjs
+      - run: npm install --no-save --package-lock=false playwright@1.62.1
+      - run: npx playwright install --with-deps chromium
+      - name: Full Chromium browser verification
+        run: node tests/browser.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: v78-browser-evidence
+          path: candidate/test-results/*.png
+      - name: Record validation scope
+        if: always()
+        run: cat VALIDATION_HANDOFF.md >> "$GITHUB_STEP_SUMMARY"
