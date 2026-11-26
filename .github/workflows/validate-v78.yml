@@ -21,7 +21,7 @@ jobs:
       - name: Verify and extract candidate
         working-directory: .
         run: |
-          echo "1ab70ffc6caa797a06f9840137a136f554dd402cc4844e5b1edd702aa99b24cc  v78-validation.zip" | sha256sum --check --strict
+          echo "aa8b1a96305f3f9fcef8018d1caffd234f3bb7dea48fc10bf7cbbdc7f1898ed4  v78-validation.zip" | sha256sum --check --strict
           mkdir candidate
           unzip -q v78-validation.zip -d candidate
       - uses: actions/setup-python@v5
@@ -43,6 +43,7 @@ jobs:
           node tests/ranking_session.cjs
           node tests/ranking_restrictions.cjs
           node tests/automatic_mega_moves.cjs
+          node tests/move_search.cjs
       - run: npm install --no-save --package-lock=false playwright@1.62.1
       - run: npx playwright install --with-deps chromium
       - name: Full Chromium browser verification
