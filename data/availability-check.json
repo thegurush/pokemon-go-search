@@ -10,21 +10,63 @@
     {
       "source": "dated",
       "url": "https://raw.githubusercontent.com/francescog91/pokemon-go-unreleased/main/pokemon-lists/unreleased-report-full.json",
-      "status": "unavailable",
-      "error": "Future snapshot date"
+      "status": "ok",
+      "species": 959,
+      "sha256": "28a7e13281ba0b4f4788cb4d5fe105463b3244ff0770ec67546b6497525f9f90",
+      "snapshotDate": "2026-11-26"
     }
   ],
-  "disagreements": [],
-  "checkedUTC": "2026-11-25T21:57:56.155778+00:00",
-  "dateCutoffExclusive": "2026-11-25",
+  "disagreements": [
+    {
+      "id": 132,
+      "confirmedBy": [
+        "dated"
+      ],
+      "notConfirmedBy": [
+        "pvpoke"
+      ]
+    },
+    {
+      "id": 292,
+      "confirmedBy": [
+        "dated"
+      ],
+      "notConfirmedBy": [
+        "pvpoke"
+      ]
+    },
+    {
+      "id": 665,
+      "confirmedBy": [
+        "dated"
+      ],
+      "notConfirmedBy": [
+        "pvpoke"
+      ]
+    },
+    {
+      "id": 789,
+      "confirmedBy": [
+        "dated"
+      ],
+      "notConfirmedBy": [
+        "pvpoke"
+      ]
+    },
+    {
+      "id": 790,
+      "confirmedBy": [
+        "dated"
+      ],
+      "notConfirmedBy": [
+        "pvpoke"
+      ]
+    }
+  ],
+  "checkedUTC": "2026-11-26T21:53:45.170958+00:00",
+  "dateCutoffExclusive": "2026-11-26",
   "count": 959,
   "added": [],
-  "retainedWithoutConfirmation": [
-    132,
-    292,
-    665,
-    789,
-    790
-  ],
+  "retainedWithoutConfirmation": [],
   "policy": "Additive species only. Either valid source confirms release; disagreements do not veto. Dated releases require the following UTC day. Preserve existing entries; no duplicate form cards."
 }
