@@ -21,7 +21,7 @@ jobs:
       - name: Verify and extract candidate
         working-directory: .
         run: |
-          echo "aa8b1a96305f3f9fcef8018d1caffd234f3bb7dea48fc10bf7cbbdc7f1898ed4  v78-validation.zip" | sha256sum --check --strict
+          echo "0922ea035895e75ce8a1277ea3679f188ba8b5a8f35e88f442db25e5f0aef90d  v78-validation.zip" | sha256sum --check --strict
           mkdir candidate
           unzip -q v78-validation.zip -d candidate
       - uses: actions/setup-python@v5
