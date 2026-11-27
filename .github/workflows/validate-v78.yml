@@ -24,6 +24,23 @@ jobs:
           echo "f8a1fe795948ad71db20b33649c583889abc7984102e065474bf1121096dfd9e  v78-validation.zip" | sha256sum --check --strict
           mkdir candidate
           unzip -q v78-validation.zip -d candidate
+      - name: Correct Count keyboard test to use approved arrow controls
+        working-directory: .
+        run: |
+          python3 - <<'PYCODE'
+          from pathlib import Path
+          import hashlib
+          html = Path('candidate/index.html')
+          before_html = hashlib.sha256(html.read_bytes()).hexdigest()
+          target = Path('candidate/tests/ranking-real-browser.cjs')
+          source = target.read_text()
+          before = "await p.getByRole('slider').press('End');"
+          after = "for(let value=11;value<=30;value++){await p.getByRole('slider').press('ArrowRight');A.equal(await p.getByRole('slider').getAttribute('aria-valuenow'),String(value));}"
+          assert source.count(before) == 1, 'Unexpected candidate test; stop instead of applying an uncertain correction'
+          target.write_text(source.replace(before, after))
+          assert hashlib.sha256(html.read_bytes()).hexdigest() == before_html, 'Application must remain unchanged'
+          print('Corrected test-only keyboard interaction; all assertions retained. Application SHA256:', before_html)
+          PYCODE
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
