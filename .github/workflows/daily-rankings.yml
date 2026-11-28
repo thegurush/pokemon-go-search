@@ -1,0 +1,88 @@
+name: Daily attacker rankings
+on:
+  schedule:
+    - cron: '57 12 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  update:
+    if: github.ref == 'refs/heads/main'
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: pip install -r updater/requirements.txt
+      - name: Fetch pinned calculator and current source data
+        run: |
+          git clone https://github.com/mgrann03/dialgadex.git "$RUNNER_TEMP/tts-calculator"
+          git -C "$RUNNER_TEMP/tts-calculator" checkout --detach eef2ddbb822bae0c0f4f5060115aef39dbea091a
+          git clone https://github.com/mgrann03/pokemon-resources.git "$RUNNER_TEMP/tts-ranking-data"
+      - name: Refresh reviewed rankings
+        run: node rankings/refresh.cjs "$RUNNER_TEMP/tts-calculator" "$RUNNER_TEMP/tts-ranking-data"
+      - name: Decode all resulting ranking sprites
+        run: |
+          mkdir -p test-results
+          python rankings/audit_sprites.py data/attacker-rankings.json test-results/ranking-sprites.json
+          python -c "import json; r=json.load(open('test-results/ranking-sprites.json')); assert r['failed']==0, 'Ranking sprite validation failed'"
+      - name: Run updater and preservation regression checks
+        run: |
+          python -m unittest discover -s tests -p 'test_*.py'
+          node tests/preservation.cjs
+          node tests/sliders.cjs
+      - name: Verify ranking policy and native search compilation
+        run: |
+          node tests/rankings.cjs
+          node tests/ranking_build.cjs
+          node tests/automatic_mega_moves.cjs
+          node tests/move_search.cjs
+      - run: npm install --no-save --package-lock=false playwright@1.62.1
+      - run: npx playwright install --with-deps chromium
+      - name: Verify actual browser startup before publication
+        run: node tests/browser.cjs
+      - name: Save validated result
+        run: |
+          git config user.name 'Tap to Search updater'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html data/attacker-rankings.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Refresh reviewed attacker rankings'
+            git push
+          fi
+      - name: Stage tracked website files and preserve other pages/assets
+        run: |
+          mkdir _site
+          git archive HEAD | tar -x -C _site --exclude='.github' --exclude='updater' --exclude='tests' --exclude='CHECKPOINT.md' --exclude='baselines' --exclude='rankings' --exclude='VALIDATION_HANDOFF.md'
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - name: Publish
+        id: deployment
+        uses: actions/deploy-pages@v4
+      - name: Verify hosted HTML
+        env:
+          SITE_URL: ${{ steps.deployment.outputs.page_url }}
+        run: python updater/verify_hosted.py "$SITE_URL"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: rankings-browser-evidence
+          path: test-results/*.png
