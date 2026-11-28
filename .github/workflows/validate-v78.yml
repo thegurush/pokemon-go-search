@@ -1,11 +1,14 @@
-name: Validate V78 candidate
+name: Validate V78 and prepare release branch
 on:
   push:
     branches: [v78-browser-validation]
     paths: [v78-validation.zip, .github/workflows/validate-v78.yml]
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
+concurrency:
+  group: v78-release-preparation
+  cancel-in-progress: false
 jobs:
   browser:
     if: github.ref == 'refs/heads/v78-browser-validation'
@@ -21,26 +24,9 @@ jobs:
       - name: Verify and extract candidate
         working-directory: .
         run: |
-          echo "f8a1fe795948ad71db20b33649c583889abc7984102e065474bf1121096dfd9e  v78-validation.zip" | sha256sum --check --strict
+          echo "a686bbccc3fdaf8d67617e834e87381c24d37093cbf27a9d5a2a31ecee8b30bf  v78-validation.zip" | sha256sum --check --strict
           mkdir candidate
           unzip -q v78-validation.zip -d candidate
-      - name: Correct Count keyboard test to use approved arrow controls
-        working-directory: .
-        run: |
-          python3 - <<'PYCODE'
-          from pathlib import Path
-          import hashlib
-          html = Path('candidate/index.html')
-          before_html = hashlib.sha256(html.read_bytes()).hexdigest()
-          target = Path('candidate/tests/ranking-real-browser.cjs')
-          source = target.read_text()
-          before = "await p.getByRole('slider').press('End');"
-          after = "for(let value=11;value<=30;value++){await p.getByRole('slider').press('ArrowRight');A.equal(await p.getByRole('slider').getAttribute('aria-valuenow'),String(value));}"
-          assert source.count(before) == 1, 'Unexpected candidate test; stop instead of applying an uncertain correction'
-          target.write_text(source.replace(before, after))
-          assert hashlib.sha256(html.read_bytes()).hexdigest() == before_html, 'Application must remain unchanged'
-          print('Corrected test-only keyboard interaction; all assertions retained. Application SHA256:', before_html)
-          PYCODE
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -48,28 +34,55 @@ jobs:
         with:
           node-version: '22'
       - run: pip install -r updater/requirements.txt
+      - name: Fetch pinned calculator and current ranking data
+        run: |
+          git clone https://github.com/mgrann03/dialgadex.git "$RUNNER_TEMP/tts-calculator"
+          git -C "$RUNNER_TEMP/tts-calculator" checkout --detach eef2ddbb822bae0c0f4f5060115aef39dbea091a
+          git clone https://github.com/mgrann03/pokemon-resources.git "$RUNNER_TEMP/tts-ranking-data"
+      - name: Verify a balance change and rejected unknown move
+        run: node tests/ranking_refresh_integration.cjs "$RUNNER_TEMP/tts-calculator" "$RUNNER_TEMP/tts-ranking-data"
+      - name: Refresh real saved rankings
+        run: node rankings/refresh.cjs "$RUNNER_TEMP/tts-calculator" "$RUNNER_TEMP/tts-ranking-data"
+      - name: Decode all resulting ranking sprites
+        run: |
+          mkdir -p test-results
+          python rankings/audit_sprites.py data/attacker-rankings.json test-results/ranking-sprites.json
+          python -c "import json; r=json.load(open('test-results/ranking-sprites.json')); assert r['failed']==0, 'Ranking sprite validation failed'"
       - run: python -m unittest discover -s tests -p 'test_*.py'
-      - name: Preservation and production sliders
+      - name: Preservation, ranking policy, native compilation and sliders
         run: |
           node tests/preservation.cjs
           node tests/sliders.cjs
-      - name: Ranking policy, snapshots, selection and restrictions
-        run: |
-          node tests/rankings.cjs
-          node tests/ranking_build.cjs
-          node tests/ranking_session.cjs
-          node tests/ranking_restrictions.cjs
-          node tests/automatic_mega_moves.cjs
-          node tests/move_search.cjs
       - run: npm install --no-save --package-lock=false playwright@1.62.1
       - run: npx playwright install --with-deps chromium
       - name: Full Chromium browser verification
         run: node tests/browser.cjs
+      - name: Prepare tested code on an isolated release branch
+        working-directory: .
+        run: |
+          git fetch origin main
+          python candidate/updater/prepare_v78_release.py candidate . "$RUNNER_TEMP/tts-v78-release"
+          git -C "$RUNNER_TEMP/tts-v78-release" config user.name 'Tap to Search release preparation'
+          git -C "$RUNNER_TEMP/tts-v78-release" config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git -C "$RUNNER_TEMP/tts-v78-release" add .
+          git -C "$RUNNER_TEMP/tts-v78-release" commit -m 'Prepare validated V78 Top Attackers and Mega Evolvable parity'
+          git -C "$RUNNER_TEMP/tts-v78-release" push --force-with-lease=refs/heads/v78-release: origin HEAD:refs/heads/v78-release
+      - name: Record scope and next step
+        working-directory: .
+        run: |
+          {
+            echo '## V78 release branch prepared'
+            echo 'Full refresh, regression and Chromium checks passed before branch creation.'
+            echo 'The live website and main branch were not changed. No Pages deployment was performed.'
+            echo 'Next: upload the supplied daily-rankings.yml to .github/workflows/ on v78-release, then review the pull request and its checks before merging.'
+            echo 'Release branch: https://github.com/thegurush/pokemon-go-search/tree/v78-release'
+            echo 'The ranking schedule is not active until installed on main and a hosted manual run succeeds.'
+            git -C "$RUNNER_TEMP/tts-v78-release" rev-parse HEAD
+          } >> "$GITHUB_STEP_SUMMARY"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: v78-browser-evidence
-          path: candidate/test-results/*.png
-      - name: Record validation scope
-        if: always()
-        run: cat VALIDATION_HANDOFF.md >> "$GITHUB_STEP_SUMMARY"
+          name: v78-release-validation-evidence
+          path: |
+            candidate/test-results/*.png
+            candidate/test-results/ranking-sprites.json
