@@ -25,3 +25,17 @@ for(const k of Object.keys(ctx.specs))for(width of [110,160,240]){
 // Adjacent valid values preserve ordering and separate their value bubbles.
 width=160;values={cp:{values:[9999,10000]}};box=ctx.build('cp','cp');const bs=box.querySelectorAll('.tts-bubble');assert(parseFloat(bs[1].style.left)-parseFloat(bs[0].style.left)>=34);
 console.log('PASS 24 production slider handler scenarios and bubble collision checks');
+
+// Top Attackers reuses the approved single-value adapter; End is intentionally
+// not a supported command. Verify every supported increment and the boundaries.
+vm.runInContext(html.slice(html.indexOf("FAMILIES.attackers="),html.indexOf(" TTSIcons.routes.groups.attackercount=")),ctx);
+let attackerValue=10;
+const buildAttacker=()=>ctx.build('attackercount','attackers',{get:()=>[attackerValue],set:a=>{attackerValue=a[0]??10},single:true,initial:10});
+box=buildAttacker();
+box.querySelector('.tts-knob').onkeydown({key:'End',preventDefault(){}});assert.equal(attackerValue,10);
+for(let expected=11;expected<=30;expected++){box.querySelector('.tts-knob').onkeydown({key:'ArrowRight',preventDefault(){}});assert.equal(attackerValue,expected);box=buildAttacker();}
+box.querySelector('.tts-knob').onkeydown({key:'ArrowRight',preventDefault(){}});assert.equal(attackerValue,30);
+for(let expected=29;expected>=1;expected--){box.querySelector('.tts-knob').onkeydown({key:'ArrowLeft',preventDefault(){}});assert.equal(attackerValue,expected);box=buildAttacker();}
+box.querySelector('.tts-knob').onkeydown({key:'ArrowLeft',preventDefault(){}});assert.equal(attackerValue,1);
+box.querySelector('.tts-knob').onkeydown({key:'Delete',preventDefault(){}});assert.equal(attackerValue,10);
+console.log('PASS Top Attackers Count single-value adapter: supported arrow steps 1–30, endpoint clamping and reset to10');

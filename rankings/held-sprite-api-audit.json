@@ -1,0 +1,30 @@
+[
+  {
+    "name": "burmy-trash",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "name": "cherrim-sunshine",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "name": "genesect-douse",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "name": "genesect-shock",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "name": "genesect-burn",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "name": "genesect-chill",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "name": "raichu-mega-x",
+    "error": "HTTP Error 403: Forbidden"
+  }
+]

@@ -11,6 +11,7 @@ const {chromium}=require('playwright'),fs=require('fs'),path=require('path'),cp=
  let x=await load('test-results/v72.html');assert(x.errors.some(e=>e.includes('expected 956')));assert.equal(await x.page.locator('#grid .card').count(),0);console.log('PASS V72 failure reproduced in Chromium:',x.errors);await x.page.close();
  for(const file of ['test-results/v71.html','index.html','tests/future.html']){
   x=await load(file);const p=x.page;await p.locator('#tts-start').waitFor();const expected=JSON.parse(fs.readFileSync(file,'utf8').match(/const POKEMON=(\[.*?\]);/s)[1]).length;
+  if(file==='index.html')await require('./podium-browser.cjs')(p);
   assert.equal(await p.locator('#grid .card').count(),expected);assert(await p.locator('#grid .card').first().isVisible());assert.equal(await p.locator('#tts-start').getAttribute('aria-expanded'),'false');
   await p.locator('#tts-start').click();await p.getByRole('button',{name:'CP',exact:true}).click();
   const knob=p.getByRole('slider').first();assert.equal(await knob.getAttribute('aria-valuetext'),'Unset; tap or drag to set');
@@ -47,16 +48,36 @@ const {chromium}=require('playwright'),fs=require('fs'),path=require('path'),cp=
   assert.deepEqual(await ids('primal'),[382,383]);assert.deepEqual(await ids('mega&water'),[9,80,121,130,260,319,658]);
   await ids('mega&charizard');await p.locator('[data-pokemon-id="6"]').click();await p.getByRole('switch',{name:'EVOLUTION',exact:true}).click();assert.deepEqual(await ids('mega&charizard'),[4,5,6]);
   await p.getByRole('switch',{name:'EVOLUTION',exact:true}).click();await p.locator('[data-pokemon-id="6"]').click();await ids('');
-  await p.locator('#tts-start').click();await p.getByRole('button',{name:'Evolution',exact:true}).click();
-  const option=p.getByRole('button',{name:'Mega Evolvable',exact:true});await option.click();assert.equal(await option.getAttribute('aria-pressed'),'true');const placement=await option.getAttribute('data-placement');
-  await p.getByRole('button',{name:'Back from Evolution',exact:true}).click();assert.equal(await p.getByRole('button',{name:'Evolution',exact:true}).getAttribute('aria-pressed'),'true');
-  await p.getByRole('button',{name:'Mega',exact:true}).click();assert.equal(await option.getAttribute('aria-pressed'),'true');assert.equal(await option.getAttribute('data-placement'),placement);
-  await option.click();assert.equal(await option.getAttribute('aria-pressed'),'false');await option.click();
+  await p.locator('#tts-start').click();
+  const option=p.getByRole('button',{name:'Mega Evolvable',exact:true});
+  for(const owner of ['Mega','Evolution']){
+   const other=owner==='Mega'?'Evolution':'Mega';
+   await p.getByRole('button',{name:owner,exact:true}).click();await option.click();
+   assert.equal(await option.getAttribute('aria-pressed'),'true');assert.equal(await option.locator('.tts-circle').getAttribute('data-state'),'selected');
+   await p.getByRole('button',{name:'Back from '+owner,exact:true}).click();
+   assert.equal(await p.getByRole('button',{name:owner,exact:true}).getAttribute('aria-pressed'),'true');
+   assert.equal(await p.getByRole('button',{name:other,exact:true}).getAttribute('aria-pressed'),'false');
+   await p.getByRole('button',{name:other,exact:true}).click();
+   assert.equal(await option.getAttribute('aria-pressed'),'false');assert.equal(await option.getAttribute('aria-disabled'),'true');
+   assert.equal(await option.locator('.tts-circle').getAttribute('data-state'),'disabled');assert.equal(await option.locator('.i07-rim').count(),0);assert.equal(await option.locator('.i07-face').evaluate(e=>getComputedStyle(e).filter),'brightness(0.65)');
+   // Disabled options intentionally keep a click handler to explain the conflict.
+   await option.click({force:true});assert((await p.locator('#tts-message').textContent()).includes('Already selected in '+owner));
+   assert.equal(await p.evaluate(()=>TTS.state.builder.filter.portions[0].megaevolveSource),owner.toLowerCase());
+   await p.getByRole('button',{name:'Back from '+other,exact:true}).click();await p.getByRole('button',{name:owner,exact:true}).click();
+   await option.click();assert.equal(await option.getAttribute('aria-pressed'),'false');
+   await p.getByRole('button',{name:'Back from '+owner,exact:true}).click();await p.getByRole('button',{name:other,exact:true}).click();
+   assert.equal(await option.getAttribute('aria-disabled'),null);assert.equal(await option.getAttribute('aria-pressed'),'false');
+   await p.getByRole('button',{name:'Back from '+other,exact:true}).click();
+  }
+  await p.getByRole('button',{name:'Evolution',exact:true}).click();await option.click();
   await p.getByRole('button',{name:'Open filter actions',exact:true}).click();await p.getByRole('button',{name:'Select Pokémon',exact:true}).click();
   assert(await toolbar.isVisible());assert.equal(await toolbar.getByRole('button',{name:'Commit Pokémon selection',exact:true}).count(),1);assert.equal(await toolbar.getByRole('switch',{name:'EXCLUDE',exact:true}).count(),0);
   await ids('mega&charizard');await p.locator('[data-pokemon-id="6"]').click();await p.getByRole('button',{name:'Commit Pokémon selection',exact:true}).click();
   if(await p.getByRole('button',{name:'Open filter actions',exact:true}).count())await p.getByRole('button',{name:'Open filter actions',exact:true}).click();
   await p.getByRole('button',{name:'Create Filter',exact:true}).click();const output=await p.locator('#output').inputValue();assert.equal((output.match(/megaevolve/g)||[]).length,1);assert(output.includes('charizard'));
+  await p.locator('#tts-active button[data-filter-id]').first().click();await p.getByRole('button',{name:'EDIT',exact:true}).click();
+  assert.equal(await p.evaluate(()=>TTS.state.builder.filter.portions[0].megaevolveSource),'evolution');
+  await p.getByRole('button',{name:'Evolution',exact:true}).click();assert.equal(await option.getAttribute('aria-pressed'),'true');
   assert.deepEqual(errors,[]);console.log('PASS V77 footer layout, deck stability, search and shared Mega Evolvable:',file,width);await p.close();
  }
 
@@ -108,5 +129,7 @@ const {chromium}=require('playwright'),fs=require('fs'),path=require('path'),cp=
   }
  }
  console.log('PASS current and simulated future background-only surfaces, preserved geometry, expanded/collapsed headers, four viewport sizes');
+ await require('./ranking-browser.cjs')(b);
+ await require('./ranking-real-browser.cjs')(b);
  await b.close();
 })().catch(e=>{console.error(e);process.exit(1)});

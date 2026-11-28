@@ -1,0 +1,88 @@
+[
+  {
+    "name": "649-douse",
+    "url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/649-douse.png",
+    "status": "decoded",
+    "size": [
+      96,
+      96
+    ],
+    "nonempty": true
+  },
+  {
+    "name": "649-shock",
+    "url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/649-shock.png",
+    "status": "decoded",
+    "size": [
+      96,
+      96
+    ],
+    "nonempty": true
+  },
+  {
+    "name": "649-burn",
+    "url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/649-burn.png",
+    "status": "decoded",
+    "size": [
+      96,
+      96
+    ],
+    "nonempty": true
+  },
+  {
+    "name": "649-chill",
+    "url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/649-chill.png",
+    "status": "decoded",
+    "size": [
+      96,
+      96
+    ],
+    "nonempty": true
+  },
+  {
+    "name": "421-sunshine",
+    "url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/421-sunshine.png",
+    "status": "decoded",
+    "size": [
+      96,
+      96
+    ],
+    "nonempty": true
+  },
+  {
+    "name": "412-trash",
+    "url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/412-trash.png",
+    "status": "decoded",
+    "size": [
+      96,
+      96
+    ],
+    "nonempty": true
+  },
+  {
+    "name": "150-armored",
+    "url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/150-armored.png",
+    "status": "failed",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "name": "10123",
+    "url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10123.png",
+    "status": "decoded",
+    "size": [
+      96,
+      96
+    ],
+    "nonempty": true
+  },
+  {
+    "name": "10304",
+    "url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10304.png",
+    "status": "decoded",
+    "size": [
+      96,
+      96
+    ],
+    "nonempty": true
+  }
+]

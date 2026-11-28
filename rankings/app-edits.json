@@ -1,0 +1,118 @@
+[
+  [
+    "const C=TTSCompiler,clone=x=>JSON.parse(JSON.stringify(x));",
+    "const C=TTSCompiler,clone=x=>JSON.parse(JSON.stringify(x));\nlet rankingSession=null,rankingError=\"\";\ntry{if(window.TTSRankingSnapshot)rankingSession=TTSRankingSession.create(window.TTSRankingSnapshot);}catch(e){rankingError=e.message;}"
+  ],
+  [
+    "img.dataset.spriteUrl=SPRITE_BASE+p.id+'.png';",
+    "img.dataset.spriteUrl=p.sprite||SPRITE_BASE+p.id+'.png';"
+  ],
+  [
+    "const colors=cardColor.get(p.id)||CARD_PALETTE[0];",
+    "const colors=cardColor.get(p.species||p.id)||CARD_PALETTE[0];"
+  ],
+  [
+    "n.textContent='#'+String(p.id).padStart(3,'0');",
+    "n.textContent='#'+String(p.species||p.id).padStart(3,'0');"
+  ],
+  [
+    " if(mode.selected)pool=pool.filter(p=>scope?selectedScope.has(p.id):mode.exclude?S.main[p.id]==='exclude':!!S.main[p.id]);",
+    " if(/(?:^|[,&])\\s*\\d*best/i.test(search.value)){\n  try{\n   if(!rankingSession)throw Error(rankingError||'Top Attackers data is not installed yet.');\n   const rows=rankingSession.search(search.value,(row,term)=>matchesDeckTerm({id:row.species,name:row.name},term));\n   if(rows)return rows.filter(row=>!mode.selected||(scope?selectedScope.has(row.selectionKey):mode.exclude?S.main[row.selectionKey]==='exclude':!!S.main[row.selectionKey])).map(row=>({...row,id:row.selectionKey,ranked:true}));\n  }catch(e){notify(e.message,true,'Top Attackers');return [];}\n }\n if(mode.selected)pool=pool.filter(p=>scope?selectedScope.has(p.id):mode.exclude?S.main[p.id]==='exclude':!!S.main[p.id]);"
+  ],
+  [
+    "const global=plan.global(TTS_META[id]),scoped=",
+    "const global=plan.global(TTS_META[rankingSession?.formForTarget(id)?.species||id]),scoped="
+  ],
+  [
+    "cardColor.get(p.id).bg);b.classList.toggle('selected'",
+    "cardColor.get(p.species||p.id).bg);b.classList.toggle('selected'"
+  ],
+  [
+    "b.style.setProperty('--badge-ink',cardColor.get(p.id).bg);",
+    "b.style.setProperty('--badge-ink',cardColor.get(p.species||p.id).bg);"
+  ],
+  [
+    "b.dataset.pokemonId=p.id;",
+    "b.dataset.pokemonId=p.species||p.id;\n b.dataset.selectionKey=String(p.id);b.classList.toggle('ranked-attacker',!!p.ranked&&p.type!=='overall');\n if(p.ranked){\n  b.dataset.occurrenceKey=p.occurrenceKey;\n  if(p.type!=='overall')b.style.setProperty('--attacker-border',TTSIcons.fill(TTSIcons.row(TTSIcons.route('options','movetype:'+p.type))));\n  if(p.shadow&&!b.querySelector('.ranked-shadow')){const art=el('span','ranked-shadow');art.setAttribute('aria-hidden','true');const row=TTSIcons.row(TTSIcons.route('families','shadow'));art.style.maskImage=art.style.webkitMaskImage='url(\"'+TTSApprovedIconData.assets[row.base_master]+'\")';b.querySelector('.sprite-slot').prepend(art);}\n }\n"
+  ],
+  [
+    "const list=results(),signature=list.map(p=>p.id).join(',');",
+    "const list=results(),signature=list.map(p=>p.occurrenceKey||p.id).join(',');"
+  ],
+  [
+    " const next=C.compile(S.main,filters,token),before=output.value;",
+    " let next;\n try{\n  if(rankingSession&&(Object.keys(S.main).some(k=>k.startsWith('form:'))||filters.some(f=>f.scope?.some(k=>String(k).startsWith('form:'))||f.portions.some(p=>p.values?.attackers)))){\n   const result=rankingSession.compile(S.main,filters,{ordinaryPortion:C.portion,ordinaryToken:token});next=result.text;\n   if(result.warnings.length)notify(result.warnings.join(' '),true,'Top Attackers');\n  }else next=C.compile(S.main,filters,token);\n }catch(e){notify(e.message,true,'Search string');copy.disabled=true;return;}\n const before=output.value;"
+  ],
+  [
+    "f.scope.map(id=>pkm.get(id)?.name||id)",
+    "f.scope.map(id=>rankingSession?.formForTarget(id)?.name||pkm.get(id)?.name||id)"
+  ],
+  [
+    "let rankingSession=null,rankingError=\"\";",
+    "let rankingSession=null,rankingError=\"\",rankingCompileBlocked=false;"
+  ],
+  [
+    "copy.disabled=!!s;",
+    "copy.disabled=!!s||rankingCompileBlocked;"
+  ],
+  [
+    "}catch(e){notify(e.message,true,'Search string');copy.disabled=true;return;}\n const before=output.value;",
+    "}catch(e){rankingCompileBlocked=true;notify(e.message,true,'Search string');copy.disabled=true;return;}\n rankingCompileBlocked=false;copy.disabled=!!S.builder;\n const before=output.value;"
+  ],
+  [
+    "copy.onclick=()=>{if(!S.builder)doCopy();};",
+    "copy.onclick=()=>{if(!S.builder&&!rankingCompileBlocked)doCopy();};"
+  ],
+  [
+    "const C=TTSCompiler,clone=x=>JSON.parse(JSON.stringify(x));",
+    "let C=TTSCompiler;const clone=x=>JSON.parse(JSON.stringify(x));"
+  ],
+  [
+    "catch(e){rankingError=e.message;}",
+    "catch(e){rankingError=e.message;}\nif(rankingSession){\n C=rankingSession.compiler(TTSCompiler);\n FAMILIES.attackers=['Top Attackers','#48A38C','podium','attackers'];\n GROUPS.attackercount=['Count',FAMILIES.count[1],FAMILIES.count[2]];\n GROUPS.attackertypes=['Types',GROUPS.movetype[1],GROUPS.movetype[2]];\n NUMERIC.attackercount={min:1,max:30};\n TTSIcons.routes.groups.attackercount=TTSIcons.route('families','count');\n TTSIcons.routes.backs['attackers/attackercount']=TTSIcons.route('backs','count');\n TTSIcons.routes.backs['attackers/attackertypes']=TTSIcons.route('backs','moves/movetype');\n}\n"
+  ],
+  [
+    " const v=val();const append=x=>middle.append(x);",
+    " const v=val();const append=x=>middle.append(x);\n if(f==='attackers'){\n  const setting=()=>v.attackers||{count:10,moveset:false,overall:false,types:[]};\n  const change=fn=>{v.attackers=fn(setting());markFamily('attackers');const check=C.portion(current());refresh();if(check.error)notify(check.error,true,'Top Attackers');};\n  const button=(label,placement,chosen,fn)=>cell(label,'','',fn,{placement,chosen});\n  if(g==='attackercount'){append(rangeControl('attackercount',f,{get:()=>[setting().count??10],set:a=>{v.attackers={...setting(),count:a[0]??10};},single:true,initial:10}));return;}\n  if(g==='attackertypes'){for(const type of TYPES)append(button(type[0].toUpperCase()+type.slice(1),TTSIcons.route('options','movetype:'+type),setting().types?.includes(type),()=>change(s=>TTSRankings.setType(s,type))));return;}\n  append(button('Moveset',TTSIcons.route('groups','slots'),!!setting().moveset,()=>change(s=>TTSRankings.setMoveset(s,!s.moveset))));\n  if(setting().moveset)append(button('Elite',TTSIcons.route('groups','elite'),setting().elite!==false,()=>change(s=>({...s,elite:s.elite===false}))));\n  append(button('Count',TTSIcons.route('families','count'),!!v.attackers&&setting().count!==10,()=>navigate(['attackers','attackercount'])));\n  append(button('Overall',266,!!setting().overall,()=>change(s=>s.overall?{...s,overall:false}:TTSRankings.setType(s,'overall'))));\n  append(button('Types',TTSIcons.route('groups','movetype'),!!setting().types?.length,()=>navigate(['attackers','attackertypes'])));return;\n }\n"
+  ],
+  [
+    "function rangeControl(k,f){",
+    "function rangeControl(k,f,adapter){"
+  ],
+  [
+    "const get=()=>val()[k]?.values||[]",
+    "const get=()=>adapter?adapter.get():val()[k]?.values||[]"
+  ],
+  [
+    "if(a.length)val()[k]={values:a};else delete val()[k];",
+    "if(adapter)adapter.set(a);else if(a.length)val()[k]={values:a};else delete val()[k];"
+  ],
+  [
+    "const toggle=()=>{const a=get();if(!a.length)",
+    "const toggle=()=>{const a=get();if(adapter?.single){change([adapter.initial]);return;}if(!a.length)"
+  ],
+  [
+    "change(vals.filter((_,j)=>j!==i));return;}",
+    "change(adapter?.single?[adapter.initial]:vals.filter((_,j)=>j!==i));return;}"
+  ],
+  [
+    "x=valueAt(ix);if(!a.length){change([x]);return;}",
+    "x=valueAt(ix);if(adapter?.single||!a.length){change([x]);return;}"
+  ],
+  [
+    "distance:'km',count:'Pok\u00e9mon'",
+    "distance:'km',count:'Pok\u00e9mon',attackercount:'attackers'"
+  ],
+  [
+    "function isConfigured(f){return current()",
+    "function isConfigured(f){if(f==='attackers')return !!(val().attackers?.overall||val().attackers?.types?.length);return current()"
+  ],
+  [
+    " return out.map((text,i)=>({text,key:keys[i]}));",
+    " if(v.attackers){const a=v.attackers;if(a.overall||a.types?.length){out.push('Best '+(a.count??10)+' '+(a.overall?'overall':a.types.join(' / '))+' attackers'+(a.moveset?' with best '+(a.elite===false?'non-Elite ':'')+'moveset':''));keys.push('attackers');}}\n return out.map((text,i)=>({text,key:keys[i]}));"
+  ],
+  [
+    "const global=plan.global(TTS_META[rankingSession?.formForTarget(id)?.species||id]),scoped=",
+    "const global=plan.global(TTS_META[rankingSession?.formForTarget(id)?.species||id]);\n if(rankingSession){const f=(S.builder?.filter.id===plan.filterId?S.builder.filter:S.filters.find(f=>f.id===plan.filterId));if(f&&!f.scope?.length)for(const p of f.portions){if(!p.values?.attackers||p.values.attackers.moveset)continue;try{const ranked=rankingSession.filterPlan(p.values.attackers).entries;if(ranked.some(r=>r.selectionKey===id||r.species===id))global[p.exclude?'red':'purple']=true;}catch{}}}\n const scoped="
+  ]
+]

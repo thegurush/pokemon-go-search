@@ -1,0 +1,133 @@
+{
+  "date": "2026-11-26",
+  "rows": [
+    {
+      "name": "Fly",
+      "overlappingSourceNames": [
+        "Flying Press"
+      ],
+      "category": "native-name collision",
+      "publication": "held; no compiler approval added"
+    },
+    {
+      "name": "Sacred Fire",
+      "overlappingSourceNames": [
+        "Sacred Fire Plus",
+        "Sacred Fire Plus Plus"
+      ],
+      "category": "source alias or transformed-attack naming requires review",
+      "publication": "held; no compiler approval added"
+    },
+    {
+      "name": "Hydro Pump",
+      "overlappingSourceNames": [
+        "Hydro Pump Blastoise"
+      ],
+      "category": "source alias or transformed-attack naming requires review",
+      "publication": "held; no compiler approval added"
+    },
+    {
+      "name": "Discharge",
+      "overlappingSourceNames": [
+        "Discharge+"
+      ],
+      "category": "source alias or transformed-attack naming requires review",
+      "publication": "held; no compiler approval added"
+    },
+    {
+      "name": "Zap Cannon",
+      "overlappingSourceNames": [
+        "Zap Cannon+"
+      ],
+      "category": "source alias or transformed-attack naming requires review",
+      "publication": "held; no compiler approval added"
+    },
+    {
+      "name": "Thunder",
+      "overlappingSourceNames": [
+        "Thunder Punch",
+        "Thunderbolt",
+        "Thunder Cage"
+      ],
+      "category": "native-name collision",
+      "publication": "held; no compiler approval added"
+    },
+    {
+      "name": "Dynamic Punch",
+      "overlappingSourceNames": [
+        "Dynamic Punch+"
+      ],
+      "category": "source alias or transformed-attack naming requires review",
+      "publication": "held; no compiler approval added"
+    },
+    {
+      "name": "Brave Bird",
+      "overlappingSourceNames": [
+        "Brave Bird+"
+      ],
+      "category": "source alias or transformed-attack naming requires review",
+      "publication": "held; no compiler approval added"
+    },
+    {
+      "name": "Future Sight",
+      "overlappingSourceNames": [
+        "Future Sight+"
+      ],
+      "category": "source alias or transformed-attack naming requires review",
+      "publication": "held; no compiler approval added"
+    },
+    {
+      "name": "Outrage",
+      "overlappingSourceNames": [
+        "Outrage+"
+      ],
+      "category": "source alias or transformed-attack naming requires review",
+      "publication": "held; no compiler approval added"
+    },
+    {
+      "name": "Dark Pulse",
+      "overlappingSourceNames": [
+        "Dark Pulse+"
+      ],
+      "category": "source alias or transformed-attack naming requires review",
+      "publication": "held; no compiler approval added"
+    },
+    {
+      "name": "Moonblast",
+      "overlappingSourceNames": [
+        "Moonblast+"
+      ],
+      "category": "source alias or transformed-attack naming requires review",
+      "publication": "held; no compiler approval added"
+    },
+    {
+      "name": "Surf",
+      "overlappingSourceNames": [
+        "Surf+"
+      ],
+      "category": "source alias or transformed-attack naming requires review",
+      "publication": "held; no compiler approval added"
+    },
+    {
+      "name": "Mystical Fire",
+      "overlappingSourceNames": [
+        "Mystical Fire+"
+      ],
+      "category": "source alias or transformed-attack naming requires review",
+      "publication": "held; no compiler approval added"
+    },
+    {
+      "name": "Drill Peck",
+      "overlappingSourceNames": [
+        "Drill Peck+"
+      ],
+      "category": "source alias or transformed-attack naming requires review",
+      "publication": "held; no compiler approval added"
+    }
+  ],
+  "notes": [
+    "Fly overlaps Flying Press; Thunder overlaps Thunderbolt, Thunder Punch and Thunder Cage.",
+    "Other source collisions include automatic Mega + moves, Apex aliases and a Blastoise-specific source label. Source names are not proof of native inventory names.",
+    "Do not remove safeguards or silently omit held ranked attackers to make the build pass."
+  ]
+}

@@ -1,0 +1,16 @@
+'use strict';
+const A=require('assert/strict'),R=require('../rankings/core.cjs'),{normalizeTemporaryMove}=require('../rankings/dialgadex-adapter.cjs');
+const form={key:'starmie_mega',species:121,name:'Mega Starmie',shadow:false,upstreamForm:'Mega',released:true,releaseEvidence:['test'],sprite:'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/121.png',search:{terms:['121','!shadow'],accuracy:'partial',limitation:'Base species fallback.'}};
+const pair={form:form.key,fast:{key:'water',name:'Water Gun',type:'water',elite:false,searchName:'water gun',searchVerified:true},charged:{key:'plus',name:'Liquidation+',type:'water',elite:true,searchName:'liquidation+',searchVerified:false},scores:Object.fromEntries(['overall',...R.TYPES].map(t=>[t,100]))};
+normalizeTemporaryMove(pair,{temp_cm:['Liquidation+']},form);
+const ranks=R.rank([form],[pair],{attackingType:'water',elite:false});A.equal(ranks.length,1);
+const text=R.stringify(R.predicate(ranks,[form],{moveset:true}).ast);A(text.includes('@1water gun'));A(!text.includes('@2'));A(!text.includes('@3'));A(!text.includes('megaevolve'));A(!text.includes('liquidation'));
+const potential=R.stringify(R.predicate(ranks,[form]).ast);A(!potential.includes('@'));
+const clone=()=>JSON.parse(JSON.stringify(pair));
+let bad=clone();delete bad.temporaryMoveEvidence;A.throws(()=>R.validatePairs([bad],[form]),/automatic Mega/);
+bad=clone();bad.fast.searchVerified=false;A.throws(()=>R.predicate([{...ranks[0],movesets:[bad]}],[form],{moveset:true}),/not verified/);
+bad=clone();delete bad.temporaryMegaAttack;delete bad.temporaryMoveEvidence;A.throws(()=>R.predicate([{...ranks[0],movesets:[bad]}],[form],{moveset:true}),/not verified/);
+A.throws(()=>R.validatePairs([pair],[{...form,shadow:true}]),/automatic Mega/);
+A.throws(()=>R.validatePairs([pair],[{...form,upstreamForm:'Normal'}]),/automatic Mega/);
+console.log('PASS automatic Mega attacks: Elite OFF, fast-only requirement, no current transformation, invalid metadata rejected; ordinary charged verification preserved');
+module.exports={form,pair};

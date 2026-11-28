@@ -1,0 +1,4204 @@
+{
+  "status": "Candidate-source audit, not approved production rankings",
+  "forms": 1561,
+  "pairs": 19886,
+  "held": [
+    {
+      "form": "Pikachu [Flying_01]",
+      "sourceId": "pikachu_flying_01",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Pikachu [Doctor]",
+      "sourceId": "pikachu_doctor",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Pikachu [Horizons]",
+      "sourceId": "pikachu_horizons",
+      "reason": "Missing sprite mapping"
+    },
+    {
+      "form": "Pikachu [Vs_2019]",
+      "sourceId": "pikachu_vs_2019",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Mega Raichu X [Mega]",
+      "sourceId": "raichu_mega_x",
+      "reason": "Missing sprite mapping"
+    },
+    {
+      "form": "Nidoran♀ [Normal]",
+      "sourceId": "nidoran_f",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Shadow Nidoran♀ [Normal]",
+      "sourceId": "nidoran_f_shadow",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Nidoran♂ [Normal]",
+      "sourceId": "nidoran_m",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Shadow Nidoran♂ [Normal]",
+      "sourceId": "nidoran_m_shadow",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Shadow Growlithe [Hisuian]",
+      "sourceId": "growlithe_hisuian_shadow",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Shadow Arcanine [Hisuian]",
+      "sourceId": "arcanine_hisuian_shadow",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Shadow Voltorb [Hisuian]",
+      "sourceId": "voltorb_hisuian_shadow",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Shadow Electrode [Hisuian]",
+      "sourceId": "electrode_hisuian_shadow",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Shadow Kangaskhan [Normal]",
+      "sourceId": "kangaskhan_shadow",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Tauros [Paldea_combat]",
+      "sourceId": "tauros_paldea_combat",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Tauros [Paldea_aqua]",
+      "sourceId": "tauros_paldea_aqua",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Tauros [Paldea_blaze]",
+      "sourceId": "tauros_paldea_blaze",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Ditto [Normal]",
+      "sourceId": "ditto",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Mewtwo [A]",
+      "sourceId": "mewtwo_armored",
+      "reason": "Missing sprite mapping"
+    },
+    {
+      "form": "Shadow Wooper [Paldea]",
+      "sourceId": "wooper_paldean_shadow",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Unown [Question_mark]",
+      "sourceId": "unown_question_mark",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Lugia [S]",
+      "sourceId": "lugia_s",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Shadow Lugia [S]",
+      "sourceId": "lugia_s_shadow",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Ho-Oh [S]",
+      "sourceId": "ho_oh_s",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Shadow Ho-Oh [S]",
+      "sourceId": "ho_oh_s_shadow",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Shedinja [Normal]",
+      "sourceId": "shedinja",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Burmy [Trash]",
+      "sourceId": "burmy_trash",
+      "reason": "Missing sprite mapping"
+    },
+    {
+      "form": "Cherrim [Overcast]",
+      "sourceId": "cherrim",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Cherrim [Sunny]",
+      "sourceId": "cherrim_sunny",
+      "reason": "Missing sprite mapping"
+    },
+    {
+      "form": "Shellos [East_sea]",
+      "sourceId": "shellos_east_sea",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Gastrodon [East_sea]",
+      "sourceId": "gastrodon_east_sea",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Shaymin [Land]",
+      "sourceId": "shaymin",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Basculin [White_striped]",
+      "sourceId": "basculin_white_striped",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Deerling [Winter]",
+      "sourceId": "deerling_winter",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Sawsbuck [Winter]",
+      "sourceId": "sawsbuck_winter",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Frillish [Female]",
+      "sourceId": "frillish_female",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Jellicent [Female]",
+      "sourceId": "jellicent_female",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Meloetta [Aria]",
+      "sourceId": "meloetta",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Genesect [Shock]",
+      "sourceId": "genesect_shock",
+      "reason": "Missing sprite mapping"
+    },
+    {
+      "form": "Genesect [Burn]",
+      "sourceId": "genesect_burn",
+      "reason": "Missing sprite mapping"
+    },
+    {
+      "form": "Genesect [Chill]",
+      "sourceId": "genesect_chill",
+      "reason": "Missing sprite mapping"
+    },
+    {
+      "form": "Genesect [Douse]",
+      "sourceId": "genesect_douse",
+      "reason": "Missing sprite mapping"
+    },
+    {
+      "form": "Spewpa [Normal]",
+      "sourceId": "spewpa",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Vivillon [Tundra]",
+      "sourceId": "vivillon_tundra",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Pyroar [Female]",
+      "sourceId": "pyroar_female",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Flabebe [White]",
+      "sourceId": "flabebe_white",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Floette [White]",
+      "sourceId": "floette_white",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Florges [White]",
+      "sourceId": "florges_white",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Furfrou [Pharaoh]",
+      "sourceId": "furfrou_pharaoh",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Aegislash [Normal]",
+      "sourceId": "aegislash",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Aegislash [Blade]",
+      "sourceId": "aegislash_blade",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Oricorio [Pompom]",
+      "sourceId": "oricorio_pompom",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Shadow Morelull [Normal]",
+      "sourceId": "morelull_shadow",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Mimikyu [Busted]",
+      "sourceId": "mimikyu_busted",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Cosmog [Normal]",
+      "sourceId": "cosmog",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Cosmoem [Normal]",
+      "sourceId": "cosmoem",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Cramorant [Gorging]",
+      "sourceId": "cramorant_gorging",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Toxtricity [Low_key]",
+      "sourceId": "toxtricity_low_key",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Sinistea [Antique]",
+      "sourceId": "sinistea_antique",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Polteageist [Antique]",
+      "sourceId": "polteageist_antique",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Indeedee [Male]",
+      "sourceId": "indeedee",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Morpeko [Full_belly]",
+      "sourceId": "morpeko",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Morpeko [Hangry]",
+      "sourceId": "morpeko_hangry",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Maushold [Family_of_three]",
+      "sourceId": "maushold_family_of_three",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Squawkabilly [White]",
+      "sourceId": "squawkabilly_white",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Poltchageist [Artisan]",
+      "sourceId": "poltchageist_artisan",
+      "reason": "No positive independent form-release match"
+    },
+    {
+      "form": "Sinistcha [Masterpiece]",
+      "sourceId": "sinistcha_masterpiece",
+      "reason": "No positive independent form-release match"
+    }
+  ],
+  "issues": [
+    {
+      "form": "bulbasaur",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "ivysaur",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "venusaur",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "venusaur_mega",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "charmander",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "charmeleon",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "charizard",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "charizard_mega_x",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "charizard_mega_y",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "squirtle",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "wartortle",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "blastoise",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "blastoise_mega",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "caterpie",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "metapod",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "butterfree",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "weedle",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "kakuna",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "beedrill",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "beedrill_mega",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "pidgey",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "pidgeotto",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "pidgeot",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "pidgeot_mega",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "rattata",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "rattata_alolan",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "raticate",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "raticate_alolan",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "ekans",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "arbok",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "sandshrew",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "sandshrew_alolan",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "sandslash",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "sandslash_alolan",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "nidorina",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "nidoqueen",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "nidorino",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "nidoking",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "vulpix",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "vulpix_alolan",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "ninetales",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "ninetales_alolan",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "zubat",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "golbat",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "oddish",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "gloom",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "vileplume",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "venonat",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "venomoth",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "diglett",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "diglett_alolan",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "dugtrio",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "dugtrio_alolan",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "meowth",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "persian",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "psyduck",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "golduck",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "mankey",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "primeape",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "growlithe",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "growlithe_hisuian",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "arcanine",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "arcanine_hisuian",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "poliwag",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "poliwhirl",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "poliwrath",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "abra",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "kadabra",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "alakazam",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "alakazam_mega",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "machop",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "machoke",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "machamp",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "bellsprout",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "weepinbell",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "victreebel",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "victreebel_mega",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "tentacool",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "tentacruel",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "geodude",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "geodude_alolan",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "graveler",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "graveler_alolan",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "golem",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "golem_alolan",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "ponyta",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "rapidash",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "slowpoke",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "slowbro",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "slowbro_mega",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "magnemite",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "magneton",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "seel",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "dewgong",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "grimer",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "grimer_alolan",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "muk",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "muk_alolan",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "shellder",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "cloyster",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "gastly",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "haunter",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "gengar",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "gengar_mega",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "onix",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "drowzee",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "hypno",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "krabby",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "kingler",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "voltorb",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "voltorb_hisuian",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "electrode",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "electrode_hisuian",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "exeggcute",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "exeggutor",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "exeggutor_alolan",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "cubone",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "marowak",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "marowak_alolan",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "hitmonlee",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "hitmonchan",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "koffing",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "weezing",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "weezing_galarian",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "rhyhorn",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "rhydon",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "tangela",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "kangaskhan",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "kangaskhan_mega",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "horsea",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "seadra",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "staryu",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "starmie",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "starmie_mega",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "scyther",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "electabuzz",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "magmar",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "pinsir",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "pinsir_mega",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "magikarp",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "gyarados",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "gyarados_mega",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "lapras",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "porygon",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "omanyte",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "omastar",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "kabuto",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "kabutops",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "aerodactyl",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "aerodactyl_mega",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "snorlax",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "articuno",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "zapdos",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "moltres",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "dratini",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "dragonair",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "dragonite",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "dragonite_mega",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "mewtwo",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "mewtwo_mega_x",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "mewtwo_mega_y",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "chikorita",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "bayleef",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "meganium",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "cyndaquil",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "quilava",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "typhlosion",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "totodile",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "croconaw",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "feraligatr",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "hoothoot",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "noctowl",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "ledyba",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "ledian",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "crobat",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "natu",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "xatu",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "mareep",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "flaaffy",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "ampharos",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "ampharos_mega",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "bellossom",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "sudowoodo",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "politoed",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "hoppip",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "skiploom",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "jumpluff",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "aipom",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "wooper",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "wooper_paldean",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "quagsire",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "murkrow",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "slowking",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "misdreavus",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "wobbuffet",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "girafarig",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "pineco",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "forretress",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "gligar",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "steelix",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "steelix_mega",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "snubbull",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "granbull",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "qwilfish",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "scizor",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "scizor_mega",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "shuckle",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "sneasel",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "sneasel_hisuian",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "teddiursa",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "ursaring",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "swinub",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "piloswine",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "delibird",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "skarmory",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "skarmory_mega",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "houndour",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "houndoom",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "houndoom_mega",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "kingdra",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "phanpy",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "donphan",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "porygon2",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "stantler",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "smeargle",
+      "reason": "No eligible source movesets; form cannot be ranked without further review"
+    },
+    {
+      "form": "hitmontop",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "raikou",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "entei",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "suicune",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "larvitar",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "pupitar",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "tyranitar",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "tyranitar_mega",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "lugia",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "ho_oh",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "treecko",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "grovyle",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "sceptile",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "sceptile_mega",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "torchic",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "combusken",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "blaziken",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "blaziken_mega",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "mudkip",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "marshtomp",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "swampert",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "swampert_mega",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "poochyena",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "mightyena",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "zigzagoon_galarian",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "linoone_galarian",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "seedot",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "nuzleaf",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "shiftry",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "taillow",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "swellow",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "ralts",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "kirlia",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "gardevoir",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "gardevoir_mega",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "slakoth",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "vigoroth",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "slaking",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "whismur",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "loudred",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "exploud",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "makuhita",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "hariyama",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "nosepass",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "sableye",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "sableye_mega",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "mawile",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "mawile_mega",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "aron",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "lairon",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "aggron",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "aggron_mega",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "electrike",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "manectric",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "manectric_mega",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "carvanha",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "sharpedo",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "sharpedo_mega",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "wailmer",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "wailord",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "numel",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "camerupt",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "camerupt_mega",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "spoink",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "grumpig",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "trapinch",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "vibrava",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "flygon",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "cacnea",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "cacturne",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "swablu",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "altaria",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "altaria_mega",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "barboach",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "whiscash",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "corphish",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "crawdaunt",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "baltoy",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "claydol",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "lileep",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "cradily",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "anorith",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "armaldo",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "feebas",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "milotic",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "shuppet",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "banette",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "banette_mega",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "duskull",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "dusclops",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "absol",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "absol_mega",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "snorunt",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "glalie",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "glalie_mega",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "spheal",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "sealeo",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "walrein",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "bagon",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "shelgon",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "salamence",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "salamence_mega",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "beldum",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "metang",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "metagross",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "metagross_mega",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "regirock",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "regice",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "registeel",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "latias",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "latias_mega",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "latios",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "latios_mega",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "kyogre",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "kyogre_primal",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "groudon",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "groudon_primal",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "turtwig",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "grotle",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "torterra",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "chimchar",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "monferno",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "infernape",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "piplup",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "prinplup",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "empoleon",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "starly",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "staravia",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "staraptor",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "staraptor_mega",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "bidoof",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "bibarel",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "shinx",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "luxio",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "luxray",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "cranidos",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "rampardos",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "shieldon",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "bastiodon",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "ambipom",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "drifloon",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "drifblim",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "mismagius",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "honchkrow",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "glameow",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "purugly",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "stunky",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "skuntank",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "gible",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "gabite",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "garchomp",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "garchomp_mega",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "hippopotas",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "hippowdon",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "skorupi",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "drapion",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "croagunk",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "toxicroak",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "snover",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "abomasnow",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "abomasnow_mega",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "weavile",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "magnezone",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "rhyperior",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "tangrowth",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "electivire",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "magmortar",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "gliscor",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "mamoswine",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "porygon_z",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "gallade",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "gallade_mega",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "probopass",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "dusknoir",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "froslass",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "dialga",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "palkia",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "heatran",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "regigigas",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "giratina_altered",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "cresselia",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "darkrai",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "snivy",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "servine",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "serperior",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "tepig",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "pignite",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "emboar",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "oshawott",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "dewott",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "samurott",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "patrat",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "watchog",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "purrloin",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "liepard",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "pidove",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "tranquill",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "unfezant",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "blitzle",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "zebstrika",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "roggenrola",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "boldore",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "gigalith",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "drilbur",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "excadrill",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "timburr",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "gurdurr",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "conkeldurr",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "throh",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "sawk",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "venipede",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "whirlipede",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "scolipede",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "darumaka",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "darmanitan_standard",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "dwebble",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "crustle",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "yamask",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "cofagrigus",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "tirtouga",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "carracosta",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "archen",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "archeops",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "trubbish",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "garbodor",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "gothita",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "gothorita",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "gothitelle",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "solosis",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "duosion",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "reuniclus",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "ducklett",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "swanna",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "karrablast",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "escavalier",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "foongus",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "amoonguss",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "joltik",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "galvantula",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "ferroseed",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "ferrothorn",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "litwick",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "lampent",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "chandelure",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "chandelure_mega",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "axew",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "fraxure",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "haxorus",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "shelmet",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "accelgor",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "golett",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "golurk",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "deino",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "zweilous",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "hydreigon",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "tornadus_incarnate",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "thundurus_incarnate",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "reshiram",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "zekrom",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "landorus_incarnate",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "chespin",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "quilladin",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "chesnaught",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "chesnaught_mega",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "fennekin",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "braixen",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "delphox",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "delphox_mega",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "froakie",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "frogadier",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "greninja",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "greninja_mega",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "bunnelby",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "diggersby",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "fletchling",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "fletchinder",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "talonflame",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "pancham",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "pangoro",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "inkay",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "malamar",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "malamar_mega",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "helioptile",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "heliolisk",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "tyrunt",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "tyrantrum",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "amaura",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "aurorus",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "phantump",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "trevenant",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "noibat",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "noivern",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "pikipek",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "trumbeak",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "toucannon",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "grubbin",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "charjabug",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "vikavolt",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "dewpider",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "araquanid",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "fomantis",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "lurantis",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "morelull",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "shiinotic",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "stufful",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "bewear",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "wimpod",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "golisopod",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "sandygast",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "palossand",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "rookidee",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "corvisquire",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "corviknight",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "obstagoon",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "ursaluna",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "sneasler",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    },
+    {
+      "form": "annihilape",
+      "move": "Return",
+      "reason": "Restricted-state release eligibility needs review: purified"
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://github.com/mgrann03/dialgadex/blob/eef2ddbb822bae0c0f4f5060115aef39dbea091a/scripts/settings.js",
+      "sha256": "659371ed5b3e60a90d23ef8260bb25109edd222aac9aaf9ddcccee8411cfd5a9"
+    },
+    {
+      "url": "https://github.com/mgrann03/dialgadex/blob/eef2ddbb822bae0c0f4f5060115aef39dbea091a/scripts/pokemon_enums.js",
+      "sha256": "664952cd50b00f8ac1ed22133c0564049674a66bb25360a181608256a04c2b7d"
+    },
+    {
+      "url": "https://github.com/mgrann03/dialgadex/blob/eef2ddbb822bae0c0f4f5060115aef39dbea091a/scripts/pokemon_utils.js",
+      "sha256": "78e4643c413485033d7c59816d9436e88eea31b5d7e49debeefc811c9262231e"
+    },
+    {
+      "url": "https://github.com/mgrann03/dialgadex/blob/eef2ddbb822bae0c0f4f5060115aef39dbea091a/scripts/calc.js",
+      "sha256": "f1d597c37d289d5f4d73031dbab8e6c616b00a88d1a829c473ac87d7b611c449"
+    },
+    {
+      "url": "https://github.com/mgrann03/pokemon-resources/blob/e88e23950e58968f2283625a6fdd65506195796d/pogo_pkm.min.json",
+      "sha256": "1bab68a183b801b2b542d25962c19b400a14dc185283114025647bf408468baa"
+    },
+    {
+      "url": "https://github.com/mgrann03/pokemon-resources/blob/e88e23950e58968f2283625a6fdd65506195796d/pogo_fm.json",
+      "sha256": "986286c7ca3743ff6cc30e502f6dd1d70867bde83e9834a81f1a60a25ffbb5e7"
+    },
+    {
+      "url": "https://github.com/mgrann03/pokemon-resources/blob/e88e23950e58968f2283625a6fdd65506195796d/pogo_cm.json",
+      "sha256": "f96e09b3ab5c86176b4ae06db65b90889b38c0b336a45ed8e10cb93c3ad5aa45"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/pvpoke/pvpoke/master/src/data/gamemaster.json",
+      "sha256": "eb741d416a1070131932166b1a65c4217623e6c9f274b5504e6a92598075ca2f"
+    }
+  ],
+  "settings": {
+    "level": 40,
+    "metric": "edps",
+    "typeAffinity": false,
+    "mixedThreshold": 0.85,
+    "speculative": false
+  },
+  "rankings": [
+    {
+      "type": "overall",
+      "elite": true,
+      "totalEligible": 1560,
+      "mixedInTop30": null,
+      "restrictedMovesInTop30": [],
+      "top3": [
+        {
+          "form": "rayquaza_mega",
+          "score": 23.7085370227732,
+          "fast": "Dragon Tail",
+          "charged": "Dragon Ascent"
+        },
+        {
+          "form": "mewtwo_mega_y",
+          "score": 22.816587966964033,
+          "fast": "Psycho Cut",
+          "charged": "Psystrike"
+        },
+        {
+          "form": "mewtwo_mega_x",
+          "score": 22.1486133342132,
+          "fast": "Counter",
+          "charged": "Psystrike"
+        }
+      ]
+    },
+    {
+      "type": "normal",
+      "elite": true,
+      "totalEligible": 256,
+      "mixedInTop30": 7,
+      "restrictedMovesInTop30": [
+        {
+          "form": "delphox_mega",
+          "move": "Return"
+        },
+        {
+          "form": "garchomp_mega",
+          "move": "Return"
+        },
+        {
+          "form": "ursaluna",
+          "move": "Return"
+        },
+        {
+          "form": "staraptor_mega",
+          "move": "Return"
+        },
+        {
+          "form": "staraptor",
+          "move": "Return"
+        },
+        {
+          "form": "bewear",
+          "move": "Return"
+        },
+        {
+          "form": "starmie_mega",
+          "move": "Return"
+        },
+        {
+          "form": "heliolisk",
+          "move": "Return"
+        },
+        {
+          "form": "darmanitan_standard",
+          "move": "Return"
+        }
+      ],
+      "top3": [
+        {
+          "form": "regigigas_shadow",
+          "score": 28.296837548914635,
+          "fast": "Hidden Power Fire",
+          "charged": "Crush Grip"
+        },
+        {
+          "form": "regigigas",
+          "score": 24.600537228444882,
+          "fast": "Hidden Power Fire",
+          "charged": "Crush Grip"
+        },
+        {
+          "form": "mewtwo_mega_y",
+          "score": 24.557302491710015,
+          "fast": "Psycho Cut",
+          "charged": "Hyper Beam"
+        }
+      ]
+    },
+    {
+      "type": "fire",
+      "elite": true,
+      "totalEligible": 142,
+      "mixedInTop30": 0,
+      "restrictedMovesInTop30": [],
+      "top3": [
+        {
+          "form": "delphox_mega",
+          "score": 29.151784652505558,
+          "fast": "Fire Spin",
+          "charged": "Blast Burn"
+        },
+        {
+          "form": "blaziken_mega",
+          "score": 27.97549173457368,
+          "fast": "Fire Spin",
+          "charged": "Blast Burn"
+        },
+        {
+          "form": "charizard_mega_y",
+          "score": 27.960832997312274,
+          "fast": "Fire Spin",
+          "charged": "Blast Burn"
+        }
+      ]
+    },
+    {
+      "type": "water",
+      "elite": true,
+      "totalEligible": 196,
+      "mixedInTop30": 0,
+      "restrictedMovesInTop30": [],
+      "top3": [
+        {
+          "form": "kyogre_primal",
+          "score": 28.456043994263098,
+          "fast": "Waterfall",
+          "charged": "Origin Pulse"
+        },
+        {
+          "form": "greninja_mega",
+          "score": 26.016766802325364,
+          "fast": "Water Shuriken",
+          "charged": "Hydro Cannon"
+        },
+        {
+          "form": "swampert_mega",
+          "score": 25.16319574254848,
+          "fast": "Water Gun",
+          "charged": "Hydro Cannon"
+        }
+      ]
+    },
+    {
+      "type": "grass",
+      "elite": true,
+      "totalEligible": 164,
+      "mixedInTop30": 1,
+      "restrictedMovesInTop30": [],
+      "top3": [
+        {
+          "form": "sceptile_mega",
+          "score": 25.914086514317727,
+          "fast": "Fury Cutter",
+          "charged": "Frenzy Plant"
+        },
+        {
+          "form": "chesnaught_mega",
+          "score": 23.418646966449305,
+          "fast": "Vine Whip",
+          "charged": "Seed Bomb+"
+        },
+        {
+          "form": "kartana",
+          "score": 22.538071655899206,
+          "fast": "Razor Leaf",
+          "charged": "Leaf Blade"
+        }
+      ]
+    },
+    {
+      "type": "electric",
+      "elite": true,
+      "totalEligible": 138,
+      "mixedInTop30": 3,
+      "restrictedMovesInTop30": [],
+      "top3": [
+        {
+          "form": "zekrom_shadow",
+          "score": 25.831730244463188,
+          "fast": "Charge Beam",
+          "charged": "Fusion Bolt"
+        },
+        {
+          "form": "mewtwo_mega_y",
+          "score": 24.99091227399521,
+          "fast": "Psycho Cut",
+          "charged": "Thunderbolt"
+        },
+        {
+          "form": "raichu_mega_y",
+          "score": 24.847817652622556,
+          "fast": "Thunder Shock",
+          "charged": "Wild Charge"
+        }
+      ]
+    },
+    {
+      "type": "ice",
+      "elite": true,
+      "totalEligible": 90,
+      "mixedInTop30": 3,
+      "restrictedMovesInTop30": [],
+      "top3": [
+        {
+          "form": "kyurem_white",
+          "score": 27.668939418645962,
+          "fast": "Ice Fang",
+          "charged": "Ice Burn"
+        },
+        {
+          "form": "kyurem_black",
+          "score": 24.588109404889998,
+          "fast": "Dragon Tail",
+          "charged": "Freeze Shock"
+        },
+        {
+          "form": "mewtwo_mega_y",
+          "score": 24.531785424040407,
+          "fast": "Psycho Cut",
+          "charged": "Ice Beam"
+        }
+      ]
+    },
+    {
+      "type": "fighting",
+      "elite": true,
+      "totalEligible": 141,
+      "mixedInTop30": 0,
+      "restrictedMovesInTop30": [],
+      "top3": [
+        {
+          "form": "mewtwo_mega_x",
+          "score": 32.54576160484516,
+          "fast": "Counter",
+          "charged": "Dynamic Punch+"
+        },
+        {
+          "form": "lucario_mega",
+          "score": 30.92336585309452,
+          "fast": "Force Palm",
+          "charged": "Aura Sphere"
+        },
+        {
+          "form": "blaziken_mega",
+          "score": 30.171716628022516,
+          "fast": "Counter",
+          "charged": "Aura Sphere"
+        }
+      ]
+    },
+    {
+      "type": "poison",
+      "elite": true,
+      "totalEligible": 86,
+      "mixedInTop30": 2,
+      "restrictedMovesInTop30": [],
+      "top3": [
+        {
+          "form": "eternatus",
+          "score": 23.82659324094522,
+          "fast": "Poison Jab",
+          "charged": "Sludge Bomb"
+        },
+        {
+          "form": "gengar_mega",
+          "score": 23.175992634196692,
+          "fast": "Lick",
+          "charged": "Sludge Bomb"
+        },
+        {
+          "form": "beedrill_mega",
+          "score": 22.11641364848853,
+          "fast": "Poison Jab",
+          "charged": "Sludge Bomb"
+        }
+      ]
+    },
+    {
+      "type": "ground",
+      "elite": true,
+      "totalEligible": 134,
+      "mixedInTop30": 0,
+      "restrictedMovesInTop30": [],
+      "top3": [
+        {
+          "form": "groudon_primal",
+          "score": 28.205472263046733,
+          "fast": "Mud Shot",
+          "charged": "Precipice Blades"
+        },
+        {
+          "form": "garchomp_mega",
+          "score": 25.900371930455236,
+          "fast": "Mud Shot",
+          "charged": "Earth Power"
+        },
+        {
+          "form": "groudon_shadow",
+          "score": 24.700580078461133,
+          "fast": "Mud Shot",
+          "charged": "Precipice Blades"
+        }
+      ]
+    },
+    {
+      "type": "flying",
+      "elite": true,
+      "totalEligible": 129,
+      "mixedInTop30": 0,
+      "restrictedMovesInTop30": [],
+      "top3": [
+        {
+          "form": "rayquaza_mega",
+          "score": 35.993527447995646,
+          "fast": "Air Slash",
+          "charged": "Dragon Ascent"
+        },
+        {
+          "form": "rayquaza",
+          "score": 26.475286893755946,
+          "fast": "Air Slash",
+          "charged": "Dragon Ascent"
+        },
+        {
+          "form": "moltres_shadow",
+          "score": 25.408444246005057,
+          "fast": "Wing Attack",
+          "charged": "Fly"
+        }
+      ]
+    },
+    {
+      "type": "psychic",
+      "elite": true,
+      "totalEligible": 176,
+      "mixedInTop30": 0,
+      "restrictedMovesInTop30": [],
+      "top3": [
+        {
+          "form": "mewtwo_mega_y",
+          "score": 36.22342522006287,
+          "fast": "Confusion",
+          "charged": "Psystrike"
+        },
+        {
+          "form": "mewtwo_mega_x",
+          "score": 34.94546223707576,
+          "fast": "Confusion",
+          "charged": "Psystrike"
+        },
+        {
+          "form": "mewtwo_shadow",
+          "score": 30.091906543494183,
+          "fast": "Psycho Cut",
+          "charged": "Psystrike"
+        }
+      ]
+    },
+    {
+      "type": "bug",
+      "elite": true,
+      "totalEligible": 109,
+      "mixedInTop30": 0,
+      "restrictedMovesInTop30": [],
+      "top3": [
+        {
+          "form": "heracross_mega",
+          "score": 25.06949245707842,
+          "fast": "Fury Cutter",
+          "charged": "Megahorn"
+        },
+        {
+          "form": "beedrill_mega",
+          "score": 22.61984615742405,
+          "fast": "Bug Bite",
+          "charged": "Fell Stinger+"
+        },
+        {
+          "form": "pinsir_mega",
+          "score": 22.024954149661685,
+          "fast": "Fury Cutter",
+          "charged": "X-Scissor"
+        }
+      ]
+    },
+    {
+      "type": "rock",
+      "elite": true,
+      "totalEligible": 91,
+      "mixedInTop30": 1,
+      "restrictedMovesInTop30": [],
+      "top3": [
+        {
+          "form": "diancie_mega",
+          "score": 23.97216263061828,
+          "fast": "Rock Throw",
+          "charged": "Rock Slide"
+        },
+        {
+          "form": "rhyperior_shadow",
+          "score": 23.967481703388803,
+          "fast": "Smack Down",
+          "charged": "Rock Wrecker"
+        },
+        {
+          "form": "tyranitar_mega",
+          "score": 22.58802839863663,
+          "fast": "Smack Down",
+          "charged": "Stone Edge"
+        }
+      ]
+    },
+    {
+      "type": "ghost",
+      "elite": true,
+      "totalEligible": 104,
+      "mixedInTop30": 3,
+      "restrictedMovesInTop30": [],
+      "top3": [
+        {
+          "form": "necrozma_dawn_wings",
+          "score": 29.223123956821826,
+          "fast": "Psycho Cut",
+          "charged": "Moongeist Beam"
+        },
+        {
+          "form": "mewtwo_mega_y",
+          "score": 27.613720704715472,
+          "fast": "Psycho Cut",
+          "charged": "Shadow Ball"
+        },
+        {
+          "form": "gengar_mega",
+          "score": 27.272154919120993,
+          "fast": "Lick",
+          "charged": "Shadow Ball"
+        }
+      ]
+    },
+    {
+      "type": "dragon",
+      "elite": true,
+      "totalEligible": 97,
+      "mixedInTop30": 0,
+      "restrictedMovesInTop30": [],
+      "top3": [
+        {
+          "form": "eternatus",
+          "score": 32.926503238178874,
+          "fast": "Dragon Tail",
+          "charged": "Dynamax Cannon"
+        },
+        {
+          "form": "rayquaza_mega",
+          "score": 32.49935338843908,
+          "fast": "Dragon Tail",
+          "charged": "Breaking Swipe"
+        },
+        {
+          "form": "garchomp_mega",
+          "score": 29.708797621198077,
+          "fast": "Dragon Tail",
+          "charged": "Breaking Swipe"
+        }
+      ]
+    },
+    {
+      "type": "dark",
+      "elite": true,
+      "totalEligible": 183,
+      "mixedInTop30": 0,
+      "restrictedMovesInTop30": [],
+      "top3": [
+        {
+          "form": "tyranitar_mega",
+          "score": 26.01487475331006,
+          "fast": "Bite",
+          "charged": "Brutal Swing"
+        },
+        {
+          "form": "darkrai_shadow",
+          "score": 25.453911754915698,
+          "fast": "Snarl",
+          "charged": "Foul Play"
+        },
+        {
+          "form": "tyranitar_shadow",
+          "score": 24.814309833852477,
+          "fast": "Bite",
+          "charged": "Brutal Swing"
+        }
+      ]
+    },
+    {
+      "type": "steel",
+      "elite": true,
+      "totalEligible": 86,
+      "mixedInTop30": 0,
+      "restrictedMovesInTop30": [],
+      "top3": [
+        {
+          "form": "zacian_crowned_sword",
+          "score": 31.89009036914356,
+          "fast": "Metal Claw",
+          "charged": "Behemoth Blade"
+        },
+        {
+          "form": "zamazenta_crowned_shield",
+          "score": 31.793611521799978,
+          "fast": "Metal Claw",
+          "charged": "Behemoth Bash"
+        },
+        {
+          "form": "necrozma_dusk_mane",
+          "score": 30.400235484701653,
+          "fast": "Metal Claw",
+          "charged": "Sunsteel Strike"
+        }
+      ]
+    },
+    {
+      "type": "fairy",
+      "elite": true,
+      "totalEligible": 55,
+      "mixedInTop30": 1,
+      "restrictedMovesInTop30": [],
+      "top3": [
+        {
+          "form": "gardevoir_mega",
+          "score": 24.492411698348818,
+          "fast": "Charm",
+          "charged": "Dazzling Gleam"
+        },
+        {
+          "form": "zacian_crowned_sword",
+          "score": 22.89175252122477,
+          "fast": "Metal Claw",
+          "charged": "Play Rough"
+        },
+        {
+          "form": "gardevoir_shadow",
+          "score": 20.42779185595854,
+          "fast": "Charm",
+          "charged": "Dazzling Gleam"
+        }
+      ]
+    },
+    {
+      "type": "overall",
+      "elite": false,
+      "totalEligible": 1560,
+      "mixedInTop30": null,
+      "restrictedMovesInTop30": [],
+      "top3": [
+        {
+          "form": "mewtwo_mega_y",
+          "score": 21.272286579837456,
+          "fast": "Confusion",
+          "charged": "Psychic"
+        },
+        {
+          "form": "mewtwo_mega_x",
+          "score": 20.52463285430511,
+          "fast": "Confusion",
+          "charged": "Psychic"
+        },
+        {
+          "form": "rayquaza_mega",
+          "score": 19.233595992039334,
+          "fast": "Dragon Tail",
+          "charged": "Outrage"
+        }
+      ]
+    },
+    {
+      "type": "normal",
+      "elite": false,
+      "totalEligible": 241,
+      "mixedInTop30": 6,
+      "restrictedMovesInTop30": [
+        {
+          "form": "mewtwo_mega_y",
+          "move": "Return"
+        },
+        {
+          "form": "mewtwo_mega_x",
+          "move": "Return"
+        },
+        {
+          "form": "delphox_mega",
+          "move": "Return"
+        },
+        {
+          "form": "garchomp_mega",
+          "move": "Return"
+        },
+        {
+          "form": "ursaluna",
+          "move": "Return"
+        },
+        {
+          "form": "staraptor_mega",
+          "move": "Return"
+        },
+        {
+          "form": "staraptor",
+          "move": "Return"
+        },
+        {
+          "form": "bewear",
+          "move": "Return"
+        },
+        {
+          "form": "heliolisk",
+          "move": "Return"
+        },
+        {
+          "form": "darmanitan_standard",
+          "move": "Return"
+        },
+        {
+          "form": "delphox",
+          "move": "Return"
+        }
+      ],
+      "top3": [
+        {
+          "form": "regigigas_shadow",
+          "score": 22.810055104752315,
+          "fast": "Zen Headbutt",
+          "charged": "Giga Impact"
+        },
+        {
+          "form": "zacian_crowned_sword",
+          "score": 22.57782675030235,
+          "fast": "Metal Claw",
+          "charged": "Giga Impact"
+        },
+        {
+          "form": "mewtwo_mega_y",
+          "score": 21.503521442340087,
+          "fast": "Confusion",
+          "charged": "Return"
+        }
+      ]
+    },
+    {
+      "type": "fire",
+      "elite": false,
+      "totalEligible": 144,
+      "mixedInTop30": 2,
+      "restrictedMovesInTop30": [],
+      "top3": [
+        {
+          "form": "delphox_mega",
+          "score": 26.342263672775747,
+          "fast": "Fire Spin",
+          "charged": "Mystical Fire"
+        },
+        {
+          "form": "reshiram_shadow",
+          "score": 25.83942334225436,
+          "fast": "Fire Fang",
+          "charged": "Overheat"
+        },
+        {
+          "form": "chandelure_mega",
+          "score": 25.408599502431617,
+          "fast": "Fire Spin",
+          "charged": "Overheat"
+        }
+      ]
+    },
+    {
+      "type": "water",
+      "elite": false,
+      "totalEligible": 192,
+      "mixedInTop30": 0,
+      "restrictedMovesInTop30": [],
+      "top3": [
+        {
+          "form": "kyogre_primal",
+          "score": 26.968173540998674,
+          "fast": "Waterfall",
+          "charged": "Surf"
+        },
+        {
+          "form": "kyogre_shadow",
+          "score": 24.0563854041045,
+          "fast": "Waterfall",
+          "charged": "Surf"
+        },
+        {
+          "form": "gyarados_mega",
+          "score": 21.933680774053315,
+          "fast": "Waterfall",
+          "charged": "Hydro Pump"
+        }
+      ]
+    },
+    {
+      "type": "grass",
+      "elite": false,
+      "totalEligible": 167,
+      "mixedInTop30": 5,
+      "restrictedMovesInTop30": [],
+      "top3": [
+        {
+          "form": "sceptile_mega",
+          "score": 22.681210886216896,
+          "fast": "Fury Cutter",
+          "charged": "Leaf Blade"
+        },
+        {
+          "form": "kartana",
+          "score": 22.538071655899206,
+          "fast": "Razor Leaf",
+          "charged": "Leaf Blade"
+        },
+        {
+          "form": "shaymin_sky",
+          "score": 22.031618002563093,
+          "fast": "Magical Leaf",
+          "charged": "Grass Knot"
+        }
+      ]
+    },
+    {
+      "type": "electric",
+      "elite": false,
+      "totalEligible": 138,
+      "mixedInTop30": 2,
+      "restrictedMovesInTop30": [],
+      "top3": [
+        {
+          "form": "zekrom_shadow",
+          "score": 25.792605614364614,
+          "fast": "Charge Beam",
+          "charged": "Wild Charge"
+        },
+        {
+          "form": "mewtwo_mega_y",
+          "score": 24.99091227399521,
+          "fast": "Psycho Cut",
+          "charged": "Thunderbolt"
+        },
+        {
+          "form": "raichu_mega_y",
+          "score": 24.847817652622556,
+          "fast": "Thunder Shock",
+          "charged": "Wild Charge"
+        }
+      ]
+    },
+    {
+      "type": "ice",
+      "elite": false,
+      "totalEligible": 93,
+      "mixedInTop30": 6,
+      "restrictedMovesInTop30": [],
+      "top3": [
+        {
+          "form": "mewtwo_mega_y",
+          "score": 24.531785424040407,
+          "fast": "Psycho Cut",
+          "charged": "Ice Beam"
+        },
+        {
+          "form": "mewtwo_mega_x",
+          "score": 23.680891122765587,
+          "fast": "Psycho Cut",
+          "charged": "Ice Beam"
+        },
+        {
+          "form": "kyurem_white",
+          "score": 22.06090103093129,
+          "fast": "Ice Fang",
+          "charged": "Blizzard"
+        }
+      ]
+    },
+    {
+      "type": "fighting",
+      "elite": false,
+      "totalEligible": 134,
+      "mixedInTop30": 1,
+      "restrictedMovesInTop30": [],
+      "top3": [
+        {
+          "form": "blaziken_mega",
+          "score": 30.171716628022516,
+          "fast": "Counter",
+          "charged": "Aura Sphere"
+        },
+        {
+          "form": "lucario_mega",
+          "score": 27.888722683760765,
+          "fast": "Counter",
+          "charged": "Aura Sphere"
+        },
+        {
+          "form": "mewtwo_mega_x",
+          "score": 27.030564965893934,
+          "fast": "Psycho Cut",
+          "charged": "Focus Blast"
+        }
+      ]
+    },
+    {
+      "type": "poison",
+      "elite": false,
+      "totalEligible": 85,
+      "mixedInTop30": 1,
+      "restrictedMovesInTop30": [],
+      "top3": [
+        {
+          "form": "eternatus",
+          "score": 23.82659324094522,
+          "fast": "Poison Jab",
+          "charged": "Sludge Bomb"
+        },
+        {
+          "form": "gengar_mega",
+          "score": 22.35503578470966,
+          "fast": "Hex",
+          "charged": "Sludge Bomb"
+        },
+        {
+          "form": "beedrill_mega",
+          "score": 22.11641364848853,
+          "fast": "Poison Jab",
+          "charged": "Sludge Bomb"
+        }
+      ]
+    },
+    {
+      "type": "ground",
+      "elite": false,
+      "totalEligible": 128,
+      "mixedInTop30": 0,
+      "restrictedMovesInTop30": [],
+      "top3": [
+        {
+          "form": "groudon_primal",
+          "score": 25.922322952713028,
+          "fast": "Mud Shot",
+          "charged": "Earthquake"
+        },
+        {
+          "form": "garchomp_mega",
+          "score": 24.930608259467895,
+          "fast": "Mud Shot",
+          "charged": "Earthquake"
+        },
+        {
+          "form": "groudon_shadow",
+          "score": 22.73729631075051,
+          "fast": "Mud Shot",
+          "charged": "Earthquake"
+        }
+      ]
+    },
+    {
+      "type": "flying",
+      "elite": false,
+      "totalEligible": 131,
+      "mixedInTop30": 2,
+      "restrictedMovesInTop30": [],
+      "top3": [
+        {
+          "form": "moltres_shadow",
+          "score": 25.408444246005057,
+          "fast": "Wing Attack",
+          "charged": "Fly"
+        },
+        {
+          "form": "rayquaza_mega",
+          "score": 25.233457370215053,
+          "fast": "Air Slash",
+          "charged": "Aerial Ace"
+        },
+        {
+          "form": "staraptor_mega",
+          "score": 24.315661373682214,
+          "fast": "Wing Attack",
+          "charged": "Fly"
+        }
+      ]
+    },
+    {
+      "type": "psychic",
+      "elite": false,
+      "totalEligible": 172,
+      "mixedInTop30": 0,
+      "restrictedMovesInTop30": [],
+      "top3": [
+        {
+          "form": "mewtwo_mega_y",
+          "score": 33.889796149110275,
+          "fast": "Confusion",
+          "charged": "Psychic"
+        },
+        {
+          "form": "mewtwo_mega_x",
+          "score": 32.6939833908453,
+          "fast": "Confusion",
+          "charged": "Psychic"
+        },
+        {
+          "form": "mewtwo_shadow",
+          "score": 28.148866508022316,
+          "fast": "Confusion",
+          "charged": "Psychic"
+        }
+      ]
+    },
+    {
+      "type": "bug",
+      "elite": false,
+      "totalEligible": 105,
+      "mixedInTop30": 0,
+      "restrictedMovesInTop30": [],
+      "top3": [
+        {
+          "form": "heracross_mega",
+          "score": 25.06949245707842,
+          "fast": "Fury Cutter",
+          "charged": "Megahorn"
+        },
+        {
+          "form": "pinsir_mega",
+          "score": 22.024954149661685,
+          "fast": "Fury Cutter",
+          "charged": "X-Scissor"
+        },
+        {
+          "form": "scizor_mega",
+          "score": 20.632330906545018,
+          "fast": "Fury Cutter",
+          "charged": "X-Scissor"
+        }
+      ]
+    },
+    {
+      "type": "rock",
+      "elite": false,
+      "totalEligible": 86,
+      "mixedInTop30": 0,
+      "restrictedMovesInTop30": [],
+      "top3": [
+        {
+          "form": "diancie_mega",
+          "score": 23.97216263061828,
+          "fast": "Rock Throw",
+          "charged": "Rock Slide"
+        },
+        {
+          "form": "rampardos_shadow",
+          "score": 22.097625503931418,
+          "fast": "Smack Down",
+          "charged": "Rock Slide"
+        },
+        {
+          "form": "aerodactyl_mega",
+          "score": 21.690299387339362,
+          "fast": "Rock Throw",
+          "charged": "Rock Slide"
+        }
+      ]
+    },
+    {
+      "type": "ghost",
+      "elite": false,
+      "totalEligible": 101,
+      "mixedInTop30": 0,
+      "restrictedMovesInTop30": [],
+      "top3": [
+        {
+          "form": "gengar_mega",
+          "score": 26.29004626510752,
+          "fast": "Shadow Claw",
+          "charged": "Shadow Ball"
+        },
+        {
+          "form": "chandelure_mega",
+          "score": 25.522045955027256,
+          "fast": "Hex",
+          "charged": "Shadow Ball"
+        },
+        {
+          "form": "banette_mega",
+          "score": 22.848738811957165,
+          "fast": "Shadow Claw",
+          "charged": "Shadow Ball"
+        }
+      ]
+    },
+    {
+      "type": "dragon",
+      "elite": false,
+      "totalEligible": 92,
+      "mixedInTop30": 0,
+      "restrictedMovesInTop30": [],
+      "top3": [
+        {
+          "form": "rayquaza_mega",
+          "score": 30.59388935291038,
+          "fast": "Dragon Tail",
+          "charged": "Outrage"
+        },
+        {
+          "form": "garchomp_mega",
+          "score": 29.708797621198077,
+          "fast": "Dragon Tail",
+          "charged": "Breaking Swipe"
+        },
+        {
+          "form": "garchomp_shadow",
+          "score": 27.081577242156023,
+          "fast": "Dragon Tail",
+          "charged": "Breaking Swipe"
+        }
+      ]
+    },
+    {
+      "type": "dark",
+      "elite": false,
+      "totalEligible": 178,
+      "mixedInTop30": 0,
+      "restrictedMovesInTop30": [],
+      "top3": [
+        {
+          "form": "tyranitar_mega",
+          "score": 26.01487475331006,
+          "fast": "Bite",
+          "charged": "Brutal Swing"
+        },
+        {
+          "form": "darkrai_shadow",
+          "score": 25.453911754915698,
+          "fast": "Snarl",
+          "charged": "Foul Play"
+        },
+        {
+          "form": "tyranitar_shadow",
+          "score": 24.814309833852477,
+          "fast": "Bite",
+          "charged": "Brutal Swing"
+        }
+      ]
+    },
+    {
+      "type": "steel",
+      "elite": false,
+      "totalEligible": 82,
+      "mixedInTop30": 0,
+      "restrictedMovesInTop30": [],
+      "top3": [
+        {
+          "form": "lucario_mega",
+          "score": 25.18318106328956,
+          "fast": "Bullet Punch",
+          "charged": "Meteor Mash"
+        },
+        {
+          "form": "dialga_shadow",
+          "score": 23.613727335065395,
+          "fast": "Metal Claw",
+          "charged": "Iron Head"
+        },
+        {
+          "form": "excadrill_shadow",
+          "score": 21.113771508786296,
+          "fast": "Metal Claw",
+          "charged": "Iron Head"
+        }
+      ]
+    },
+    {
+      "type": "fairy",
+      "elite": false,
+      "totalEligible": 54,
+      "mixedInTop30": 1,
+      "restrictedMovesInTop30": [],
+      "top3": [
+        {
+          "form": "gardevoir_mega",
+          "score": 24.492411698348818,
+          "fast": "Charm",
+          "charged": "Dazzling Gleam"
+        },
+        {
+          "form": "zacian_crowned_sword",
+          "score": 22.89175252122477,
+          "fast": "Metal Claw",
+          "charged": "Play Rough"
+        },
+        {
+          "form": "gardevoir_shadow",
+          "score": 20.42779185595854,
+          "fast": "Charm",
+          "charged": "Dazzling Gleam"
+        }
+      ]
+    }
+  ]
+}

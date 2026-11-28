@@ -1,0 +1,18 @@
+'use strict';
+const A=require('node:assert/strict'),R=require('../rankings/core.cjs'),{normalizeRestriction}=require('../rankings/dialgadex-adapter.cjs');
+const form={key:'ordinary',species:1,name:'Fixture',shadow:false,released:true,releaseEvidence:['fixture'],sprite:'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png',search:{terms:['1','!shadow'],accuracy:'exact'}};
+const pair=()=>({form:'ordinary',fast:{key:'fast',type:'normal',elite:false,searchName:'tackle',searchVerified:true},charged:{key:'return',name:'Return',type:'normal',elite:true,searchName:'return',searchVerified:true},scores:Object.fromEntries(['overall',...R.TYPES].map(t=>[t,100]))});
+const p=normalizeRestriction(pair(),{purified:['Return']},false);
+A.equal(p.charged.elite,false);A.equal(p.requiredState,'purified');
+const result=R.rank([form],[p],{attackingType:'normal',elite:false});A.equal(result.length,1);
+A.equal(R.stringify(R.predicate(result,[form]).ast),'1&!shadow','Potential performance must not require purification');
+const query=R.stringify(R.predicate(result,[form],{moveset:true}).ast);
+A(query.includes('purified'));A(query.includes('@2return,@3return'));
+const excluded=R.stringify(R.predicate(result,[form],{moveset:true,exclude:true}).ast);A(excluded.includes('!purified'));
+A.throws(()=>normalizeRestriction(pair(),{purified:['Return']},true),/conflicts/);
+A.throws(()=>R.rank([form],[{...p,requiredState:'shadow'}]),/conflicts/);
+A.throws(()=>R.rank([form],[{...p,requiredState:'unknown'}]),/Unknown/);
+const ordinary=pair();ordinary.charged.name='Legacy Move';normalizeRestriction(ordinary,{},false);A.equal(ordinary.charged.elite,true);
+const apex=pair();apex.charged.name='Aeroblast Plus Plus';normalizeRestriction(apex,{purified:['Aeroblast Plus Plus']},false);A.equal(apex.requiredState,'purified');
+const unverified=structuredClone(p);unverified.charged.searchVerified=false;A.throws(()=>R.predicate([{form:'ordinary',movesets:[unverified]}],[form],{moveset:true}),/not verified/);
+console.log('PASS restricted-state moves: Elite independence, potential search, charged-slot OR, exclusion, incompatible forms and unverified searches');

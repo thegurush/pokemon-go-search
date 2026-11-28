@@ -1,0 +1,68 @@
+{
+  "originalCount": 1561,
+  "revisedCount": 1573,
+  "remainingHeld": 55,
+  "added": [
+    {
+      "key": "nidoran_female",
+      "species": 29,
+      "upstreamForm": "Normal"
+    },
+    {
+      "key": "nidoran_female_shadow",
+      "species": 29,
+      "upstreamForm": "Normal"
+    },
+    {
+      "key": "nidoran_male",
+      "species": 32,
+      "upstreamForm": "Normal"
+    },
+    {
+      "key": "nidoran_male_shadow",
+      "species": 32,
+      "upstreamForm": "Normal"
+    },
+    {
+      "key": "tauros_combat",
+      "species": 128,
+      "upstreamForm": "Paldea_combat"
+    },
+    {
+      "key": "tauros_aqua",
+      "species": 128,
+      "upstreamForm": "Paldea_aqua"
+    },
+    {
+      "key": "tauros_blaze",
+      "species": 128,
+      "upstreamForm": "Paldea_blaze"
+    },
+    {
+      "key": "cherrim_overcast",
+      "species": 421,
+      "upstreamForm": "Overcast"
+    },
+    {
+      "key": "shaymin_land",
+      "species": 492,
+      "upstreamForm": "Land"
+    },
+    {
+      "key": "meloetta_aria",
+      "species": 648,
+      "upstreamForm": "Aria"
+    },
+    {
+      "key": "indeedee_male",
+      "species": 876,
+      "upstreamForm": "Male"
+    },
+    {
+      "key": "morpeko_full_belly",
+      "species": 877,
+      "upstreamForm": "Full_belly"
+    }
+  ],
+  "status": "Candidate aliases corrected. No production approval. Original score input retained unchanged; revised roster requires sprite identity audit and score rebuild."
+}
