@@ -1,0 +1,84 @@
+{
+  "master": "POD-01",
+  "source": "Podium_Shared_Master_Cream.png",
+  "mask_source": "Podium_Shared_Master_Cream_Tight.png",
+  "source_sha256": "36022c77910e7bd0e100d3f812442133110ac2ce86096f523327cc404b0c3442",
+  "mask_sha256": "3ad7af60a6967eb089dfc4d4838a070399d3c1b9c3142c2aa76095d413732be6",
+  "cream": "#F6E4C5",
+  "normalization": {
+    "method": "uniform fit within circle radius minus 2.5px, centered source alpha bounds",
+    "inset_px": 2.5,
+    "alpha_radius_px": 548.2814058492227,
+    "square_fit_ratio": 0.8681673223310075
+  },
+  "placements": [
+    {
+      "placement": 264,
+      "name": "Top Attackers",
+      "inventory_master": "POD-01",
+      "base_master": "POD-01",
+      "binding": "families:attackers",
+      "state": "normal",
+      "selected_colors": null,
+      "parent_placement": null,
+      "palette_names": [
+        "Teal"
+      ],
+      "colors": [
+        "#48A38C"
+      ],
+      "fill": "solid"
+    },
+    {
+      "placement": 265,
+      "name": "Back from Top Attackers",
+      "inventory_master": "M002",
+      "base_master": "POD-01",
+      "binding": "backs:attackers",
+      "state": "back",
+      "selected_colors": null,
+      "parent_placement": 264,
+      "palette_names": [
+        "Teal"
+      ],
+      "colors": [
+        "#48A38C"
+      ],
+      "fill": "solid"
+    },
+    {
+      "placement": 266,
+      "name": "Overall",
+      "inventory_master": "POD-01",
+      "base_master": "POD-01",
+      "binding": "groups:attackeroverall",
+      "state": "normal",
+      "selected_colors": null,
+      "parent_placement": null,
+      "palette_names": [
+        "Purple"
+      ],
+      "colors": [
+        "#927D9E"
+      ],
+      "fill": "solid"
+    },
+    {
+      "placement": 267,
+      "name": "Back from Overall",
+      "inventory_master": "M002",
+      "base_master": "POD-01",
+      "binding": "backs:attackers/attackeroverall",
+      "state": "back",
+      "selected_colors": null,
+      "parent_placement": 266,
+      "palette_names": [
+        "Purple"
+      ],
+      "colors": [
+        "#927D9E"
+      ],
+      "fill": "solid"
+    }
+  ]
+}

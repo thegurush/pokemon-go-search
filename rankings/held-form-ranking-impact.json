@@ -1,0 +1,305 @@
+{
+  "scope": "Sensitivity only, not release approval. Ditto unsupported; unresolved cosmetics may overcount until normalized.",
+  "counts": {
+    "ho_oh_s_shadow": 7,
+    "ho_oh_s": 4,
+    "arcanine_hisuian_shadow": 2,
+    "raichu_mega_x": 2,
+    "genesect_burn": 4,
+    "genesect_chill": 4,
+    "genesect_douse": 4,
+    "genesect_shock": 4,
+    "polteageist_antique": 2,
+    "sinistcha_masterpiece": 2,
+    "florges_white": 2
+  },
+  "affected": [
+    {
+      "elite": true,
+      "type": "fire",
+      "entries": [
+        {
+          "form": "ho_oh_s_shadow",
+          "rank": 13,
+          "score": 22.69706067351813
+        },
+        {
+          "form": "ho_oh_s",
+          "rank": 25,
+          "score": 20.747734799253788
+        },
+        {
+          "form": "arcanine_hisuian_shadow",
+          "rank": 27,
+          "score": 20.483701813710088
+        }
+      ]
+    },
+    {
+      "elite": true,
+      "type": "grass",
+      "entries": [
+        {
+          "form": "ho_oh_s_shadow",
+          "rank": 26,
+          "score": 17.794916171610428
+        }
+      ]
+    },
+    {
+      "elite": true,
+      "type": "electric",
+      "entries": [
+        {
+          "form": "raichu_mega_x",
+          "rank": 14,
+          "score": 22.079439860000406
+        }
+      ]
+    },
+    {
+      "elite": true,
+      "type": "ground",
+      "entries": [
+        {
+          "form": "ho_oh_s_shadow",
+          "rank": 26,
+          "score": 16.970916322696738
+        }
+      ]
+    },
+    {
+      "elite": true,
+      "type": "flying",
+      "entries": [
+        {
+          "form": "ho_oh_s_shadow",
+          "rank": 11,
+          "score": 21.79103136713388
+        },
+        {
+          "form": "ho_oh_s",
+          "rank": 22,
+          "score": 18.69665431011829
+        }
+      ]
+    },
+    {
+      "elite": true,
+      "type": "bug",
+      "entries": [
+        {
+          "form": "genesect_burn",
+          "rank": 11,
+          "score": 18.363213096253553
+        },
+        {
+          "form": "genesect_chill",
+          "rank": 12,
+          "score": 18.363213096253553
+        },
+        {
+          "form": "genesect_douse",
+          "rank": 13,
+          "score": 18.363213096253553
+        },
+        {
+          "form": "genesect_shock",
+          "rank": 14,
+          "score": 18.363213096253553
+        }
+      ]
+    },
+    {
+      "elite": true,
+      "type": "ghost",
+      "entries": [
+        {
+          "form": "polteageist_antique",
+          "rank": 19,
+          "score": 18.603153481088206
+        },
+        {
+          "form": "sinistcha_masterpiece",
+          "rank": 28,
+          "score": 17.097479015508288
+        }
+      ]
+    },
+    {
+      "elite": true,
+      "type": "steel",
+      "entries": [
+        {
+          "form": "genesect_burn",
+          "rank": 15,
+          "score": 19.249147045628792
+        },
+        {
+          "form": "genesect_chill",
+          "rank": 16,
+          "score": 19.249147045628792
+        },
+        {
+          "form": "genesect_douse",
+          "rank": 17,
+          "score": 19.249147045628792
+        },
+        {
+          "form": "genesect_shock",
+          "rank": 18,
+          "score": 19.249147045628792
+        }
+      ]
+    },
+    {
+      "elite": true,
+      "type": "fairy",
+      "entries": [
+        {
+          "form": "florges_white",
+          "rank": 19,
+          "score": 14.702857660313159
+        }
+      ]
+    },
+    {
+      "elite": false,
+      "type": "fire",
+      "entries": [
+        {
+          "form": "ho_oh_s_shadow",
+          "rank": 9,
+          "score": 22.69706067351813
+        },
+        {
+          "form": "ho_oh_s",
+          "rank": 20,
+          "score": 20.747734799253788
+        },
+        {
+          "form": "arcanine_hisuian_shadow",
+          "rank": 21,
+          "score": 20.483701813710088
+        }
+      ]
+    },
+    {
+      "elite": false,
+      "type": "grass",
+      "entries": [
+        {
+          "form": "ho_oh_s_shadow",
+          "rank": 25,
+          "score": 17.794916171610428
+        }
+      ]
+    },
+    {
+      "elite": false,
+      "type": "electric",
+      "entries": [
+        {
+          "form": "raichu_mega_x",
+          "rank": 11,
+          "score": 22.079439860000406
+        }
+      ]
+    },
+    {
+      "elite": false,
+      "type": "flying",
+      "entries": [
+        {
+          "form": "ho_oh_s_shadow",
+          "rank": 9,
+          "score": 21.79103136713388
+        },
+        {
+          "form": "ho_oh_s",
+          "rank": 20,
+          "score": 18.69665431011829
+        }
+      ]
+    },
+    {
+      "elite": false,
+      "type": "bug",
+      "entries": [
+        {
+          "form": "genesect_burn",
+          "rank": 11,
+          "score": 18.363213096253553
+        },
+        {
+          "form": "genesect_chill",
+          "rank": 12,
+          "score": 18.363213096253553
+        },
+        {
+          "form": "genesect_douse",
+          "rank": 13,
+          "score": 18.363213096253553
+        },
+        {
+          "form": "genesect_shock",
+          "rank": 14,
+          "score": 18.363213096253553
+        }
+      ]
+    },
+    {
+      "elite": false,
+      "type": "ghost",
+      "entries": [
+        {
+          "form": "polteageist_antique",
+          "rank": 15,
+          "score": 18.603153481088206
+        },
+        {
+          "form": "sinistcha_masterpiece",
+          "rank": 23,
+          "score": 17.097479015508288
+        }
+      ]
+    },
+    {
+      "elite": false,
+      "type": "steel",
+      "entries": [
+        {
+          "form": "genesect_burn",
+          "rank": 12,
+          "score": 19.249147045628792
+        },
+        {
+          "form": "genesect_chill",
+          "rank": 13,
+          "score": 19.249147045628792
+        },
+        {
+          "form": "genesect_douse",
+          "rank": 14,
+          "score": 19.249147045628792
+        },
+        {
+          "form": "genesect_shock",
+          "rank": 15,
+          "score": 19.249147045628792
+        }
+      ]
+    },
+    {
+      "elite": false,
+      "type": "fairy",
+      "entries": [
+        {
+          "form": "florges_white",
+          "rank": 18,
+          "score": 14.702857660313159
+        }
+      ]
+    }
+  ]
+}

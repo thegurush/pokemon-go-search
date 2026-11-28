@@ -1,0 +1,138 @@
+{
+  "observations": [
+    {
+      "date": "2026-11-26",
+      "source": "User report: all as expected, following supplied Tyranitar screenshot",
+      "species": 248,
+      "fast": "Smack Down",
+      "charged1": "Stone Edge",
+      "charged2": "Brutal Swing",
+      "tests": [
+        {
+          "query": "248&@1smack down",
+          "matched": true
+        },
+        {
+          "query": "248&@2stone edge",
+          "matched": true
+        },
+        {
+          "query": "248&@3brutal swing",
+          "matched": true
+        },
+        {
+          "query": "248&@2brutal swing",
+          "matched": false
+        },
+        {
+          "query": "248&@1smack down&@2brutal swing,@3brutal swing",
+          "matched": true
+        }
+      ],
+      "scope": "Confirms these names and numbered-slot/either-charged-slot syntax for this Tyranitar specimen."
+    },
+    {
+      "date": "2026-11-26",
+      "source": "User: Works as expected, after Butterfree and Dark Hidden Power Starmie screenshots",
+      "tests": [
+        {
+          "query": "12&@2psychi",
+          "matched": true
+        },
+        {
+          "query": "12&@3psychi",
+          "matched": false
+        },
+        {
+          "query": "12&@2psychi,@3psychi",
+          "matched": true
+        },
+        {
+          "query": "121&@1hidden power",
+          "matched": true
+        },
+        {
+          "query": "121&@1hidden power&@1dark",
+          "matched": true
+        },
+        {
+          "query": "121&@1hidden power&@1normal",
+          "matched": false
+        }
+      ],
+      "scope": "Both specimens have only one charged move. Psychic Fangs exclusion is inferred and unit-tested, not directly tested in game. Other Hidden Power types use this tested syntax but are not individually observed."
+    },
+    {
+      "date": "2026-11-26",
+      "source": "User confirmed: Works as expected",
+      "species": 248,
+      "tests": [
+        {
+          "query": "248&@2stone edge&!@2brutal swing",
+          "matched": true
+        },
+        {
+          "query": "248&@2stone edge&!@3brutal swing",
+          "matched": false
+        }
+      ],
+      "scope": "Confirms numbered-slot negation for the supplied Tyranitar; other move names use this grammar by inference."
+    },
+    {
+      "date": "2026-11-26",
+      "source": "User reported 1 yes, 2 yes, 3 no, 4 no, 5 yes, 6 no after supplying move-list screenshots",
+      "specimens": [
+        {
+          "species": 250,
+          "shadow": true,
+          "fast": "Incinerate",
+          "charged1": "Sacred Fire+",
+          "charged2": null
+        },
+        {
+          "species": 249,
+          "shadow": true,
+          "fast": "Dragon Tail",
+          "charged1": "Aeroblast+",
+          "charged2": "Sky Attack"
+        }
+      ],
+      "tests": [
+        {
+          "query": "250&@2sacred fire",
+          "matched": true
+        },
+        {
+          "query": "250&@2sacred fire+",
+          "matched": true
+        },
+        {
+          "query": "250&@2sacred fire++",
+          "matched": false
+        },
+        {
+          "query": "250&@2sacred fire&!@2sacred fire+",
+          "matched": false
+        },
+        {
+          "query": "249&@2aeroblast+",
+          "matched": true
+        },
+        {
+          "query": "249&@2aeroblast++",
+          "matched": false
+        }
+      ],
+      "scope": "Tests distinguish base/+ and reject ++ on + specimens. No positive ++ specimen was tested. Ho-Oh was corrected by user to non-purified."
+    }
+  ],
+  "longSearchVerification": {
+    "date": "2026-11-27",
+    "query": "Normal top30, Elite ON, Moveset ON, Exclude; exact string generated from V78 real snapshot",
+    "characters": 5357,
+    "suffixTest": "&1",
+    "charactersWithSuffix": 5359,
+    "result": "User confirmed only Bulbasaur after appending &1; ellipsis was visual shortening. Original query excluded five owned Pokemon.",
+    "limits": "This verifies the full tested query and suffix were processed on the user device, not the maximum native length or every matching condition."
+  }
+}

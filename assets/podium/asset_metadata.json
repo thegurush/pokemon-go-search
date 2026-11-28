@@ -1,0 +1,29 @@
+{
+  "symbol": "Podium: 2 left, 1 tallest center, 3 right",
+  "approved_variant": "Before equal-number-size and equal-top-gap trial",
+  "cream": "#F6E4C5",
+  "placements": {
+    "Top Attackers": {
+      "master": "Podium_Shared_Master_Cream.png",
+      "fill_token": "approved teal"
+    },
+    "Overall": {
+      "master": "Podium_Shared_Master_Cream.png",
+      "fill_token": "approved purple"
+    }
+  },
+  "source_canvas_px": [
+    1254,
+    1254
+  ],
+  "symbol_bounds_px": [
+    151,
+    345,
+    1103,
+    941
+  ],
+  "same_master_required": true,
+  "numerals": "transparent negative space",
+  "geometry_changed": false,
+  "runtime_framing": "Use current approved #7 icon renderer and existing normalization/inset rules; not source square background"
+}

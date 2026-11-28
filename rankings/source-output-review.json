@@ -1,0 +1,9 @@
+{
+  "approved": true,
+  "scope": "Engineering review of derived ranking output for the authorized V78 implementation; not a legal clearance or maintainer permission",
+  "basis": "The application embeds calculated scores, move/form identifiers and attribution, not upstream calculator source, source graphics, descriptive prose or raw stat datasets. Calculator execution remains in the build environment at an identified revision. Preserve provenance and the existing PokeAPI sprite source.",
+  "calculatorLicense": "GPL-3.0; upstream checkout retains its license. No calculator code is embedded in index.html.",
+  "reference": "https://www.gnu.org/licenses/gpl-faq.html#WhatCaseIsOutputGPL",
+  "dataNotice": "pokemon-resources provides an educational-use disclaimer and no explicit general data license. Derived output does not resolve every possible data/IP issue. No maintainer authorization has been obtained or claimed.",
+  "userDirection": "Continue implementation without contacting the maintainer; revisit outreach before public promotion. Do not send the deferred request or include it in upload packages."
+}

@@ -1,0 +1,403 @@
+{
+  "schema": 1,
+  "scope": "Explicit official release evidence; not global publication approval. Native ++ positive searches remain untested.",
+  "forms": [
+    {
+      "key": "lugia_s",
+      "species": 249,
+      "name": "Apex Lugia",
+      "upstreamForm": "S",
+      "shadow": false,
+      "sourceTypes": [
+        "psychic",
+        "flying"
+      ],
+      "released": true,
+      "releaseEvidence": [
+        {
+          "source": "Pokemon GO official Apex announcement",
+          "url": "https://pokemongo.com/news/apex-reveal",
+          "releaseDate": "2022-02-26",
+          "reviewedDate": "2026-11-26",
+          "basis": "Johto Masterwork Research encounters; purification and upgraded attacks explicitly documented."
+        }
+      ],
+      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/249.png",
+      "spriteFallback": {
+        "reason": "PokeAPI Pokemon/form metadata has no separate Apex entry; ordinary species art preserves the existing sprite style. Shadow overlay remains separate.",
+        "representedSpecies": 249
+      },
+      "search": {
+        "terms": [
+          "249",
+          "!shadow"
+        ],
+        "accuracy": "partial",
+        "limitation": "Species and Shadow status do not uniquely identify Apex. No signature attack is required when Moveset is off."
+      },
+      "reviewed": false
+    },
+    {
+      "key": "lugia_s_shadow",
+      "species": 249,
+      "name": "Apex Shadow Lugia",
+      "upstreamForm": "S",
+      "shadow": true,
+      "sourceTypes": [
+        "psychic",
+        "flying"
+      ],
+      "released": true,
+      "releaseEvidence": [
+        {
+          "source": "Pokemon GO official Apex announcement",
+          "url": "https://pokemongo.com/news/apex-reveal",
+          "releaseDate": "2022-02-26",
+          "reviewedDate": "2026-11-26",
+          "basis": "Johto Masterwork Research encounters; purification and upgraded attacks explicitly documented."
+        }
+      ],
+      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/249.png",
+      "spriteFallback": {
+        "reason": "PokeAPI Pokemon/form metadata has no separate Apex entry; ordinary species art preserves the existing sprite style. Shadow overlay remains separate.",
+        "representedSpecies": 249
+      },
+      "search": {
+        "terms": [
+          "249",
+          "shadow"
+        ],
+        "accuracy": "partial",
+        "limitation": "Species and Shadow status do not uniquely identify Apex. No signature attack is required when Moveset is off."
+      },
+      "reviewed": false
+    },
+    {
+      "key": "ho_oh_s",
+      "species": 250,
+      "name": "Apex Ho-Oh",
+      "upstreamForm": "S",
+      "shadow": false,
+      "sourceTypes": [
+        "fire",
+        "flying"
+      ],
+      "released": true,
+      "releaseEvidence": [
+        {
+          "source": "Pokemon GO official Apex announcement",
+          "url": "https://pokemongo.com/news/apex-reveal",
+          "releaseDate": "2022-02-26",
+          "reviewedDate": "2026-11-26",
+          "basis": "Johto Masterwork Research encounters; purification and upgraded attacks explicitly documented."
+        }
+      ],
+      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/250.png",
+      "spriteFallback": {
+        "reason": "PokeAPI Pokemon/form metadata has no separate Apex entry; ordinary species art preserves the existing sprite style. Shadow overlay remains separate.",
+        "representedSpecies": 250
+      },
+      "search": {
+        "terms": [
+          "250",
+          "!shadow"
+        ],
+        "accuracy": "partial",
+        "limitation": "Species and Shadow status do not uniquely identify Apex. No signature attack is required when Moveset is off."
+      },
+      "reviewed": false
+    },
+    {
+      "key": "ho_oh_s_shadow",
+      "species": 250,
+      "name": "Apex Shadow Ho-Oh",
+      "upstreamForm": "S",
+      "shadow": true,
+      "sourceTypes": [
+        "fire",
+        "flying"
+      ],
+      "released": true,
+      "releaseEvidence": [
+        {
+          "source": "Pokemon GO official Apex announcement",
+          "url": "https://pokemongo.com/news/apex-reveal",
+          "releaseDate": "2022-02-26",
+          "reviewedDate": "2026-11-26",
+          "basis": "Johto Masterwork Research encounters; purification and upgraded attacks explicitly documented."
+        }
+      ],
+      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/250.png",
+      "spriteFallback": {
+        "reason": "PokeAPI Pokemon/form metadata has no separate Apex entry; ordinary species art preserves the existing sprite style. Shadow overlay remains separate.",
+        "representedSpecies": 250
+      },
+      "search": {
+        "terms": [
+          "250",
+          "shadow"
+        ],
+        "accuracy": "partial",
+        "limitation": "Species and Shadow status do not uniquely identify Apex. No signature attack is required when Moveset is off."
+      },
+      "reviewed": false
+    },
+    {
+      "key": "morelull_shadow",
+      "species": 755,
+      "name": "Shadow Morelull",
+      "shadow": true,
+      "released": true,
+      "releaseEvidence": [
+        {
+          "source": "Pokemon GO official release announcement",
+          "url": "https://pokemongo.com/en/news/steeled-resolve-taken-over-2026",
+          "releaseDate": "2026-04-30",
+          "reviewedDate": "2026-11-26",
+          "basis": "Shadow Morelull is explicitly listed as a new rescue encounter."
+        }
+      ],
+      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/755.png",
+      "search": {
+        "terms": [
+          "755",
+          "shadow"
+        ],
+        "accuracy": "partial",
+        "limitation": "Species and Shadow status only; cosmetic variants may also match."
+      },
+      "upstreamForm": "Normal",
+      "sourceTypes": [
+        "grass",
+        "fairy"
+      ],
+      "reviewed": false
+    },
+    {
+      "key": "squawkabilly",
+      "species": 931,
+      "name": "Squawkabilly",
+      "upstreamForm": "Green",
+      "shadow": false,
+      "sourceTypes": [
+        "normal",
+        "flying"
+      ],
+      "released": true,
+      "releaseEvidence": [
+        {
+          "source": "Pokemon GO official encounter announcement",
+          "url": "https://pokemongo.com/news/flying-taxi-2026",
+          "releaseDate": "2026-06-23",
+          "reviewedDate": "2026-11-26",
+          "basis": "Named appearance available in the announced encounters; equivalent appearances use one battle profile."
+        }
+      ],
+      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/931.png",
+      "search": {
+        "terms": [
+          "931",
+          "!shadow"
+        ],
+        "accuracy": "partial",
+        "limitation": "Species and non-Shadow status include equivalent cosmetic appearances."
+      },
+      "reviewed": false,
+      "equivalentAppearances": [
+        {
+          "sourceId": "squawkabilly_white",
+          "upstreamForm": "White"
+        }
+      ]
+    },
+    {
+      "key": "toxtricity",
+      "species": 849,
+      "name": "Toxtricity",
+      "upstreamForm": "Amped",
+      "shadow": false,
+      "sourceTypes": [
+        "electric",
+        "poison"
+      ],
+      "released": true,
+      "releaseEvidence": [
+        {
+          "source": "Pokemon GO official encounter announcement",
+          "url": "https://pokemongo.com/news/into-the-wild-2025",
+          "reviewedDate": "2026-11-26",
+          "basis": "Named appearance available in the announced encounters; equivalent appearances use one battle profile.",
+          "availableBy": "2025-11-10"
+        }
+      ],
+      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/849.png",
+      "search": {
+        "terms": [
+          "849",
+          "!shadow"
+        ],
+        "accuracy": "partial",
+        "limitation": "Species and non-Shadow status include equivalent cosmetic appearances."
+      },
+      "reviewed": false,
+      "equivalentAppearances": [
+        {
+          "sourceId": "toxtricity_low_key",
+          "upstreamForm": "Low_key"
+        }
+      ]
+    },
+    {
+      "key": "pikachu_phd",
+      "species": 25,
+      "name": "Pikachu, Ph.D.",
+      "upstreamForm": "Doctor",
+      "shadow": false,
+      "sourceTypes": [
+        "electric"
+      ],
+      "released": true,
+      "releaseEvidence": [
+        {
+          "source": "Pokemon GO official Showcase announcement",
+          "url": "https://pokemongo.com/news/pokestop-showcase-updates-pikachu-2024",
+          "reviewedDate": "2026-11-26",
+          "basis": "Pikachu Ph.D. encounter for 100 first-place Showcases; source Doctor label matches pinned English localization."
+        }
+      ],
+      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10083.png",
+      "search": {
+        "terms": [
+          "25",
+          "!shadow"
+        ],
+        "accuracy": "partial",
+        "limitation": "Species and non-Shadow status only; alternate appearances may also match."
+      },
+      "reviewed": false,
+      "equivalentAppearances": [
+        {
+          "sourceId": "pikachu_doctor",
+          "upstreamForm": "Doctor"
+        }
+      ]
+    },
+    {
+      "key": "shedinja",
+      "species": 292,
+      "name": "Shedinja",
+      "upstreamForm": "Normal",
+      "shadow": false,
+      "sourceTypes": [
+        "bug",
+        "ghost"
+      ],
+      "released": true,
+      "releaseEvidence": [
+        {
+          "source": "Approved saved species availability",
+          "url": "https://github.com/thegurush/pokemon-go-search/blob/5a56601906bce10eb85a44ac55a734ff67a057d5/data/pokemon_available.json",
+          "sha256": "dee6923a91b3dcb889673e837cfd9eb1dac9ce2bd7ee0b12fe176f60a1d66288",
+          "basis": "Existing released base species only; does not infer alternate-form or Shadow release."
+        }
+      ],
+      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/292.png",
+      "search": {
+        "terms": [
+          "292",
+          "!shadow"
+        ],
+        "accuracy": "partial",
+        "limitation": "Species and non-Shadow status only; alternate appearances may also match."
+      },
+      "reviewed": false
+    },
+    {
+      "key": "spewpa",
+      "species": 665,
+      "name": "Spewpa",
+      "upstreamForm": "Normal",
+      "shadow": false,
+      "sourceTypes": [
+        "bug"
+      ],
+      "released": true,
+      "releaseEvidence": [
+        {
+          "source": "Approved saved species availability",
+          "url": "https://github.com/thegurush/pokemon-go-search/blob/5a56601906bce10eb85a44ac55a734ff67a057d5/data/pokemon_available.json",
+          "sha256": "dee6923a91b3dcb889673e837cfd9eb1dac9ce2bd7ee0b12fe176f60a1d66288",
+          "basis": "Existing released base species only; does not infer alternate-form or Shadow release."
+        }
+      ],
+      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/665.png",
+      "search": {
+        "terms": [
+          "665",
+          "!shadow"
+        ],
+        "accuracy": "partial",
+        "limitation": "Species and non-Shadow status only; alternate appearances may also match."
+      },
+      "reviewed": false
+    },
+    {
+      "key": "cosmog",
+      "species": 789,
+      "name": "Cosmog",
+      "upstreamForm": "Normal",
+      "shadow": false,
+      "sourceTypes": [
+        "psychic"
+      ],
+      "released": true,
+      "releaseEvidence": [
+        {
+          "source": "Approved saved species availability",
+          "url": "https://github.com/thegurush/pokemon-go-search/blob/5a56601906bce10eb85a44ac55a734ff67a057d5/data/pokemon_available.json",
+          "sha256": "dee6923a91b3dcb889673e837cfd9eb1dac9ce2bd7ee0b12fe176f60a1d66288",
+          "basis": "Existing released base species only; does not infer alternate-form or Shadow release."
+        }
+      ],
+      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/789.png",
+      "search": {
+        "terms": [
+          "789",
+          "!shadow"
+        ],
+        "accuracy": "partial",
+        "limitation": "Species and non-Shadow status only; alternate appearances may also match."
+      },
+      "reviewed": false
+    },
+    {
+      "key": "cosmoem",
+      "species": 790,
+      "name": "Cosmoem",
+      "upstreamForm": "Normal",
+      "shadow": false,
+      "sourceTypes": [
+        "psychic"
+      ],
+      "released": true,
+      "releaseEvidence": [
+        {
+          "source": "Approved saved species availability",
+          "url": "https://github.com/thegurush/pokemon-go-search/blob/5a56601906bce10eb85a44ac55a734ff67a057d5/data/pokemon_available.json",
+          "sha256": "dee6923a91b3dcb889673e837cfd9eb1dac9ce2bd7ee0b12fe176f60a1d66288",
+          "basis": "Existing released base species only; does not infer alternate-form or Shadow release."
+        }
+      ],
+      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/790.png",
+      "search": {
+        "terms": [
+          "790",
+          "!shadow"
+        ],
+        "accuracy": "partial",
+        "limitation": "Species and non-Shadow status only; alternate appearances may also match."
+      },
+      "reviewed": false
+    }
+  ]
+}

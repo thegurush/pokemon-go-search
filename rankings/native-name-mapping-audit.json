@@ -1,0 +1,145 @@
+{
+  "source": "https://github.com/mgrann03/dialgadex/blob/eef2ddbb822bae0c0f4f5060115aef39dbea091a/locales/pokedata/en.json",
+  "sha256": "6f42dc0f2f13707a485bc78c6daef69b0ffae31b0afee3a5ef48fd5890351426",
+  "status": "Source mapping review only; no additional native compiler verification enabled",
+  "rows": [
+    {
+      "id": 134,
+      "sourceName": "Scald Blastoise",
+      "nativeName": "Scald",
+      "type": "Water"
+    },
+    {
+      "id": 135,
+      "sourceName": "Hydro Pump Blastoise",
+      "nativeName": "Hydro Pump",
+      "type": "Water"
+    },
+    {
+      "id": 136,
+      "sourceName": "Wrap Green",
+      "nativeName": "Wrap",
+      "type": "Normal"
+    },
+    {
+      "id": 137,
+      "sourceName": "Wrap Pink",
+      "nativeName": "Wrap",
+      "type": "Normal"
+    },
+    {
+      "id": 232,
+      "sourceName": "Water Gun Fast Blastoise",
+      "nativeName": "Water Gun",
+      "type": "Water"
+    },
+    {
+      "id": 292,
+      "sourceName": "Weather Ball Fire",
+      "nativeName": "Weather Ball",
+      "type": "Fire"
+    },
+    {
+      "id": 293,
+      "sourceName": "Weather Ball Ice",
+      "nativeName": "Weather Ball",
+      "type": "Ice"
+    },
+    {
+      "id": 294,
+      "sourceName": "Weather Ball Rock",
+      "nativeName": "Weather Ball",
+      "type": "Rock"
+    },
+    {
+      "id": 295,
+      "sourceName": "Weather Ball Water",
+      "nativeName": "Weather Ball",
+      "type": "Water"
+    },
+    {
+      "id": 336,
+      "sourceName": "Techno Blast Normal",
+      "nativeName": "Techno Blast",
+      "type": "Normal"
+    },
+    {
+      "id": 337,
+      "sourceName": "Techno Blast Burn",
+      "nativeName": "Techno Blast",
+      "type": "Fire"
+    },
+    {
+      "id": 338,
+      "sourceName": "Techno Blast Chill",
+      "nativeName": "Techno Blast",
+      "type": "Ice"
+    },
+    {
+      "id": 339,
+      "sourceName": "Techno Blast Water",
+      "nativeName": "Techno Blast",
+      "type": "Water"
+    },
+    {
+      "id": 340,
+      "sourceName": "Techno Blast Shock",
+      "nativeName": "Techno Blast",
+      "type": "Electric"
+    },
+    {
+      "id": 352,
+      "sourceName": "Weather Ball Normal",
+      "nativeName": "Weather Ball",
+      "type": "Normal"
+    },
+    {
+      "id": 360,
+      "sourceName": "Aeroblast Plus",
+      "nativeName": "Aeroblast+",
+      "type": "Flying"
+    },
+    {
+      "id": 361,
+      "sourceName": "Aeroblast Plus Plus",
+      "nativeName": "Aeroblast++",
+      "type": "Flying"
+    },
+    {
+      "id": 362,
+      "sourceName": "Sacred Fire Plus",
+      "nativeName": "Sacred Fire+",
+      "type": "Fire"
+    },
+    {
+      "id": 363,
+      "sourceName": "Sacred Fire Plus Plus",
+      "nativeName": "Sacred Fire++",
+      "type": "Fire"
+    },
+    {
+      "id": 390,
+      "sourceName": "Nature's Madness",
+      "nativeName": "Nature\u2019s Madness",
+      "type": "Fairy"
+    },
+    {
+      "id": 394,
+      "sourceName": "Roar Of Time",
+      "nativeName": "Roar of Time",
+      "type": "Dragon"
+    },
+    {
+      "id": 406,
+      "sourceName": "Aura Wheel Electric",
+      "nativeName": "Aura Wheel",
+      "type": "Electric"
+    },
+    {
+      "id": 407,
+      "sourceName": "Aura Wheel Dark",
+      "nativeName": "Aura Wheel",
+      "type": "Dark"
+    }
+  ]
+}

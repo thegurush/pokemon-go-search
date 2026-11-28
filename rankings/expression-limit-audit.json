@@ -1,0 +1,3989 @@
+{
+  "scope": "Actual session compiler with the 20000-character engineering bound and unchanged complexity limits (not a claimed game limit); no truncation or relaxation",
+  "results": [
+    {
+      "types": [
+        "overall"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 78
+    },
+    {
+      "types": [
+        "overall"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 96
+    },
+    {
+      "types": [
+        "overall"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 611
+    },
+    {
+      "types": [
+        "overall"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 845
+    },
+    {
+      "types": [
+        "overall"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 78
+    },
+    {
+      "types": [
+        "overall"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 96
+    },
+    {
+      "types": [
+        "overall"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 921
+    },
+    {
+      "types": [
+        "overall"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 882
+    },
+    {
+      "types": [
+        "overall"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 202
+    },
+    {
+      "types": [
+        "overall"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 314
+    },
+    {
+      "types": [
+        "overall"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 1767
+    },
+    {
+      "types": [
+        "overall"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 2535
+    },
+    {
+      "types": [
+        "overall"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 202
+    },
+    {
+      "types": [
+        "overall"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 314
+    },
+    {
+      "types": [
+        "overall"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 2305
+    },
+    {
+      "types": [
+        "overall"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 2543
+    },
+    {
+      "types": [
+        "normal"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 78
+    },
+    {
+      "types": [
+        "normal"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 110
+    },
+    {
+      "types": [
+        "normal"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 573
+    },
+    {
+      "types": [
+        "normal"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 3875
+    },
+    {
+      "types": [
+        "normal"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 78
+    },
+    {
+      "types": [
+        "normal"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 110
+    },
+    {
+      "types": [
+        "normal"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 507
+    },
+    {
+      "types": [
+        "normal"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 727
+    },
+    {
+      "types": [
+        "normal"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 210
+    },
+    {
+      "types": [
+        "normal"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 344
+    },
+    {
+      "types": [
+        "normal"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 1655
+    },
+    {
+      "types": [
+        "normal"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 5357
+    },
+    {
+      "types": [
+        "normal"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 210
+    },
+    {
+      "types": [
+        "normal"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 344
+    },
+    {
+      "types": [
+        "normal"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 1586
+    },
+    {
+      "types": [
+        "normal"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 2197
+    },
+    {
+      "types": [
+        "fire"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 74
+    },
+    {
+      "types": [
+        "fire"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 108
+    },
+    {
+      "types": [
+        "fire"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 422
+    },
+    {
+      "types": [
+        "fire"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 711
+    },
+    {
+      "types": [
+        "fire"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 74
+    },
+    {
+      "types": [
+        "fire"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 108
+    },
+    {
+      "types": [
+        "fire"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 642
+    },
+    {
+      "types": [
+        "fire"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 826
+    },
+    {
+      "types": [
+        "fire"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 188
+    },
+    {
+      "types": [
+        "fire"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 321
+    },
+    {
+      "types": [
+        "fire"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 2619
+    },
+    {
+      "types": [
+        "fire"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 2291
+    },
+    {
+      "types": [
+        "fire"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 188
+    },
+    {
+      "types": [
+        "fire"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 321
+    },
+    {
+      "types": [
+        "fire"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 1938
+    },
+    {
+      "types": [
+        "fire"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 2406
+    },
+    {
+      "types": [
+        "water"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 41
+    },
+    {
+      "types": [
+        "water"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 108
+    },
+    {
+      "types": [
+        "water"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 332
+    },
+    {
+      "types": [
+        "water"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 698
+    },
+    {
+      "types": [
+        "water"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 41
+    },
+    {
+      "types": [
+        "water"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 108
+    },
+    {
+      "types": [
+        "water"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 548
+    },
+    {
+      "types": [
+        "water"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 612
+    },
+    {
+      "types": [
+        "water"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 181
+    },
+    {
+      "types": [
+        "water"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 328
+    },
+    {
+      "types": [
+        "water"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 979
+    },
+    {
+      "types": [
+        "water"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 2144
+    },
+    {
+      "types": [
+        "water"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 181
+    },
+    {
+      "types": [
+        "water"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 328
+    },
+    {
+      "types": [
+        "water"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 1506
+    },
+    {
+      "types": [
+        "water"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 2086
+    },
+    {
+      "types": [
+        "grass"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 78
+    },
+    {
+      "types": [
+        "grass"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 117
+    },
+    {
+      "types": [
+        "grass"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 511
+    },
+    {
+      "types": [
+        "grass"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 756
+    },
+    {
+      "types": [
+        "grass"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 78
+    },
+    {
+      "types": [
+        "grass"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 117
+    },
+    {
+      "types": [
+        "grass"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 615
+    },
+    {
+      "types": [
+        "grass"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 742
+    },
+    {
+      "types": [
+        "grass"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 173
+    },
+    {
+      "types": [
+        "grass"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 290
+    },
+    {
+      "types": [
+        "grass"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 1198
+    },
+    {
+      "types": [
+        "grass"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 2034
+    },
+    {
+      "types": [
+        "grass"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 173
+    },
+    {
+      "types": [
+        "grass"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 290
+    },
+    {
+      "types": [
+        "grass"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 1399
+    },
+    {
+      "types": [
+        "grass"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 2054
+    },
+    {
+      "types": [
+        "electric"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 84
+    },
+    {
+      "types": [
+        "electric"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 109
+    },
+    {
+      "types": [
+        "electric"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 679
+    },
+    {
+      "types": [
+        "electric"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 735
+    },
+    {
+      "types": [
+        "electric"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 84
+    },
+    {
+      "types": [
+        "electric"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 109
+    },
+    {
+      "types": [
+        "electric"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 600
+    },
+    {
+      "types": [
+        "electric"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 741
+    },
+    {
+      "types": [
+        "electric"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 196
+    },
+    {
+      "types": [
+        "electric"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 344
+    },
+    {
+      "types": [
+        "electric"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 2274
+    },
+    {
+      "types": [
+        "electric"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 2475
+    },
+    {
+      "types": [
+        "electric"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 196
+    },
+    {
+      "types": [
+        "electric"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 344
+    },
+    {
+      "types": [
+        "electric"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 2198
+    },
+    {
+      "types": [
+        "electric"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 2445
+    },
+    {
+      "types": [
+        "ice"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 74
+    },
+    {
+      "types": [
+        "ice"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 97
+    },
+    {
+      "types": [
+        "ice"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 634
+    },
+    {
+      "types": [
+        "ice"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 725
+    },
+    {
+      "types": [
+        "ice"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 74
+    },
+    {
+      "types": [
+        "ice"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 97
+    },
+    {
+      "types": [
+        "ice"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 517
+    },
+    {
+      "types": [
+        "ice"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 717
+    },
+    {
+      "types": [
+        "ice"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 210
+    },
+    {
+      "types": [
+        "ice"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 332
+    },
+    {
+      "types": [
+        "ice"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 2018
+    },
+    {
+      "types": [
+        "ice"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 2455
+    },
+    {
+      "types": [
+        "ice"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 210
+    },
+    {
+      "types": [
+        "ice"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 332
+    },
+    {
+      "types": [
+        "ice"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 1761
+    },
+    {
+      "types": [
+        "ice"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 2431
+    },
+    {
+      "types": [
+        "fighting"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 82
+    },
+    {
+      "types": [
+        "fighting"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 109
+    },
+    {
+      "types": [
+        "fighting"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 576
+    },
+    {
+      "types": [
+        "fighting"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 641
+    },
+    {
+      "types": [
+        "fighting"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 82
+    },
+    {
+      "types": [
+        "fighting"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 109
+    },
+    {
+      "types": [
+        "fighting"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 563
+    },
+    {
+      "types": [
+        "fighting"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 720
+    },
+    {
+      "types": [
+        "fighting"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 173
+    },
+    {
+      "types": [
+        "fighting"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 281
+    },
+    {
+      "types": [
+        "fighting"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 1638
+    },
+    {
+      "types": [
+        "fighting"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 2055
+    },
+    {
+      "types": [
+        "fighting"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 173
+    },
+    {
+      "types": [
+        "fighting"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 281
+    },
+    {
+      "types": [
+        "fighting"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 1702
+    },
+    {
+      "types": [
+        "fighting"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 2172
+    },
+    {
+      "types": [
+        "poison"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 88
+    },
+    {
+      "types": [
+        "poison"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 118
+    },
+    {
+      "types": [
+        "poison"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 616
+    },
+    {
+      "types": [
+        "poison"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 734
+    },
+    {
+      "types": [
+        "poison"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 88
+    },
+    {
+      "types": [
+        "poison"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 118
+    },
+    {
+      "types": [
+        "poison"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 620
+    },
+    {
+      "types": [
+        "poison"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 742
+    },
+    {
+      "types": [
+        "poison"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 187
+    },
+    {
+      "types": [
+        "poison"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 322
+    },
+    {
+      "types": [
+        "poison"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 1295
+    },
+    {
+      "types": [
+        "poison"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 2084
+    },
+    {
+      "types": [
+        "poison"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 187
+    },
+    {
+      "types": [
+        "poison"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 322
+    },
+    {
+      "types": [
+        "poison"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 1295
+    },
+    {
+      "types": [
+        "poison"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 2090
+    },
+    {
+      "types": [
+        "ground"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 42
+    },
+    {
+      "types": [
+        "ground"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 113
+    },
+    {
+      "types": [
+        "ground"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 498
+    },
+    {
+      "types": [
+        "ground"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 753
+    },
+    {
+      "types": [
+        "ground"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 42
+    },
+    {
+      "types": [
+        "ground"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 113
+    },
+    {
+      "types": [
+        "ground"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 532
+    },
+    {
+      "types": [
+        "ground"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 793
+    },
+    {
+      "types": [
+        "ground"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 182
+    },
+    {
+      "types": [
+        "ground"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 325
+    },
+    {
+      "types": [
+        "ground"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 1098
+    },
+    {
+      "types": [
+        "ground"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 2209
+    },
+    {
+      "types": [
+        "ground"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 182
+    },
+    {
+      "types": [
+        "ground"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 325
+    },
+    {
+      "types": [
+        "ground"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 1133
+    },
+    {
+      "types": [
+        "ground"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 2235
+    },
+    {
+      "types": [
+        "flying"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 76
+    },
+    {
+      "types": [
+        "flying"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 109
+    },
+    {
+      "types": [
+        "flying"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 638
+    },
+    {
+      "types": [
+        "flying"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 714
+    },
+    {
+      "types": [
+        "flying"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 76
+    },
+    {
+      "types": [
+        "flying"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 109
+    },
+    {
+      "types": [
+        "flying"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 673
+    },
+    {
+      "types": [
+        "flying"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 830
+    },
+    {
+      "types": [
+        "flying"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 164
+    },
+    {
+      "types": [
+        "flying"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 280
+    },
+    {
+      "types": [
+        "flying"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 1786
+    },
+    {
+      "types": [
+        "flying"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 2038
+    },
+    {
+      "types": [
+        "flying"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 164
+    },
+    {
+      "types": [
+        "flying"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 280
+    },
+    {
+      "types": [
+        "flying"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 1698
+    },
+    {
+      "types": [
+        "flying"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 2098
+    },
+    {
+      "types": [
+        "psychic"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 38
+    },
+    {
+      "types": [
+        "psychic"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 95
+    },
+    {
+      "types": [
+        "psychic"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 1035
+    },
+    {
+      "types": [
+        "psychic"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 855
+    },
+    {
+      "types": [
+        "psychic"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 38
+    },
+    {
+      "types": [
+        "psychic"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 95
+    },
+    {
+      "types": [
+        "psychic"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 1361
+    },
+    {
+      "types": [
+        "psychic"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 865
+    },
+    {
+      "types": [
+        "psychic"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 163
+    },
+    {
+      "types": [
+        "psychic"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 282
+    },
+    {
+      "types": [
+        "psychic"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 2151
+    },
+    {
+      "types": [
+        "psychic"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 2431
+    },
+    {
+      "types": [
+        "psychic"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 163
+    },
+    {
+      "types": [
+        "psychic"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 282
+    },
+    {
+      "types": [
+        "psychic"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 2477
+    },
+    {
+      "types": [
+        "psychic"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 2453
+    },
+    {
+      "types": [
+        "bug"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 84
+    },
+    {
+      "types": [
+        "bug"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 122
+    },
+    {
+      "types": [
+        "bug"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 446
+    },
+    {
+      "types": [
+        "bug"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 734
+    },
+    {
+      "types": [
+        "bug"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 84
+    },
+    {
+      "types": [
+        "bug"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 122
+    },
+    {
+      "types": [
+        "bug"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 449
+    },
+    {
+      "types": [
+        "bug"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 737
+    },
+    {
+      "types": [
+        "bug"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 180
+    },
+    {
+      "types": [
+        "bug"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 283
+    },
+    {
+      "types": [
+        "bug"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 1100
+    },
+    {
+      "types": [
+        "bug"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 1728
+    },
+    {
+      "types": [
+        "bug"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 180
+    },
+    {
+      "types": [
+        "bug"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 283
+    },
+    {
+      "types": [
+        "bug"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 1105
+    },
+    {
+      "types": [
+        "bug"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 1733
+    },
+    {
+      "types": [
+        "rock"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 86
+    },
+    {
+      "types": [
+        "rock"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 124
+    },
+    {
+      "types": [
+        "rock"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 505
+    },
+    {
+      "types": [
+        "rock"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 817
+    },
+    {
+      "types": [
+        "rock"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 86
+    },
+    {
+      "types": [
+        "rock"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 124
+    },
+    {
+      "types": [
+        "rock"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 582
+    },
+    {
+      "types": [
+        "rock"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 815
+    },
+    {
+      "types": [
+        "rock"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 184
+    },
+    {
+      "types": [
+        "rock"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 323
+    },
+    {
+      "types": [
+        "rock"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 1072
+    },
+    {
+      "types": [
+        "rock"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 2127
+    },
+    {
+      "types": [
+        "rock"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 184
+    },
+    {
+      "types": [
+        "rock"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 323
+    },
+    {
+      "types": [
+        "rock"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 1016
+    },
+    {
+      "types": [
+        "rock"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 2123
+    },
+    {
+      "types": [
+        "ghost"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 41
+    },
+    {
+      "types": [
+        "ghost"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 107
+    },
+    {
+      "types": [
+        "ghost"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 439
+    },
+    {
+      "types": [
+        "ghost"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 691
+    },
+    {
+      "types": [
+        "ghost"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 41
+    },
+    {
+      "types": [
+        "ghost"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 107
+    },
+    {
+      "types": [
+        "ghost"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 435
+    },
+    {
+      "types": [
+        "ghost"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 697
+    },
+    {
+      "types": [
+        "ghost"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 199
+    },
+    {
+      "types": [
+        "ghost"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 307
+    },
+    {
+      "types": [
+        "ghost"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 1342
+    },
+    {
+      "types": [
+        "ghost"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 1961
+    },
+    {
+      "types": [
+        "ghost"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 199
+    },
+    {
+      "types": [
+        "ghost"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 307
+    },
+    {
+      "types": [
+        "ghost"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 1386
+    },
+    {
+      "types": [
+        "ghost"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 2111
+    },
+    {
+      "types": [
+        "dragon"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 86
+    },
+    {
+      "types": [
+        "dragon"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 123
+    },
+    {
+      "types": [
+        "dragon"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 968
+    },
+    {
+      "types": [
+        "dragon"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 852
+    },
+    {
+      "types": [
+        "dragon"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 86
+    },
+    {
+      "types": [
+        "dragon"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 123
+    },
+    {
+      "types": [
+        "dragon"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 785
+    },
+    {
+      "types": [
+        "dragon"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 870
+    },
+    {
+      "types": [
+        "dragon"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 178
+    },
+    {
+      "types": [
+        "dragon"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 297
+    },
+    {
+      "types": [
+        "dragon"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 2390
+    },
+    {
+      "types": [
+        "dragon"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 2324
+    },
+    {
+      "types": [
+        "dragon"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 178
+    },
+    {
+      "types": [
+        "dragon"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 297
+    },
+    {
+      "types": [
+        "dragon"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 1871
+    },
+    {
+      "types": [
+        "dragon"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 2246
+    },
+    {
+      "types": [
+        "dark"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 82
+    },
+    {
+      "types": [
+        "dark"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 123
+    },
+    {
+      "types": [
+        "dark"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 377
+    },
+    {
+      "types": [
+        "dark"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 686
+    },
+    {
+      "types": [
+        "dark"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 82
+    },
+    {
+      "types": [
+        "dark"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 123
+    },
+    {
+      "types": [
+        "dark"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 467
+    },
+    {
+      "types": [
+        "dark"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 706
+    },
+    {
+      "types": [
+        "dark"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 194
+    },
+    {
+      "types": [
+        "dark"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 331
+    },
+    {
+      "types": [
+        "dark"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 1377
+    },
+    {
+      "types": [
+        "dark"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 2004
+    },
+    {
+      "types": [
+        "dark"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 194
+    },
+    {
+      "types": [
+        "dark"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 331
+    },
+    {
+      "types": [
+        "dark"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 1805
+    },
+    {
+      "types": [
+        "dark"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 2158
+    },
+    {
+      "types": [
+        "steel"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 78
+    },
+    {
+      "types": [
+        "steel"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 110
+    },
+    {
+      "types": [
+        "steel"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 462
+    },
+    {
+      "types": [
+        "steel"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 761
+    },
+    {
+      "types": [
+        "steel"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 78
+    },
+    {
+      "types": [
+        "steel"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 110
+    },
+    {
+      "types": [
+        "steel"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 441
+    },
+    {
+      "types": [
+        "steel"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 741
+    },
+    {
+      "types": [
+        "steel"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 168
+    },
+    {
+      "types": [
+        "steel"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 270
+    },
+    {
+      "types": [
+        "steel"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 1112
+    },
+    {
+      "types": [
+        "steel"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 1899
+    },
+    {
+      "types": [
+        "steel"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 168
+    },
+    {
+      "types": [
+        "steel"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 270
+    },
+    {
+      "types": [
+        "steel"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 1060
+    },
+    {
+      "types": [
+        "steel"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 1801
+    },
+    {
+      "types": [
+        "fairy"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 74
+    },
+    {
+      "types": [
+        "fairy"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 97
+    },
+    {
+      "types": [
+        "fairy"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 771
+    },
+    {
+      "types": [
+        "fairy"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 757
+    },
+    {
+      "types": [
+        "fairy"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 74
+    },
+    {
+      "types": [
+        "fairy"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 97
+    },
+    {
+      "types": [
+        "fairy"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 683
+    },
+    {
+      "types": [
+        "fairy"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 735
+    },
+    {
+      "types": [
+        "fairy"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 115
+    },
+    {
+      "types": [
+        "fairy"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 336
+    },
+    {
+      "types": [
+        "fairy"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 2027
+    },
+    {
+      "types": [
+        "fairy"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 2333
+    },
+    {
+      "types": [
+        "fairy"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 115
+    },
+    {
+      "types": [
+        "fairy"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 336
+    },
+    {
+      "types": [
+        "fairy"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 1935
+    },
+    {
+      "types": [
+        "fairy"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 2309
+    },
+    {
+      "types": [
+        "fire",
+        "water"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 130
+    },
+    {
+      "types": [
+        "fire",
+        "water"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 217
+    },
+    {
+      "types": [
+        "fire",
+        "water"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 755
+    },
+    {
+      "types": [
+        "fire",
+        "water"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 1410
+    },
+    {
+      "types": [
+        "fire",
+        "water"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 130
+    },
+    {
+      "types": [
+        "fire",
+        "water"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 217
+    },
+    {
+      "types": [
+        "fire",
+        "water"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 1191
+    },
+    {
+      "types": [
+        "fire",
+        "water"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 1439
+    },
+    {
+      "types": [
+        "fire",
+        "water"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 355
+    },
+    {
+      "types": [
+        "fire",
+        "water"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 650
+    },
+    {
+      "types": [
+        "fire",
+        "water"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 3599
+    },
+    {
+      "types": [
+        "fire",
+        "water"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 4436
+    },
+    {
+      "types": [
+        "fire",
+        "water"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 355
+    },
+    {
+      "types": [
+        "fire",
+        "water"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 650
+    },
+    {
+      "types": [
+        "fire",
+        "water"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 3445
+    },
+    {
+      "types": [
+        "fire",
+        "water"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 4493
+    },
+    {
+      "types": [
+        "normal",
+        "fire",
+        "water",
+        "grass",
+        "electric",
+        "ice",
+        "fighting",
+        "poison",
+        "ground",
+        "flying",
+        "psychic",
+        "bug",
+        "rock",
+        "ghost",
+        "dragon",
+        "dark",
+        "steel",
+        "fairy"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 927
+    },
+    {
+      "types": [
+        "normal",
+        "fire",
+        "water",
+        "grass",
+        "electric",
+        "ice",
+        "fighting",
+        "poison",
+        "ground",
+        "flying",
+        "psychic",
+        "bug",
+        "rock",
+        "ghost",
+        "dragon",
+        "dark",
+        "steel",
+        "fairy"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 1603
+    },
+    {
+      "types": [
+        "normal",
+        "fire",
+        "water",
+        "grass",
+        "electric",
+        "ice",
+        "fighting",
+        "poison",
+        "ground",
+        "flying",
+        "psychic",
+        "bug",
+        "rock",
+        "ghost",
+        "dragon",
+        "dark",
+        "steel",
+        "fairy"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 14893
+    },
+    {
+      "types": [
+        "normal",
+        "fire",
+        "water",
+        "grass",
+        "electric",
+        "ice",
+        "fighting",
+        "poison",
+        "ground",
+        "flying",
+        "psychic",
+        "bug",
+        "rock",
+        "ghost",
+        "dragon",
+        "dark",
+        "steel",
+        "fairy"
+      ],
+      "count": 10,
+      "elite": true,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 16512
+    },
+    {
+      "types": [
+        "normal",
+        "fire",
+        "water",
+        "grass",
+        "electric",
+        "ice",
+        "fighting",
+        "poison",
+        "ground",
+        "flying",
+        "psychic",
+        "bug",
+        "rock",
+        "ghost",
+        "dragon",
+        "dark",
+        "steel",
+        "fairy"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 927
+    },
+    {
+      "types": [
+        "normal",
+        "fire",
+        "water",
+        "grass",
+        "electric",
+        "ice",
+        "fighting",
+        "poison",
+        "ground",
+        "flying",
+        "psychic",
+        "bug",
+        "rock",
+        "ghost",
+        "dragon",
+        "dark",
+        "steel",
+        "fairy"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 1603
+    },
+    {
+      "types": [
+        "normal",
+        "fire",
+        "water",
+        "grass",
+        "electric",
+        "ice",
+        "fighting",
+        "poison",
+        "ground",
+        "flying",
+        "psychic",
+        "bug",
+        "rock",
+        "ghost",
+        "dragon",
+        "dark",
+        "steel",
+        "fairy"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": true,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 16701
+    },
+    {
+      "types": [
+        "normal",
+        "fire",
+        "water",
+        "grass",
+        "electric",
+        "ice",
+        "fighting",
+        "poison",
+        "ground",
+        "flying",
+        "psychic",
+        "bug",
+        "rock",
+        "ghost",
+        "dragon",
+        "dark",
+        "steel",
+        "fairy"
+      ],
+      "count": 10,
+      "elite": false,
+      "moveset": true,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 13449
+    },
+    {
+      "types": [
+        "normal",
+        "fire",
+        "water",
+        "grass",
+        "electric",
+        "ice",
+        "fighting",
+        "poison",
+        "ground",
+        "flying",
+        "psychic",
+        "bug",
+        "rock",
+        "ghost",
+        "dragon",
+        "dark",
+        "steel",
+        "fairy"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 2190
+    },
+    {
+      "types": [
+        "normal",
+        "fire",
+        "water",
+        "grass",
+        "electric",
+        "ice",
+        "fighting",
+        "poison",
+        "ground",
+        "flying",
+        "psychic",
+        "bug",
+        "rock",
+        "ghost",
+        "dragon",
+        "dark",
+        "steel",
+        "fairy"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 4014
+    },
+    {
+      "types": [
+        "normal",
+        "fire",
+        "water",
+        "grass",
+        "electric",
+        "ice",
+        "fighting",
+        "poison",
+        "ground",
+        "flying",
+        "psychic",
+        "bug",
+        "rock",
+        "ghost",
+        "dragon",
+        "dark",
+        "steel",
+        "fairy"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": true,
+      "exclude": false,
+      "status": "blocked",
+      "reason": "Search expression too complex"
+    },
+    {
+      "types": [
+        "normal",
+        "fire",
+        "water",
+        "grass",
+        "electric",
+        "ice",
+        "fighting",
+        "poison",
+        "ground",
+        "flying",
+        "psychic",
+        "bug",
+        "rock",
+        "ghost",
+        "dragon",
+        "dark",
+        "steel",
+        "fairy"
+      ],
+      "count": 30,
+      "elite": true,
+      "moveset": true,
+      "exclude": true,
+      "status": "blocked",
+      "reason": "Search expression too long"
+    },
+    {
+      "types": [
+        "normal",
+        "fire",
+        "water",
+        "grass",
+        "electric",
+        "ice",
+        "fighting",
+        "poison",
+        "ground",
+        "flying",
+        "psychic",
+        "bug",
+        "rock",
+        "ghost",
+        "dragon",
+        "dark",
+        "steel",
+        "fairy"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": false,
+      "exclude": false,
+      "status": "compiled",
+      "characters": 2190
+    },
+    {
+      "types": [
+        "normal",
+        "fire",
+        "water",
+        "grass",
+        "electric",
+        "ice",
+        "fighting",
+        "poison",
+        "ground",
+        "flying",
+        "psychic",
+        "bug",
+        "rock",
+        "ghost",
+        "dragon",
+        "dark",
+        "steel",
+        "fairy"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": false,
+      "exclude": true,
+      "status": "compiled",
+      "characters": 4014
+    },
+    {
+      "types": [
+        "normal",
+        "fire",
+        "water",
+        "grass",
+        "electric",
+        "ice",
+        "fighting",
+        "poison",
+        "ground",
+        "flying",
+        "psychic",
+        "bug",
+        "rock",
+        "ghost",
+        "dragon",
+        "dark",
+        "steel",
+        "fairy"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": true,
+      "exclude": false,
+      "status": "blocked",
+      "reason": "Search expression too complex"
+    },
+    {
+      "types": [
+        "normal",
+        "fire",
+        "water",
+        "grass",
+        "electric",
+        "ice",
+        "fighting",
+        "poison",
+        "ground",
+        "flying",
+        "psychic",
+        "bug",
+        "rock",
+        "ghost",
+        "dragon",
+        "dark",
+        "steel",
+        "fairy"
+      ],
+      "count": 30,
+      "elite": false,
+      "moveset": true,
+      "exclude": true,
+      "status": "blocked",
+      "reason": "Search expression too long"
+    }
+  ]
+}
